@@ -1,0 +1,6 @@
+suites:
+    crontab:
+        namespace: Hexmedia\Crontab
+        psr4_prefix: Hexmedia\Crontab
+        src_path: ./src
+        spec_path: ./Tests/

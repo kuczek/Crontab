@@ -1,0 +1,30 @@
+<tasks>
+    <task>
+        <name>s3_synchornize</name>
+        <command>mwe:photo:s3 asgasg afasf</command>
+        <minute>*/13</minute>
+        <hour>*</hour>
+        <dayOfWeek>*</dayOfWeek>
+        <dayOfMonth>*</dayOfMonth>
+        <month>*</month>
+        <logFile>./logs/schema_validate.log</logFile>
+        <machine>www*</machine>
+        <variables>
+            <variable name="MAILTO">k.kuczek@tvn.pl</variable>
+        </variables>
+    </task>
+    <task>
+        <name>s3_synchornize2</name>
+        <command>mwe:photo:s3 asgasg afasf</command>
+        <minute>*</minute>
+        <hour>*</hour>
+        <dayOfWeek>*</dayOfWeek>
+        <dayOfMonth>*</dayOfMonth>
+        <month>*</month>
+        <logFile>./logs/schema_validate.log</logFile>
+        <machine>www103</machine>
+        <variables>
+            <variable name="MAILTO">j.zieba@tvn.pl</variable>
+        </variables>
+    </task>
+</tasks>
