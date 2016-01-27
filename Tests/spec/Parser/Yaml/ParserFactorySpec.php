@@ -12,23 +12,23 @@ class ParserFactorySpec extends ObjectBehavior
         $this->shouldHaveType('Hexmedia\Crontab\Parser\Yaml\ParserFactory');
     }
 
-    function it_is_able_to_add_parser()
-    {
-
-    }
-
-    function it_is_able_to_remove_parser()
-    {
-
-    }
-
-    function it_returns_correct_parser()
-    {
-
-    }
-
-    function it_returns_correct_preferred_parser()
-    {
-
-    }
+//    function it_is_able_to_add_parser()
+//    {
+//
+//    }
+//
+//    function it_is_able_to_remove_parser()
+//    {
+//
+//    }
+//
+//    function it_returns_correct_parser()
+//    {
+//
+//    }
+//
+//    function it_returns_correct_preferred_parser()
+//    {
+//
+//    }
 }
