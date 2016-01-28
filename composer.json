@@ -2,6 +2,7 @@
   "name": "hexmedia/crontab",
   "type": "library",
   "description": "Managing crontab",
+  "keywords": ["crontab", "crontab manager", "tasks"],
   "authors": [
     {
       "name": "Krystian Kuczek",
@@ -10,8 +11,11 @@
       "homepage": "http://www.hexmedia.pl"
     }
   ],
+  "homepage": "http://www.hexmedia.pl/crontab",
+  "license": "MIT",
   "support": {
-    "email": "krystian@hexmedia.pl"
+    "email": "krystian@hexmedia.pl",
+    "issues": "https://github.com/Hexmedia/Crontab/issues"
   },
   "autoload": {
     "psr-4": {"Hexmedia\\Crontab\\": "./src"}
