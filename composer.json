@@ -1,5 +1,5 @@
 {
-  "name": "crontab",
+  "name": "hexmedia/crontab",
   "type": "library",
   "description": "Managing crontab",
   "authors": [
@@ -36,5 +36,10 @@
     "austinhyde/iniparser": "Enables support for ini configuration files.",
     "zf1/zend-config": "Enables support for ini configuration files.",
     "zendframework/zend-config": "Enables support for ini and yaml configuration files."
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0.x-dev"
+    }
   }
 }
