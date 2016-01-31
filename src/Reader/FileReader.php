@@ -31,11 +31,21 @@ abstract class FileReader extends ArrayReader
         $this->file = $file;
     }
 
-    protected function getFile()
+    /**
+     * @return array
+     */
+    public function prepareArray()
     {
-        return $this->file;
+        $parsed = $this->parse();
+
+        return $parsed;
     }
 
+    /**
+     * Reads all crons from given file, and puts them into crontab.
+     *
+     * @return Crontab
+     */
     public function read()
     {
         $parsed = $this->parse();
@@ -43,10 +53,18 @@ abstract class FileReader extends ArrayReader
         return $this->readArray($parsed);
     }
 
-    protected function readFile()
+    protected function getFile()
+    {
+        return $this->file;
+    }
+
+    protected function getContent()
     {
         return file_get_contents($this->getFile());
     }
 
+    /**
+     * @return array
+     */
     protected abstract function parse();
 }

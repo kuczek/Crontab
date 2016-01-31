@@ -1,10 +1,10 @@
 <?php
 
-namespace Hexmedia\Writter;
+namespace Hexmedia\Crontab\Writer;
 
-use Hexmedia\Crontab;
+use Hexmedia\Crontab\Crontab;
 
-interface WritterInterface
+interface WriterInterface
 {
     public function __construct(array $configuration = array());
 

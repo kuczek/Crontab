@@ -15,7 +15,7 @@ class AustinHydeParser extends AbstractParser implements ParserInterface
 {
     public function parse()
     {
-        $parser = new \IniParser($this->file);
+        $parser = new \IniParser($this->content);
 
         /** @var \ArrayObject $parsed */
         $parsed = $parser->parse();

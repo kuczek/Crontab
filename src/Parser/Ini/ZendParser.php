@@ -18,7 +18,7 @@ class ZendParser extends AbstractParser implements ParserInterface
      */
     public function parse()
     {
-        $parser = new \Zend_Config_Ini($this->file);
+        $parser = new \Zend_Config_Ini($this->content);
 
         return $parser->toArray();
     }
