@@ -1,0 +1,12 @@
+
+*/13 */33 */2 12 */4       ./mwe:photo:s3 asgasg afasf  > ./logs/schema_validate1.log
+# This rule has comment added manually.
+13 * * * *       ./crobtabaction.php -- -pht > ./logs/schema_validate2.log
+
+# ------------ CURRENTLY MANAGED by Test --------------
+# Rule below is managed by CrontabLibrary by Hexmedia - Do not modify it!  0cbc6611f502690a30dc24bcc1148cfa
+MAILTO=k.kuczek@tvn.pl
+50 * * * *       ant build > ./logs/schema_validate3.log
+# Rule below is managed by CrontabLibrary by Hexmedia - Do not modify it!  0cbc6611f5f04eb5607f81bdf9c11ffe
+MAILTO=j.zieba@tvn.pl
+* * * * *       . ./do some thing98 > ./logs/schema_validate4.log

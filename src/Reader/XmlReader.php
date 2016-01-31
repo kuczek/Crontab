@@ -13,7 +13,7 @@ class XmlReader extends FileReader implements ReaderInterface
 {
     protected function parse()
     {
-        $xml = new \SimpleXMLElement($this->readFile());
+        $xml = new \SimpleXMLElement($this->getContent());
 
         $parsed = $this->convertToArray($xml);
 

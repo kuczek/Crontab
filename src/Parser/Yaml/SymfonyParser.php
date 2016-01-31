@@ -20,7 +20,7 @@ class SymfonyParser extends AbstractParser implements ParserInterface
     {
         $parser = new \Symfony\Component\Yaml\Parser();
 
-        $parsed = $parser->parse(file_get_contents($this->file));
+        $parsed = $parser->parse(file_get_contents($this->content));
 
         return $parsed;
     }

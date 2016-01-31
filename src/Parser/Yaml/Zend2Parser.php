@@ -27,7 +27,7 @@ class Zend2Parser extends AbstractParser implements ParserInterface
     {
         $parser = new \Zend\Config\Reader\Yaml();
 
-        $config = $parser->fromFile($this->file);
+        $config = $parser->fromFile($this->content);
 
         return $config;
     }

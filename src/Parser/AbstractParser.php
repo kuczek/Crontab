@@ -10,10 +10,25 @@ namespace Hexmedia\Crontab\Parser;
 
 abstract class AbstractParser implements ParserInterface
 {
-    protected $file;
+    /**
+     * @var string
+     */
+    protected $content;
 
-    public function __construct($file)
+    /**
+     * AbstractParser constructor.
+     * @param string $content
+     */
+    public function __construct($content)
     {
-        $this->file = $file;
+        $this->content = $content;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
     }
 }

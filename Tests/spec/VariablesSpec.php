@@ -18,17 +18,4 @@ class VariablesSpec extends ObjectBehavior
         $this->shouldHaveType('\Hexmedia\Crontab\Variables');
         $this->shouldImplement('\Iterator');
     }
-
-    function it_has_correct_validation()
-    {
-        $array1 = array('a' => 'b');
-        $arrayKeys1 = array_keys($array1);
-        $exception1 = new UnsupportedVariableException(sprintf("Variable %s is not supported.", $arrayKeys1[0]));
-        $array2 = array('MAILTO' => 'a', 'b' => 'c');
-        $arrayKeys2 = array_keys($array2);
-        $exception2 = new UnsupportedVariableException(sprintf("Variable %s is not supported.", $arrayKeys2[1]));
-
-        $this->shouldThrow($exception1)->during('__construct', array($array1));
-        $this->shouldThrow($exception2)->during('__construct', array($array2));
-    }
 }

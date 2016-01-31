@@ -6,13 +6,19 @@
  * Time: 11:41
  */
 
-namespace Hexmedia\Crontab\Writter;
+namespace Hexmedia\Crontab\Writer;
 
 
 use Hexmedia\Crontab\Crontab;
 use Hexmedia\Crontab\Exception\CrontabException;
 
-class SystemWritter implements WritterInterface
+/**
+ * Class SystemWriter
+ * @package Hexmedia\Crontab\Writer
+ *
+ * TODO: This writer should be abstraction for Unix and other writers
+ */
+class SystemWriter // implements WriterInterface
 {
     private $temporaryDirectory;
     private $user = null;

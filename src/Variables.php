@@ -84,11 +84,12 @@ class Variables implements \Iterator
 
     private function checkIfCorrect(array $variables)
     {
-        foreach ($variables as $name => $value) {
-            if (!in_array($name, $this->allowedVariables)){
-                throw new UnsupportedVariableException(sprintf("Variable %s is not supported.", $name));
-            }
-        }
+        //TODO: I think that it can be any variable so...
+//        foreach ($variables as $name => $value) {
+//            if (!in_array($name, $this->allowedVariables)){
+//                throw new UnsupportedVariableException(sprintf("Variable %s is not supported.", $name));
+//            }
+//        }
 
     }
 }

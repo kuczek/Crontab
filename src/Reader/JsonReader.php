@@ -25,7 +25,7 @@ class JsonReader extends FileReader implements ReaderInterface
 
     protected function parse()
     {
-        $parsed = json_decode($this->readFile(), true);
+        $parsed = json_decode($this->getContent(), true);
 
         return $parsed;
     }

@@ -40,7 +40,7 @@ abstract class ArrayReader implements ReaderInterface
     protected function readArray(array $array)
     {
         foreach ($array as $name => $task) {
-            if (true === $this->checkIfForThisMachine($task['machine'])) {
+            if (true === $this->checkIfForThisMachine(isset($task['machine']) ? $task['machine'] : null)) {
                 $task = $this->createTaskFromConfig($name, $task);
 
                 $this->crontab->addTask($task);
@@ -49,6 +49,13 @@ abstract class ArrayReader implements ReaderInterface
 
         return $this->crontab;
     }
+
+    public function read() {
+        $array = $this->prepareArray();
+        return $this->readArray($array);
+    }
+
+    protected abstract function prepareArray();
 
     /**
      * @param string $name
@@ -75,6 +82,11 @@ abstract class ArrayReader implements ReaderInterface
     private function checkIfForThisMachine($machine)
     {
         if (null === $this->machine) {
+            return true;
+        }
+
+        //It means that it was read from this device, or has no marked device so should be installed on all of them
+        if (null === $machine) {
             return true;
         }
 

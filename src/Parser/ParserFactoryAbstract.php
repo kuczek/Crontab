@@ -8,14 +8,20 @@
 
 namespace Hexmedia\Crontab\Parser;
 
-
 use Hexmedia\Crontab\Exception\NoSupportedParserException;
 use Hexmedia\Crontab\Exception\UnexistingParserException;
 
 abstract class ParserFactoryAbstract
 {
+    /**
+     * @var array|mixed
+     */
     protected $parsers = array();
 
+    /**
+     * ParserFactoryAbstract constructor.
+     * @param string|null $preferred
+     */
     public function __construct($preferred = null)
     {
         $this->parsers = $this->getDefaultParsers();
@@ -23,8 +29,15 @@ abstract class ParserFactoryAbstract
         $this->sortWithPreferred($preferred);
     }
 
+    /**
+     * @return array
+     */
     public abstract function getDefaultParsers();
 
+    /**
+     * @param $className
+     * @throws UnexistingParserException
+     */
     public function addParser($className)
     {
         if (!class_exists($className)) {
@@ -34,6 +47,10 @@ abstract class ParserFactoryAbstract
         $this->parsers[] = $className;
     }
 
+    /**
+     * @param $className
+     * @return bool
+     */
     public function removeParser($className)
     {
         $key = $this->searchForKey($className);
@@ -47,21 +64,25 @@ abstract class ParserFactoryAbstract
     }
 
     /**
-     * @param $file
+     * @param string $content
      * @return ParserInterface
      * @throws NoSupportedParserException
      */
-    public function create($file)
+    public function create($content)
     {
         foreach ($this->parsers as $parserName) {
             if (call_user_func($parserName . "::isSupported")) {
-                return new $parserName($file);
+                return new $parserName($content);
             }
         }
 
         throw new NoSupportedParserException("There is no supported parser for this type.");
     }
 
+    /**
+     * @param string $preferred
+     * @return string
+     */
     protected function searchForKey($preferred)
     {
         $key = array_search($preferred, $this->parsers);
@@ -79,6 +100,9 @@ abstract class ParserFactoryAbstract
         return $key;
     }
 
+    /**
+     * @param string $preferred
+     */
     private function sortWithPreferred($preferred)
     {
         if ($preferred) {
