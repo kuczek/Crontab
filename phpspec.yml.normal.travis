@@ -5,15 +5,13 @@ suites:
         src_path: ./src
         spec_path: ./Tests/
 
-formatter.name: junit
+formatter.name: pretty
 
 extensions:
     - PhpSpec\Extension\CodeCoverageExtension
 
 code_coverage:
   format:
-    - html
     - clover
   output:
-    html: build/phpspec/coverage
-    clover: build/phpspec/coverage.xml
+    clover: build/logs/clover.xml

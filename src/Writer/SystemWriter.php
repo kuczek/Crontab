@@ -8,7 +8,6 @@
 
 namespace Hexmedia\Crontab\Writer;
 
-
 use Hexmedia\Crontab\Crontab;
 use Hexmedia\Crontab\Exception\CrontabException;
 
@@ -99,8 +98,8 @@ class SystemWriter // implements WriterInterface
         $result = exec($command, $output);
 
         if ($result) {
-            throw new CrontabException("Cannot write crontab list"
-//                sprintf("Cannot read crontab list. Error:");//, $process->getErrorOutput()), 1
+            throw new CrontabException(
+                sprintf("Cannot read crontab list. Error: %s", $output)
             );
         }
     }
@@ -124,5 +123,4 @@ class SystemWriter // implements WriterInterface
 
         return $this;
     }
-
 }

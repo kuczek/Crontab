@@ -10,8 +10,6 @@ use Hexmedia\Crontab\Parser\ParserInterface;
  * Class AbstractParser
  * @package Hexmedia\Crontab\Parser\Unix
  *
- * TODO: parsery nie powinny odpowiadać za pobieranie danych, nie wiem dlaczego tak to zrobiłem ale tak nie może zostać.
- * TODO: jutro to trzeba zmienić
  */
 class UnixParser extends AbstractParser implements ParserInterface
 {
@@ -25,7 +23,8 @@ class UnixParser extends AbstractParser implements ParserInterface
 
     public function parse()
     {
-        $content = "\n" . $this->getContent(); //a little trick, to allow allow only rules that begins at the begining of line
+        $content = "\n" . $this->getContent(); //a little trick
+        //                                       to allow allow only rules that begins at the begining of line
 
         if (false === preg_match_all("/" . $this->getCrontabRegexRule() . "/", $content, $matches, PREG_SET_ORDER)) {
             throw new ParseException(sprintf("Cannot match this file error: '%s'", preg_last_error()));
@@ -67,8 +66,6 @@ class UnixParser extends AbstractParser implements ParserInterface
     /**
      * @param string $match
      *
-     * TODO: Here we need to add support for comments in variables.
-     *
      * @return array
      */
     private function parseVariablesAndComments($match)
@@ -99,20 +96,19 @@ class UnixParser extends AbstractParser implements ParserInterface
 
     /**
      * @return string
-     *
-     * TODO: Add support for special strings, more info in TODO.md
      */
     private function getCrontabRegexRule()
     {
-        $crontabRule = '\n(?<minutes>([0-9]{1,2}|\*|\*\/[0-9]{1,2}))[\t\s]+(?<hours>([0-9]{1,2}|\*|\*\/[0-9]{1,2}))[\t\s]+(?<dayOfMonth>([0-9]{1,2}|\*|\*\/[0-9]{1,2}))[\t\s]+' .
-            '(?<month>([0-9]{1,2}|\*|\*\/[0-9]{1,2}))[\t\s]+(?<dayOfWeek>([0-9]{1,2}|\*|\*\/[0-9]{1,2}))[\t\s]+(?<command>[^>]*)[\t\s]+' .
-            '(>[>\s\t]?(?<logFile>[a-zA-Z0-9\/\-\_:\.]*))?';
+        $crontabRule = '\n(?<minutes>([0-9]{1,2}|\*|\*\/[0-9]{1,2}))[\t\s]+' .
+            '(?<hours>([0-9]{1,2}|\*|\*\/[0-9]{1,2}))[\t\s]+(?<dayOfMonth>([0-9]{1,2}|\*|\*\/[0-9]{1,2}))[\t\s]+' .
+            '(?<month>([0-9]{1,2}|\*|\*\/[0-9]{1,2}))[\t\s]+(?<dayOfWeek>([0-9]{1,2}|\*|\*\/[0-9]{1,2}))[\t\s]+' .
+            '(?<command>[^>]*)[\t\s]+(>[>\s\t]?(?<logFile>[a-zA-Z0-9\/\-\_:\.]*))?';
         $variableRule = sprintf('(%s\n?){0,}', $this->getVariableRule());
         $commentRule = sprintf('(%s\n?){0,}', $this->getCommentRule());
 
-        $commentAndVariablesRule = "(?<vandc>(" . $commentRule . $variableRule . "){0,})";
+        $cAndVRule = "(?<vandc>(" . $commentRule . $variableRule . "){0,})";
 
-        $rule = "(?<rule>" . $commentAndVariablesRule . $crontabRule . ")";
+        $rule = "(?<rule>" . $cAndVRule . $crontabRule . ")";
 
         return $rule;
     }
@@ -163,5 +159,4 @@ class UnixParser extends AbstractParser implements ParserInterface
     {
         return self::$supportedOs;
     }
-
 }

@@ -8,11 +8,9 @@
 
 namespace Hexmedia\Crontab\Reader;
 
-
 use Hexmedia\Crontab\Crontab;
 use Hexmedia\Crontab\Task;
 use Hexmedia\Crontab\Variables;
-use Hexmedia\Crontab\Exception\CrontabException;
 
 abstract class ArrayReader implements ReaderInterface
 {
@@ -50,12 +48,13 @@ abstract class ArrayReader implements ReaderInterface
         return $this->crontab;
     }
 
-    public function read() {
+    public function read()
+    {
         $array = $this->prepareArray();
         return $this->readArray($array);
     }
 
-    protected abstract function prepareArray();
+    abstract protected function prepareArray();
 
     /**
      * @param string $name
@@ -92,7 +91,7 @@ abstract class ArrayReader implements ReaderInterface
 
         $pattern = str_replace(array("*", "?"), array(".*", "."), $machine);
 
-        if (preg_match(sprintf("/%s/", $pattern), $this->machine, $matches)) {
+        if (preg_match(sprintf("/%s/", $pattern), $this->machine)) {
             return true;
         }
 

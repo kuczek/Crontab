@@ -1,6 +1,7 @@
 <?php
 
 namespace Hexmedia\Crontab\Parser\Ini;
+
 use Hexmedia\Crontab\Parser\AbstractParser;
 use Hexmedia\Crontab\Parser\ParserInterface;
 

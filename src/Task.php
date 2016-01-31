@@ -304,37 +304,10 @@ class Task
     }
 
     /**
-     * @return string
-     *
-     * TODO: przyjrzeć się temu pomysłowi, bo na ten moment z niego zrezygnowałem, nie wiem dlaczego on tu był
-     */
-//    public function generateHash()
-//    {
-//        $fields = array(
-//            'minute',
-//            'hour',
-//            'month',
-//            'dayOfMonth',
-//            'dayOfWeek',
-//            'command',
-//            'logFile'
-//        );
-//
-//        $str = '';
-//
-//        foreach ($fields as $field) {
-//            $fun = 'get' . ucfirst($field);
-//
-//            $str .= $this->$fun();
-//        }
-//
-//        return md5($str);
-//    }
-
-    /**
      * @param $name
      */
-    public function setMd5Name($name) {
+    public function setMd5Name($name)
+    {
         $this->setName(substr(md5($name), 10));
     }
 
@@ -381,7 +354,8 @@ class Task
     /**
      * @return string
      */
-    public function getTaskHash() {
+    public function getTaskHash()
+    {
         return substr(md5($this->getHash()), 0, 10) . $this->getName();
     }
 

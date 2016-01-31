@@ -8,7 +8,6 @@
 
 namespace Hexmedia\Crontab\Exception;
 
-
 class FactoryException extends \Exception
 {
 

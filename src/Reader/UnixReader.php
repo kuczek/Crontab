@@ -32,5 +32,5 @@ abstract class UnixReader extends ArrayReader
     /**
      * @return mixed
      */
-    protected abstract function getContent();
+    abstract protected function getContent();
 }
