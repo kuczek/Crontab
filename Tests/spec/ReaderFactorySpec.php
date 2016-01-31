@@ -20,18 +20,4 @@ class ReaderFactorySpec extends ObjectBehavior
     {
         $this::create(array('type' => 'yaml', 'file' => 'aa'))->shouldHaveType('Hexmedia\Crontab\Reader\YamlReader');
     }
-
-//    function it_is_able_to_create_ini_reader()
-//    {
-//
-//    }
-//
-//    function it_is_able_to_create_xml_reader()
-//    {
-//
-//    }
-//
-//    function it_is_able_to_create_json_reader()
-//    {
-//    }
 }
