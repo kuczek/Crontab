@@ -19,7 +19,7 @@ class UnixSystemReader extends UnixReader
         parent::__construct($crontab);
     }
 
-    public function isSupported()
+    public static function isSupported()
     {
         return in_array(PHP_OS, array('Linux', "FreeBSD"));
     }
