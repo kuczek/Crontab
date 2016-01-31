@@ -1,7 +1,8 @@
 {
-  "name": "crontab",
+  "name": "hexmedia/crontab",
   "type": "library",
   "description": "Managing crontab",
+  "keywords": ["crontab", "crontab manager", "tasks"],
   "authors": [
     {
       "name": "Krystian Kuczek",
@@ -10,8 +11,11 @@
       "homepage": "http://www.hexmedia.pl"
     }
   ],
+  "homepage": "http://www.hexmedia.pl/crontab",
+  "license": "MIT",
   "support": {
-    "email": "krystian@hexmedia.pl"
+    "email": "krystian@hexmedia.pl",
+    "issues": "https://github.com/Hexmedia/Crontab/issues"
   },
   "autoload": {
     "psr-4": {"Hexmedia\\Crontab\\": "./src"}
@@ -36,5 +40,10 @@
     "austinhyde/iniparser": "Enables support for ini configuration files.",
     "zf1/zend-config": "Enables support for ini configuration files.",
     "zendframework/zend-config": "Enables support for ini and yaml configuration files."
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0.x-dev"
+    }
   }
 }

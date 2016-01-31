@@ -8,8 +8,8 @@ php:
   - 5.5
   - 5.6
   - 7.0
-  - hhvm
   - nightly
+  - hhvm
 
 env:
   - DEPS='low'
@@ -18,12 +18,16 @@ env:
 
 before_install:
   - composer selfupdate
+  - echo '#!/bin/bash' > install.sh
+  - echo -n "composer update" >> install.sh
+  - if [ "$DEPS" == "low" ]; then echo -n " --prefer-lowest" >> install.sh; fi;
+  - if [ "$DEPS" == "normal" ]; then echo -n " --prefer-stable" >> install.sh; fi;
+  - sed -n '/prefer-stable/!p' composer.json > tmp.json && mv tmp.json composer.json;
 
 install:
   - export COMPOSER_ROOT_VERSION=dev-master
-  - if [ "$DEPS" == "dev" ]; then perl -pi -e 's/^}$/,"minimum-stability":"dev"}/' composer.json; fi;
-  - if [ "$DEPS" != "low" ]; then composer update; fi;
-  - if [ "$DEPS" == "low" ]; then composer update --prefer-lowest; fi;
+  - /bin/bash ./install.sh
+
 
 before_script:
   - echo "<?php if (defined('HHVM_VERSION')) { echo ',@hhvm'; } else { if (PHP_VERSION_ID >= 50400) echo ',@php5.4'; if (PHP_VERSION_ID >= 70000) echo ',@php7'; }" > php_version_tags.php
