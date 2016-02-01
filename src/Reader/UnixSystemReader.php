@@ -6,6 +6,7 @@ use Hexmedia\Crontab\Crontab;
 
 class UnixSystemReader extends UnixReader
 {
+    private static $supportedOses = array("Linux", "FreeBSD");
 
     /**
      * @var string
@@ -21,7 +22,7 @@ class UnixSystemReader extends UnixReader
 
     public static function isSupported()
     {
-        return in_array(PHP_OS, array('Linux', "FreeBSD"));
+        return in_array(PHP_OS, self::$supportedOses);
     }
 
     /**
@@ -36,5 +37,42 @@ class UnixSystemReader extends UnixReader
         if ($result) {
             return implode("\n", $output);
         }
+    }
+
+    /**
+     * @return array
+     */
+    public static function getSupportedOses()
+    {
+        return self::$supportedOses;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return bool
+     */
+    public function addSupportedOs($name)
+    {
+        self::$supportedOses[] = $name;
+
+        return true;
+    }
+
+    /**
+     * @param string $name
+     * @return bool
+     */
+    public function removeSupportedOs($name)
+    {
+        $key = array_search($name, self::$supportedOses);
+
+        if (false !== $key) {
+            unset(self::$supportedOses[$key]);
+
+            return true;
+        }
+
+        return false;
     }
 }
