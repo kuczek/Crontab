@@ -20,19 +20,24 @@
   "autoload": {
     "psr-4": {"Hexmedia\\Crontab\\": "./src"}
   },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
   "require": {
-    "php": ">=5.3.3"
+    "php": ">=5.3.3",
+    "sebastian/phpcpd": "^2.0",
+    "sebastian/phpdcd": "^1.0"
   },
   "require-dev": {
     "phpunit/phpunit" : ">=4.0",
     "phpspec/phpspec": "~2.4",
+    "henrikbjorn/phpspec-code-coverage": "*",
     "symfony/yaml": ">=2.3",
     "symfony/config": ">=2.3",
-    "austinhyde/iniparser": "~1.0",
+    "austinhyde/iniparser": "~1.0@dev",
     "zf1/zend-config" : "1.12.11",
-    "zendframework/zend-config": "~2.5"
+    "zendframework/zend-config": "~2.5",
+    "phpmd/phpmd": "~2.3",
+    "pdepend/pdepend": "~2.1",
+    "squizlabs/php_codesniffer": "^2.5",
+    "phploc/phploc": ">=2.0"
   },
   "suggest": {
     "symfony/yaml": "Enables support for yaml configuration files.",

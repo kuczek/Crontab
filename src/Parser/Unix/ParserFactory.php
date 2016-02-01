@@ -8,7 +8,6 @@
 
 namespace Hexmedia\Crontab\Parser\Unix;
 
-
 use Hexmedia\Crontab\Parser\ParserFactoryAbstract;
 
 class ParserFactory extends ParserFactoryAbstract

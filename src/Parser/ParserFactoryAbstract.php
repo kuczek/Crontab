@@ -32,7 +32,7 @@ abstract class ParserFactoryAbstract
     /**
      * @return array
      */
-    public abstract function getDefaultParsers();
+    abstract public function getDefaultParsers();
 
     /**
      * @param $className

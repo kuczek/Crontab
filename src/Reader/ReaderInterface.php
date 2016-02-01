@@ -1,7 +1,6 @@
 <?php
 
 namespace Hexmedia\Crontab\Reader;
-use Hexmedia\Crontab\Crontab;
 
 /**
  * Created by PhpStorm.

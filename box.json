@@ -13,7 +13,7 @@
       "in": "vendor"
     }
   ],
-  "main": "bin/crontab.php",
-  "output": "crontab.phar",
+  "main": "bin/crontab",
+  "output": "build/crontab.phar",
   "stub": true
 }

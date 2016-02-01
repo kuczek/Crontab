@@ -3,7 +3,6 @@
 namespace Hexmedia\Crontab\Parser\Ini;
 
 use Hexmedia\Crontab\Parser\ParserFactoryAbstract;
-use Hexmedia\Crontab\Parser\ParserInterface;
 
 /**
  * Created by PhpStorm.

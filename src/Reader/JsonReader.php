@@ -8,7 +8,6 @@
 
 namespace Hexmedia\Crontab\Reader;
 
-
 use Hexmedia\Crontab\Crontab;
 
 class JsonReader extends FileReader implements ReaderInterface

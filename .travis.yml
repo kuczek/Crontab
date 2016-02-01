@@ -16,10 +16,23 @@ env:
   - DEPS='dev'
   - DEPS='normal'
 
+matrix:
+  allow_failures:
+    env:
+      - DEPS='dev'
+
 before_install:
+  - echo "Using in php version $TRAVIS_PHP_VERSION"
   - composer selfupdate
+  - cp .composer-auth.json ~/.composer/auth.json
+  - composer global require kherge/box --prefer-dist
+  - composer global require phing/phing --prefer-dist
+  - composer global require satooshi/php-coveralls --prefer-dist
+  - $HOME/.composer/vendor/bin/box --version
+  - $HOME/.composer/vendor/bin/phing -v
   - echo '#!/bin/bash' > install.sh
   - echo -n "composer update" >> install.sh
+  - echo -n " --prefer-dist" >> install.sh
   - if [ "$DEPS" == "low" ]; then echo -n " --prefer-lowest" >> install.sh; fi;
   - if [ "$DEPS" == "normal" ]; then echo -n " --prefer-stable" >> install.sh; fi;
   - sed -n '/prefer-stable/!p' composer.json > tmp.json && mv tmp.json composer.json;
@@ -33,4 +46,8 @@ before_script:
   - echo "<?php if (defined('HHVM_VERSION')) { echo ',@hhvm'; } else { if (PHP_VERSION_ID >= 50400) echo ',@php5.4'; if (PHP_VERSION_ID >= 70000) echo ',@php7'; }" > php_version_tags.php
 
 script:
-  - vendor/bin/phpspec run --format=pretty
+  - $HOME/.composer/vendor/bin/phing continous -Ddeps=$DEPS -Dcitool=travis -Dphpversion=$TRAVIS_PHP_VERSION
+
+after_success:
+  - if [ "$DEPS" == "normal" ] && [ "$TRAVIS_PHP_VERSION" == "7.0" ]; then echo "Will export coveralls!"; fi
+  - if [ "$DEPS" == "normal" ] && [ "$TRAVIS_PHP_VERSION" == "7.0" ]; then travis_retry php $HOME/.composer/vendor/bin/coveralls; fi

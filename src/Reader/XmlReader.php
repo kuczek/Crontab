@@ -8,7 +8,6 @@
 
 namespace Hexmedia\Crontab\Reader;
 
-
 class XmlReader extends FileReader implements ReaderInterface
 {
     protected function parse()
@@ -48,7 +47,8 @@ class XmlReader extends FileReader implements ReaderInterface
         return $taskArray;
     }
 
-    private function parseVariables($variables) {
+    private function parseVariables($variables)
+    {
         $variablesArray = array();
 
         /** @var \SimpleXMLElement $variable */

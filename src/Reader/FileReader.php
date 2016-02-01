@@ -8,7 +8,6 @@
 
 namespace Hexmedia\Crontab\Reader;
 
-
 use Hexmedia\Crontab\Crontab;
 
 abstract class FileReader extends ArrayReader
@@ -66,5 +65,5 @@ abstract class FileReader extends ArrayReader
     /**
      * @return array
      */
-    protected abstract function parse();
+    abstract protected function parse();
 }

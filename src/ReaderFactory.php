@@ -8,7 +8,6 @@
 
 namespace Hexmedia\Crontab;
 
-
 use Hexmedia\Crontab\Reader\IniReader;
 use Hexmedia\Crontab\Reader\JsonReader;
 use Hexmedia\Crontab\Reader\ReaderInterface;

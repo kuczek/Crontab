@@ -8,20 +8,14 @@
 
 namespace Hexmedia\Crontab;
 
-use Hexmedia\Crontab\Exception\UnsupportedVariableException;
-
 class Variables implements \Iterator
 {
     private $currentIndex = 0;
     private $values = array();
     private $keys = array();
 
-    private $allowedVariables = array("MAILTO", "SHELL", "PATH");
-
     public function __construct(array $variables)
     {
-        $this->checkIfCorrect($variables);
-
         $this->values = $variables;
         $this->keys = array_keys($variables);
     }
@@ -80,16 +74,5 @@ class Variables implements \Iterator
     public function rewind()
     {
         $this->currentIndex = 0;
-    }
-
-    private function checkIfCorrect(array $variables)
-    {
-        //TODO: I think that it can be any variable so...
-//        foreach ($variables as $name => $value) {
-//            if (!in_array($name, $this->allowedVariables)){
-//                throw new UnsupportedVariableException(sprintf("Variable %s is not supported.", $name));
-//            }
-//        }
-
     }
 }

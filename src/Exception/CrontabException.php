@@ -6,7 +6,6 @@
 
 namespace Hexmedia\Crontab\Exception;
 
-
 class CrontabException extends \Exception
 {
 

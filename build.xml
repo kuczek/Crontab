@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="hexmedia/crontab" default="build" phingVersion=">=2">
+
+    <property name="src" value="${project.basedir}/src"/>
+    <property name="bin" value="${project.basedir}/vendor/bin"/>
+    <property name="build" value="${project.basedir}/build"/>
+    <property name="deps" value="normal"/>
+    <property name="citool" value="local"/>
+    <property name="phpversion" value="${php.version}"/>
+
+    <property name="config.phpmd" value="${project.basedir}/phpmd.xml"/>
+    <property name="config.phpspec" value="${project.basedir}/phpspec.yml"/>
+
+    <php expression="include('vendor/autoload.php');"/>
+
+    <fileset id="project" dir="${src}">
+        <include name="**/*.php"></include>
+    </fileset>
+
+    <target name="composer">
+        <composer command="install"/>
+    </target>
+
+    <target name="prepare">
+        <echo msg="Creating build  directories..."/>
+        <delete dir="${build}"/>
+        <mkdir dir="${build}"/>
+        <mkdir dir="${build}/phpspec"/>
+        <mkdir dir="${build}/phpmd"/>
+        <mkdir dir="${build}/phpcs"/>
+        <mkdir dir="${build}/phploc"/>
+        <mkdir dir="${build}/phpcpd"/>
+        <mkdir dir="${build}/phpdcd"/>
+        <mkdir dir="${build}/logs"/>
+    </target>
+
+    <target name="rename-configuration-file">
+        <property name="exists" value="false"/>
+        <available file="${file}.${citool}" type="file" property="exists"/>
+        <if>
+            <istrue value="${exists}"/>
+            <then>
+                <delete file="${file}"/>
+                <copy file="${file}.${citool}" tofile="${file}"/>
+            </then>
+        </if>
+    </target>
+
+    <target name="configuration-files">
+        <!-- especially for travis -->
+        <if>
+            <and>
+                <equals arg1="${citool}" arg2="travis"/>
+                <equals arg1="${deps}" arg2="normal"/>
+                <equals arg1="${phpversion}" arg2="7.0"/>
+            </and>
+            <then>
+                <delete file="${project.basedir}/phpspec.yml.travis"/>
+                <copy file="${project.basedir}/phpspec.yml.normal.travis"
+                      tofile="${project.basedir}/phpspec.yml.travis"/>
+            </then>
+        </if>
+
+        <phingcall target="rename-configuration-file">
+            <property name="file" value="${config.phpmd}"/>
+            <property name="citool" value="${citool}"/>
+        </phingcall>
+        <phingcall target="rename-configuration-file">
+            <property name="file" value="${config.phpspec}"/>
+            <property name="citool" value="${citool}"/>
+        </phingcall>
+    </target>
+
+    <target name="phpspec" depends="configuration-files">
+        <exec dir="${project.basedir}" executable="${bin}/phpspec" checkreturn="true" passthru="true">
+            <arg line="--config=${config.phpspec}"/>
+            <arg line="run"/>
+        </exec>
+    </target>
+
+    <target name="phpspec-local">
+        <exec dir="${project.basedir}" executable="${bin}/phpspec" output="${build}/phpspec/report.xml"
+              checkreturn="true">
+            <arg line="run"/>
+        </exec>
+    </target>
+
+    <target name="phpmd" depends="configuration-files">
+        <exec dir="${project.basedir}" executable="${bin}/phpmd" output="${build}/phpmd/report.xml" checkreturn="true">
+            <arg line="${src}"/>
+            <arg line="xml"/>
+            <arg line="${config.phpmd}"/>
+        </exec>
+    </target>
+
+    <target name="phpmd-local">
+        <exec dir="${project.basedir}" executable="${bin}/phpmd" output="${build}/phpmd/report.html" checkreturn="true">
+            <arg line="${src}"/>
+            <arg line="html"/>
+            <arg line="${project.basedir}/phpmd.xml"/>
+        </exec>
+    </target>
+
+    <target name="phpcs">
+        <phpcodesniffer haltonerror="true" haltonwarning="true" verbosity="1" standard="PSR2">
+            <formatter type="full" outfile="${build}/phpcs/report.txt"/>
+            <fileset refid="project"/>
+        </phpcodesniffer>
+    </target>
+
+    <target name="phpcbf">
+        <exec dir="${project.basedir}" executable="${bin}/phpcbf">
+            <arg line="-w"/>
+            <arg line="--standard=PSR2"/>
+            <arg line="${src}"/>
+        </exec>
+    </target>
+
+    <target name="phploc">
+        <phploc reportDirectory="${build}/phploc" reportType="xml" reportName="report">
+            <fileset refid="project"/>
+        </phploc>
+    </target>
+
+    <target name="phploc-local">
+        <phploc reportDirectory="${build}/phploc" reportType="txt" reportName="report">
+            <fileset refid="project"/>
+        </phploc>
+    </target>
+
+    <target name="phpcpd">
+        <phpcpd>
+            <fileset refid="project"/>
+        </phpcpd>
+    </target>
+
+    <target name="phpdcd">
+        <exec dir="${project.basedir}" command="${bin}/phpdcd" output="${build}/phpdcd/report.txt">
+            <arg line="${src}"/>
+        </exec>
+    </target>
+
+    <target name="box">
+        <exec/>
+    </target>
+
+    <target name="tests" depends="phpmd, phpcs, phploc, phpcpd, phpspec"/>
+    <target name="tests-local" depends="phpmd-local, phpspec-local, phpcs, phploc-local, phpcpd"/>
+
+    <target name="build" depends="composer,prepare,tests-local,box"/>
+    <target name="continous" depends="prepare,tests"/>
+</project>

@@ -8,7 +8,6 @@
 
 namespace Hexmedia\Crontab\Parser;
 
-
 interface ParserInterface
 {
     /**

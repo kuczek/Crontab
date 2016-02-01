@@ -29,8 +29,6 @@ class YamlReader extends FileReader implements ReaderInterface
 
         $parser = $parserFactory->create($this->getFile());
 
-        //TODO: Tu i wszędzie sprawdzić czy to istnieje
-
         return $parser->parse();
     }
 }

@@ -8,7 +8,6 @@
 
 namespace Hexmedia\Crontab\Parser\Ini;
 
-
 use Hexmedia\Crontab\Parser\AbstractParser;
 
 class SymfonyParser extends AbstractParser

@@ -8,7 +8,6 @@
 
 namespace Hexmedia\Crontab\Reader;
 
-
 use Hexmedia\Crontab\Crontab;
 use Hexmedia\Crontab\Parser\Ini\ParserFactory;
 

@@ -31,7 +31,7 @@ class UnixSystemReader extends UnixReader
     {
         $output = array();
 
-        $result = exec(sprintf("crontab -l %s", ($this->userName ? "-u $this->userName" : "")), $output);
+        $result = exec(sprintf("crontab -l %s", ($this->user ? "-u $this->user" : "")), $output);
 
         if ($result) {
             return implode("\n", $output);
