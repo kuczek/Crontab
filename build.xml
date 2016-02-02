@@ -94,7 +94,7 @@
     </target>
 
     <target name="phpmd-local">
-        <exec dir="${project.basedir}" executable="${bin}/phpmd" output="${build}/phpmd/report.html" checkreturn="true">
+        <exec dir="${project.basedir}" executable="${bin}/phpmd" output="${build}/phpmd/report.html" checkreturn="true" passthru="true">
             <arg line="${src}"/>
             <arg line="html"/>
             <arg line="${project.basedir}/phpmd.xml"/>
@@ -140,13 +140,9 @@
         </exec>
     </target>
 
-    <target name="box">
-        <exec/>
-    </target>
-
     <target name="tests" depends="phpmd, phpcs, phploc, phpcpd, phpspec"/>
     <target name="tests-local" depends="phpmd-local, phpspec-local, phpcs, phploc-local, phpcpd"/>
 
-    <target name="build" depends="composer,prepare,tests-local,box"/>
+    <target name="build" depends="composer,prepare,tests-local"/>
     <target name="continous" depends="prepare,tests"/>
 </project>

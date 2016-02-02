@@ -7,3 +7,4 @@ logs/
 composer.lock
 build/
 composer
+composer.phar

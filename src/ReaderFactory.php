@@ -12,6 +12,7 @@ use Hexmedia\Crontab\Reader\IniReader;
 use Hexmedia\Crontab\Reader\JsonReader;
 use Hexmedia\Crontab\Reader\ReaderInterface;
 use Hexmedia\Crontab\Reader\UnixReader;
+use Hexmedia\Crontab\Reader\UnixSystemReader;
 use Hexmedia\Crontab\Reader\XmlReader;
 use Hexmedia\Crontab\Reader\YamlReader;
 use Hexmedia\Crontab\Exception\FactoryException;
@@ -121,12 +122,11 @@ class ReaderFactory
     private static function createUnix($configuration)
     {
         $user = self::configurationGetOrDefault($configuration, 'user', null);
-        $machine = self::configurationGetOrDefault($configuration, 'machine', null);
         $crontab = self::configurationGetOrDefault($configuration, 'crontab', null);
 
-//        $reader = new UnixReader($user, $crontab, $machine);
-//
-//        return $reader;
+        $reader = new UnixSystemReader($user, $crontab);
+
+        return $reader;
     }
 
     private static function configurationGetOrDefault($configuration, $index, $default)

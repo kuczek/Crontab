@@ -36,5 +36,4 @@ class SynchronizeCommand extends AbstractCommand
 
         $output->writeln("Your crontab was updated!");
     }
-
 }

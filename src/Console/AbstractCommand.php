@@ -30,7 +30,7 @@ abstract class AbstractCommand extends Command
         $this->configureName();
     }
 
-    protected abstract function configureName();
+    abstract protected function configureName();
 
     /**
      *
@@ -46,6 +46,7 @@ abstract class AbstractCommand extends Command
      * @param InputInterface $input
      * @param OutputInterface $output
      * @return null
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -75,7 +76,7 @@ abstract class AbstractCommand extends Command
      * @param string|null $user
      * @return mixed
      */
-    public abstract function output(OutputInterface $output, Crontab $crontab, $user = null);
+    abstract public function output(OutputInterface $output, Crontab $crontab, $user = null);
 
     /**
      * @param InputInterface $input

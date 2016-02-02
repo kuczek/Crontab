@@ -62,5 +62,4 @@ class ClearCommand extends AbstractCommand
             ->addArgument("name", InputArgument::REQUIRED, "Name of project")
             ->addArgument("configuration-file", InputArgument::OPTIONAL, "Configuration file");
     }
-
 }
