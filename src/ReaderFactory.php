@@ -12,6 +12,7 @@ use Hexmedia\Crontab\Reader\IniReader;
 use Hexmedia\Crontab\Reader\JsonReader;
 use Hexmedia\Crontab\Reader\ReaderInterface;
 use Hexmedia\Crontab\Reader\UnixReader;
+use Hexmedia\Crontab\Reader\UnixSystemReader;
 use Hexmedia\Crontab\Reader\XmlReader;
 use Hexmedia\Crontab\Reader\YamlReader;
 use Hexmedia\Crontab\Exception\FactoryException;
@@ -26,6 +27,7 @@ class ReaderFactory
      */
     public static function create($configuration)
     {
+        //TODO: HERE WE CAN ADD TYPE DETECTOR ON FILE NAME
         if (!isset($configuration['type'])) {
             throw new FactoryException("No type defined, cannot use.");
         }
@@ -33,13 +35,10 @@ class ReaderFactory
         switch ($configuration['type']) {
             case "json":
                 return self::createJson($configuration);
-                break;
             case "yaml":
                 return self::createYaml($configuration);
-                break;
             case "ini":
                 return self::createIni($configuration);
-                break;
             case "xml":
                 return self::createXml($configuration);
             case 'unix':
@@ -119,14 +118,13 @@ class ReaderFactory
         return $reader;
     }
 
-
+    //TODO: FIXME
     private static function createUnix($configuration)
     {
         $user = self::configurationGetOrDefault($configuration, 'user', null);
-        $machine = self::configurationGetOrDefault($configuration, 'machine', null);
         $crontab = self::configurationGetOrDefault($configuration, 'crontab', null);
 
-        $reader = new UnixReader($user, $crontab, $machine);
+        $reader = new UnixSystemReader($user, $crontab);
 
         return $reader;
     }
