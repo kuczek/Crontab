@@ -3,9 +3,6 @@
 namespace Hexmedia\Crontab\Console;
 
 use Hexmedia\Crontab\Crontab;
-use Hexmedia\Crontab\Reader\ReaderInterface;
-use Hexmedia\Crontab\Reader\SystemReader;
-use Hexmedia\Crontab\ReaderFactory;
 use Hexmedia\Crontab\Writer\SystemWriter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
