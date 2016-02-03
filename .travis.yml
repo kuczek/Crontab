@@ -20,14 +20,19 @@ matrix:
   allow_failures:
     env:
       - DEPS='dev'
+    php:
+      - nightly
 
 before_install:
+  - echo "CRONTAB before tests"
+  - echo "`crontab -l`"
   - echo "Using in php version $TRAVIS_PHP_VERSION"
-  - composer selfupdate
+  - echo "Preparing blackfire"
+  - travis_retry composer selfupdate
   - cp .composer-auth.json ~/.composer/auth.json
-  - composer global require kherge/box --prefer-dist
-  - composer global require phing/phing --prefer-dist
-  - composer global require satooshi/php-coveralls --prefer-dist
+  - travis_retry composer global require kherge/box --prefer-dist
+  - travis_retry composer global require phing/phing --prefer-dist
+  - travis_retry composer global require satooshi/php-coveralls --prefer-dist
   - $HOME/.composer/vendor/bin/box --version
   - $HOME/.composer/vendor/bin/phing -v
   - echo '#!/bin/bash' > install.sh
@@ -39,15 +44,20 @@ before_install:
 
 install:
   - export COMPOSER_ROOT_VERSION=dev-master
-  - /bin/bash ./install.sh
-
+  - travis_retry /bin/bash ./install.sh
 
 before_script:
   - echo "<?php if (defined('HHVM_VERSION')) { echo ',@hhvm'; } else { if (PHP_VERSION_ID >= 50400) echo ',@php5.4'; if (PHP_VERSION_ID >= 70000) echo ',@php7'; }" > php_version_tags.php
 
 script:
-  - $HOME/.composer/vendor/bin/phing continous -Ddeps=$DEPS -Dcitool=travis -Dphpversion=$TRAVIS_PHP_VERSION
+  - $HOME/.composer/vendor/bin/phing continous -Ddeps=$DEPS -Dcitool=travis -Dphpversion=$TRAVIS_PHP_VERSION -verbose
 
 after_success:
-  - if [ "$DEPS" == "normal" ] && [ "$TRAVIS_PHP_VERSION" == "7.0" ]; then echo "Will export coveralls!"; fi
-  - if [ "$DEPS" == "normal" ] && [ "$TRAVIS_PHP_VERSION" == "7.0" ]; then travis_retry php $HOME/.composer/vendor/bin/coveralls; fi
+  - if [ "$DEPS" == "normal" ] && [ "$TRAVIS_PHP_VERSION" == "5.6" ]; then echo "Will export coveralls!"; fi
+  - if [ "$DEPS" == "normal" ] && [ "$TRAVIS_PHP_VERSION" == "5.6" ]; then travis_retry php $HOME/.composer/vendor/bin/coveralls; fi
+  - echo "CRONTAB after successfull tests"
+  - echo "`crontab -l`"
+
+after_failure:
+  - echo "CRONTAB after failure tests"
+  - echo "`crontab -l`"

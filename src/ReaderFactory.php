@@ -11,7 +11,6 @@ namespace Hexmedia\Crontab;
 use Hexmedia\Crontab\Reader\IniReader;
 use Hexmedia\Crontab\Reader\JsonReader;
 use Hexmedia\Crontab\Reader\ReaderInterface;
-use Hexmedia\Crontab\Reader\UnixReader;
 use Hexmedia\Crontab\Reader\UnixSystemReader;
 use Hexmedia\Crontab\Reader\XmlReader;
 use Hexmedia\Crontab\Reader\YamlReader;

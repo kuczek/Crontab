@@ -38,7 +38,11 @@
     "phpmd/phpmd": "~2.3",
     "pdepend/pdepend": "~2.1",
     "squizlabs/php_codesniffer": "^2.5",
-    "phploc/phploc": ">=2.0"
+    "phploc/phploc": ">=2.0",
+    "symfony/process": ">=2.3",
+    "seld/jsonlint": "^1.4",
+    "hexmedia/yaml-linter": "^0.2.0",
+    "sclable/xml-lint": "^0.2.1"
   },
   "suggest": {
     "symfony/yaml": "Enables support for yaml configuration files.",

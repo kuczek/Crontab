@@ -14,10 +14,6 @@ class Task
     private $variables = array();
 
     /**
-     * @var null|string
-     */
-    private $hash = null;
-    /**
      * @var string
      */
     private $minute = "*";
@@ -68,27 +64,7 @@ class Task
     private $notManaged;
 
     /**
-     * @return null|string
-     */
-    public function getHash()
-    {
-        return $this->hash;
-    }
-
-    /**
-     * @param null|string $hash
-     *
-     * @return $this;
-     */
-    public function setHash($hash)
-    {
-        $this->hash = $hash;
-
-        return $this;
-    }
-
-    /**
-     * @return array
+     * @return Variables[]
      */
     public function getVariables()
     {
@@ -97,10 +73,13 @@ class Task
 
     /**
      * @param Variables $variables
+     * @return $this
      */
     public function setVariables(Variables $variables)
     {
         $this->variables = $variables;
+
+        return $this;
     }
 
     /**
@@ -278,9 +257,17 @@ class Task
      */
     public function setNotManaged($notManaged)
     {
-        $this->notManaged = $notManaged;
+        $this->notManaged = true === $notManaged;
 
         return $this;
+    }
+
+    /**
+     * @param $name
+     */
+    public function setMd5Name($name)
+    {
+        $this->setName(substr(md5($name), 10));
     }
 
     /**
@@ -301,69 +288,5 @@ class Task
         $this->beforeComment = $beforeComment;
 
         return $this;
-    }
-
-    /**
-     * @param $name
-     */
-    public function setMd5Name($name)
-    {
-        $this->setName(substr(md5($name), 10));
-    }
-
-    /**
-     * @return string
-     *
-     * TODO: Move this from here.
-     */
-    public function __toString()
-    {
-        $log = $this->getLogFile() ? "> " . $this->getLogFile() : '';
-
-        $comment = $this->isNotManaged() ? $this->getBeforeComment() : $this->nameLine();
-
-        $variables = "";
-        foreach ($this->getVariables() as $name => $value) {
-            $variables .= sprintf("%s=%s\n", $name, $value);
-        }
-
-        return sprintf(
-            "%s%s%s %s %s %s %s       %s %s",
-            $comment,
-            $variables,
-            $this->getMinute(),
-            $this->getHour(),
-            $this->getDayOfMonth(),
-            $this->getMonth(),
-            $this->getDayOfWeek(),
-            $this->getCommand(),
-            $log
-        );
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return string
-     */
-    public static function nameString($name)
-    {
-        return sprintf("# Rule below is managed by CrontabLibrary by Hexmedia - Do not modify it!  %s", $name);
-    }
-
-    /**
-     * @return string
-     */
-    public function getTaskHash()
-    {
-        return substr(md5($this->getHash()), 0, 10) . $this->getName();
-    }
-
-    /**
-     * @return string
-     */
-    private function nameLine()
-    {
-        return self::nameString($this->getTaskHash()) . "\n";
     }
 }
