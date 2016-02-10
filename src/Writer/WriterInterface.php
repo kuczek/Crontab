@@ -6,7 +6,15 @@ use Hexmedia\Crontab\Crontab;
 
 interface WriterInterface
 {
-    public function __construct(array $configuration = array());
+    /**
+     * @param Crontab $crontab
+     * @return bool
+     */
+    public function write(Crontab $crontab);
 
-    public function save(Crontab $crontab);
+    /**
+     * @param Crontab $crontab
+     * @return string
+     */
+    public function getContent(Crontab $crontab);
 }
