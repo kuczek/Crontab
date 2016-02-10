@@ -31,6 +31,8 @@ matrix:
     - php: nightly
 
 before_install:
+  - if [ "$DEPS" == "normal" ] && [ "$TRAVIS_PHP_VERSION" == "5.6" ] ; then export COVERALLS=true fi
+  - if [ "$COVERALLS" == "true" ] ; then echo "Will try to generate coveralls" fi
   - echo "CRONTAB before tests"
   - echo "`crontab -l`"
   - echo "Using in php version $TRAVIS_PHP_VERSION"
@@ -57,11 +59,11 @@ before_script:
   - echo "<?php if (defined('HHVM_VERSION')) { echo ',@hhvm'; } else { if (PHP_VERSION_ID >= 50400) echo ',@php5.4'; if (PHP_VERSION_ID >= 70000) echo ',@php7'; }" > php_version_tags.php
 
 script:
-  - $HOME/.composer/vendor/bin/phing continous -Ddeps=$DEPS -Dcitool=travis -Dphpversion=$TRAVIS_PHP_VERSION -verbose
+  - $HOME/.composer/vendor/bin/phing continous -Ddeps=$DEPS -Dcitool=travis -Dphpversion=$TRAVIS_PHP_VERSION -Dcoveralls=$COVERALLS-verbose
 
 after_success:
-  - if [ "$DEPS" == "normal" ] && [ "$TRAVIS_PHP_VERSION" == "5.6" ]; then echo "Will export coveralls!"; fi
-  - if [ "$DEPS" == "normal" ] && [ "$TRAVIS_PHP_VERSION" == "5.6" ]; then travis_retry php $HOME/.composer/vendor/bin/coveralls; fi
+  - if [ "$COVERALLS" == "true" ]; then echo "Will export coveralls!"; fi
+  - if [ "$COVERALLS" == "true" ]; then travis_retry php $HOME/.composer/vendor/bin/coveralls; fi
   - echo "CRONTAB after successfull tests"
   - echo "`crontab -l`"
 
