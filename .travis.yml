@@ -6,6 +6,10 @@ branches:
   only:
     - master
 
+cache:
+  directories:
+    - $HOME/.composer
+
 php:
   - 5.3
   - 5.4
@@ -21,11 +25,10 @@ env:
   - DEPS='normal'
 
 matrix:
+  fast_finish: true
   allow_failures:
-    env:
-      - DEPS='dev'
-    php:
-      - nightly
+    - env: DEPS='dev'
+    - php: nightly
 
 before_install:
   - echo "CRONTAB before tests"
@@ -33,7 +36,7 @@ before_install:
   - echo "Using in php version $TRAVIS_PHP_VERSION"
   - echo "Preparing blackfire"
   - travis_retry composer selfupdate
-  - cp .composer-auth.json ~/.composer/auth.json
+  - cp .composer-auth.json $HOME/.composer/auth.json
   - travis_retry composer global require kherge/box --prefer-dist
   - travis_retry composer global require phing/phing --prefer-dist
   - travis_retry composer global require satooshi/php-coveralls --prefer-dist
