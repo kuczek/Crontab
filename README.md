@@ -28,3 +28,8 @@ your application:
 Hexmedia\Crontab\Reader\SystemUnixReader::addSupportedOs("FreeBSD");
 ```
 
+Known problems
+--------------
+
+* Does not support special crontab values like @daily, @yearly
+* Does not support correctly comments between variables

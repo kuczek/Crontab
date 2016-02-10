@@ -5,7 +5,7 @@ suites:
         src_path: ./src
         spec_path: ./Tests/
 
-formatter.name: progress
+formatter.name: junit
 
 extensions:
     - PhpSpec\Extension\CodeCoverageExtension

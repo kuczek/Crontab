@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="hexmedia/crontab" default="build" phingVersion=">=2">
-
-    <property name="src" value="${project.basedir}/src"/>
-    <property name="bin" value="${project.basedir}/vendor/bin"/>
-    <property name="build" value="${project.basedir}/build"/>
+    <!-- This variables should be provided by user with -D options. I'm thinking about disallowing to build without them -->
     <property name="deps" value="normal"/>
     <property name="citool" value="local"/>
     <property name="phpversion" value="${php.version}"/>
 
-    <property name="config.phpmd" value="${project.basedir}/phpmd.xml"/>
-    <property name="config.phpspec" value="${project.basedir}/phpspec.yml"/>
+    <property name="build.report.dir" value="./build/report"/>
 
-    <php expression="include('vendor/autoload.php');"/>
+    <property name="build.report.dir.phpmd" value="${build.report.dir}/phpmd"/>
+    <property name="build.report.dir.phpspec" value="${build.report.dir}/phpspec/"/>
+    <property name="build.report.dir.phpcs" value="${build.report.dir}/phpcs"/>
+    <property name="build.report.dir.phploc" value="${build.report.dir}/phploc"/>
+    <property name="build.report.dir.phpdcd" value="${build.report.dir}/phpdcd"/>
+
+    <property name="build.config.dir" value="${build.dir}/config"/>
+    <property name="build.config.file.phpmd" value="${build.config.dir}/phpmd.xml"/>
+    <property name="build.config.file.phpspec" value="${build.config.dir}/phpspec.yml"/>
+
+    <property name="vendor" value="${project.basedir}/vendor"/>
+    <property name="bin" value="${vendor}/bin"/>
+    <property name="src" value="${project.basedir}/src"/>
+
+    <property name="build.dir" value="${project.basedir}/build"/>
+
+    <property environment="env"/>
+
+    <php expression="include('vendor/autoload.php');" level="debug"/>
 
     <fileset id="project" dir="${src}">
         <include name="**/*.php"></include>
@@ -23,15 +37,15 @@
 
     <target name="prepare">
         <echo msg="Creating build  directories..."/>
-        <delete dir="${build}"/>
-        <mkdir dir="${build}"/>
-        <mkdir dir="${build}/phpspec"/>
-        <mkdir dir="${build}/phpmd"/>
-        <mkdir dir="${build}/phpcs"/>
-        <mkdir dir="${build}/phploc"/>
-        <mkdir dir="${build}/phpcpd"/>
-        <mkdir dir="${build}/phpdcd"/>
-        <mkdir dir="${build}/logs"/>
+        <delete includeemptydirs="true">
+            <fileset dir="${build.report.dir}" includes="**/*"/>
+        </delete>
+        <mkdir dir="${build.report.dir}"/>
+        <mkdir dir="${build.report.dir.phpcs}"/>
+        <mkdir dir="${build.report.dir.phpmd}"/>
+        <mkdir dir="${build.report.dir.phploc}"/>
+        <mkdir dir="${build.report.dir.phpspec}"/>
+        <mkdir dir="${build.report.dir.phpdcd}"/>
     </target>
 
     <target name="rename-configuration-file">
@@ -55,55 +69,61 @@
                 <equals arg1="${phpversion}" arg2="7.0"/>
             </and>
             <then>
-                <delete file="${project.basedir}/phpspec.yml.travis"/>
-                <copy file="${project.basedir}/phpspec.yml.normal.travis"
-                      tofile="${project.basedir}/phpspec.yml.travis"/>
+                <delete file="${build.config.file.phpspec}.travis"/>
+                <copy file="${build.config.file.phpspec}.normal.travis"
+                      tofile="${build.config.file.phpspec}.travis"/>
             </then>
         </if>
 
         <phingcall target="rename-configuration-file">
-            <property name="file" value="${config.phpmd}"/>
+            <property name="file" value="${build.config.file.phpmd}"/>
             <property name="citool" value="${citool}"/>
         </phingcall>
         <phingcall target="rename-configuration-file">
-            <property name="file" value="${config.phpspec}"/>
+            <property name="file" value="${build.config.file.phpspec}"/>
             <property name="citool" value="${citool}"/>
         </phingcall>
     </target>
 
     <target name="phpspec" depends="configuration-files">
         <exec dir="${project.basedir}" executable="${bin}/phpspec" checkreturn="true" passthru="true">
-            <arg line="--config=${config.phpspec}"/>
+            <arg line="--config=${build.config.file.phpspec}"/>
             <arg line="run"/>
+            <arg line="-vvv"/>
         </exec>
     </target>
 
     <target name="phpspec-local">
-        <exec dir="${project.basedir}" executable="${bin}/phpspec" output="${build}/phpspec/report.xml"
+        <exec dir="${project.basedir}" executable="${bin}/phpspec" output="${build.report.dir.phpspec}/report.xml"
               checkreturn="true">
             <arg line="run"/>
+            <arg line="-c"/>
+            <arg path="${build.config.file.phpspec}"/>
         </exec>
     </target>
 
     <target name="phpmd" depends="configuration-files">
-        <exec dir="${project.basedir}" executable="${bin}/phpmd" output="${build}/phpmd/report.xml" checkreturn="true">
+        <exec dir="${project.basedir}" executable="${bin}/phpmd" output="${build.report.dir.phpmd}/report.xml"
+              checkreturn="true">
             <arg line="${src}"/>
             <arg line="xml"/>
-            <arg line="${config.phpmd}"/>
+            <arg line="${build.config.file.phpmd}"/>
         </exec>
     </target>
 
     <target name="phpmd-local">
-        <exec dir="${project.basedir}" executable="${bin}/phpmd" output="${build}/phpmd/report.html" checkreturn="true" passthru="true">
+        <exec dir="${project.basedir}" executable="${bin}/phpmd" output="${build.report.dir.phpmd}/report.html"
+              checkreturn="true"
+              passthru="true">
             <arg line="${src}"/>
             <arg line="html"/>
-            <arg line="${project.basedir}/phpmd.xml"/>
+            <arg line="${build.config.file.phpmd}"/>
         </exec>
     </target>
 
     <target name="phpcs">
         <phpcodesniffer haltonerror="true" haltonwarning="true" verbosity="1" standard="PSR2">
-            <formatter type="full" outfile="${build}/phpcs/report.txt"/>
+            <formatter type="full" outfile="${build.report.dir.phpcs}/report.txt"/>
             <fileset refid="project"/>
         </phpcodesniffer>
     </target>
@@ -117,13 +137,13 @@
     </target>
 
     <target name="phploc">
-        <phploc reportDirectory="${build}/phploc" reportType="xml" reportName="report">
+        <phploc reportDirectory="${build.report.dir.phploc}" reportType="xml" reportName="report">
             <fileset refid="project"/>
         </phploc>
     </target>
 
     <target name="phploc-local">
-        <phploc reportDirectory="${build}/phploc" reportType="txt" reportName="report">
+        <phploc reportDirectory="${build.report.dir.phploc}" reportType="txt" reportName="report">
             <fileset refid="project"/>
         </phploc>
     </target>
@@ -135,14 +155,106 @@
     </target>
 
     <target name="phpdcd">
-        <exec dir="${project.basedir}" command="${bin}/phpdcd" output="${build}/phpdcd/report.txt">
+        <exec dir="${project.basedir}" command="${bin}/phpdcd" output="${build.report.dir.phpdcd}/report.txt">
             <arg line="${src}"/>
         </exec>
     </target>
 
+    <target name="jsonlint-file">
+        <echo message="Checking file: ${absname}" level="debug"/>
+        <exec executable="${bin}/jsonlint" dir="${project.basedir}">
+            <arg line="${absname}"/>
+        </exec>
+    </target>
+
+    <target name="yamllint-file">
+        <echo message="Checking file: ${absname}" level="debug"/>
+        <exec executable="${bin}/yaml-lint" dir="${project.basedir}" outputProperty="response">
+            <arg line="${absname}"/>
+        </exec>
+
+        <if>
+            <contains string="${response}" substring="Unable to parse"/>
+            <then>
+                <echo message="${response}"/>
+                <fail message="Error linting yaml file: ${absname}."/>
+            </then>
+        </if>
+    </target>
+
+
+    <target name="xmllint-file">
+        <echo message="Checkint file: ${absname}" level="debug"/>
+        <exec executable="xmllint" dir="${project.basedir}" outputProperty="response">
+            <arg line="${absname}"/>
+        </exec>
+
+        <if>
+            <contains string="${response}" substring="parser error"/>
+            <then>
+                <echo message="${response}" level="error"/>
+                <fail message="Error linting xml file ${absname}."/>
+            </then>
+        </if>
+    </target>
+
+    <target name="lint-files">
+        <echo message="Running ${target-task} for ${project.basedir} with **/*.${target-extension}" level="info"/>
+        <foreach param="${project.basedir}" absparam="absname" target="${target-task}">
+            <fileset dir="${project.basedir}">
+                <type type="file"/>
+                <include name="**/*.${target-extension}"/>
+                <exclude name="vendor/**/*"/>
+                <exclude name="build.xml"/>
+            </fileset>
+        </foreach>
+    </target>
+
+    <target name="jsonlint">
+        <phingcall target="lint-files">
+            <param name="target-task" value="jsonlint-file"/>
+            <param name="target-extension" value="json"/>
+        </phingcall>
+    </target>
+
+    <target name="yamllint">
+        <echo message="Running yamllint files."/>
+        <phingcall target="lint-files">
+            <param name="target-task" value="yamllint-file"/>
+            <param name="target-extension" value="yaml"/>
+        </phingcall>
+        <phingcall target="lint-files">
+            <param name="target-task" value="yamllint-file"/>
+            <param name="target-extension" value="yml"/>
+        </phingcall>
+    </target>
+
+    <target name="xmllint">
+        <if>
+            <and>
+                <os family="Unix"></os>
+                <!--<available property="xmllint.available" file="${env.PATH}/xmllint"/>-->
+            </and>
+            <then>
+                <phingcall target="lint-files">
+                    <param name="target-task" value="xmllint-file"/>
+                    <param name="target-extension" value="xml"/>
+                </phingcall>
+            </then>
+            <else>
+                <echo message="Trying to run xmllint on non Unix system. Or without xmllint installed." level="error"/>
+            </else>
+        </if>
+    </target>
+
+
+    <!-- Full tasks -->
+
+    <target name="lint" depends="jsonlint,yamllint,xmllint"/>
+
     <target name="tests" depends="phpmd, phpcs, phploc, phpcpd, phpspec"/>
     <target name="tests-local" depends="phpmd-local, phpspec-local, phpcs, phploc-local, phpcpd"/>
 
-    <target name="build" depends="composer,prepare,tests-local"/>
-    <target name="continous" depends="prepare,tests"/>
+    <target name="build" depends="composer,prepare,lint,tests-local"/>
+    <target name="continous" depends="prepare,lint,tests"/>
 </project>

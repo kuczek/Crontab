@@ -1,15 +1,17 @@
 
+#Some comment before variables
+#And some after
 AND_SOME_VAR_FOR_NOT_MANAGED=1
 AND_ANOTHER_VAR=2
-#SOME COMMENT
-VAR2=2
 */26 */14 */2 12 */3       ./mwe:photo:s3 asgasg afasf  > ./logs/schema_validate1.log
-# This rule has comment added manually.
 13 23 18 8 0       ./crobtabaction.php -- -pht > ./logs/schema_validate2.log
 
 # ------------ CURRENTLY MANAGED by Test --------------
 # Rule below is managed by CrontabLibrary by Hexmedia - Do not modify it!  0cbc6611f502690a30dc24bcc1148cfa
 MAILTO=test@test.com
 50 13 */10 */3 5       ant build > ./logs/schema_validate3.log
-50 13 10 3 5       . ./do some thing98 > ./logs/schema_validate4.log
-50 13 */10 */3 5       ant build > ./logs/schema_validate3.log
+# Rule below is managed by CrontabLibrary by Hexmedia - Do not modify it!  0cbc6611f5f04eb5607f81bdf9c11ffe
+# Send to test1
+# Or not...   //only the second one will be saved :)
+MAILTO=test2@test.com
+* * * * *       . ./do some thing98 > ./logs/schema_validate4.log

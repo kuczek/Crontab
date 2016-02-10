@@ -5,6 +5,8 @@ vendor/
 logs/
 
 composer.lock
-build/
+build/report
 composer
 composer.phar
+
+.blackfire.travis.ini
