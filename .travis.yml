@@ -31,8 +31,8 @@ matrix:
     - php: nightly
 
 before_install:
-  - cat $HOME/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini > ./xdebug.ini
-  - phpenv config-rm xdebug.ini
+  - if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then cat $HOME/.phpenv/versions/$TRAVIS_PHP_VERSION/etc/conf.d/xdebug.ini > ./xdebug.ini ; fi
+  - if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then phpenv config-rm xdebug.ini ; fi
   - if [ "$DEPS" == "normal" ] && [ "$TRAVIS_PHP_VERSION" == "5.6" ] ; then export COVERALLS=true; fi
   - if [ "$COVERALLS" == "true" ] ; then echo "Will try to generate coveralls"; fi
   - echo "CRONTAB before tests"
@@ -59,7 +59,7 @@ install:
 
 before_script:
   - echo "<?php if (defined('HHVM_VERSION')) { echo ',@hhvm'; } else { if (PHP_VERSION_ID >= 50400) echo ',@php5.4'; if (PHP_VERSION_ID >= 70000) echo ',@php7'; }" > php_version_tags.php
-  - phpenv config-add xdebug.ini
+  - if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then phpenv config-add xdebug.ini ; fi
 
 script:
   - $HOME/.composer/vendor/bin/phing continous -Ddeps=$DEPS -Dcitool=travis -Dphpversion=$TRAVIS_PHP_VERSION -Dcoveralls=$COVERALLS-verbose
