@@ -3,6 +3,7 @@
 namespace spec\Hexmedia\Crontab\Writer;
 
 use Hexmedia\Crontab\Crontab;
+use Hexmedia\Crontab\System\Unix;
 use Hexmedia\Crontab\Task;
 use Hexmedia\Crontab\Variables;
 use PhpSpec\ObjectBehavior;
@@ -41,7 +42,9 @@ class SystemWriterSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Hexmedia\Crontab\Writer\SystemWriter');
+        if (Unix::isUnix()) { //Currently this will work only on *nix
+            $this->shouldHaveType('Hexmedia\Crontab\Writer\SystemWriter');
+        }
     }
 
     function it_is_properly_writing($crontab)
@@ -51,7 +54,6 @@ class SystemWriterSpec extends ObjectBehavior
 
     function it_is_properly_preparing_content($crontab)
     {
-
         $this->getContent($crontab)->shouldContain("test");//shouldReturn($shouldBe);
     }
 }
