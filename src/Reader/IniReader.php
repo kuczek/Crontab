@@ -13,7 +13,7 @@ use Hexmedia\Crontab\Parser\Ini\ParserFactory;
  * Class IniReader
  * @package Hexmedia\Crontab\Reader
  */
-class IniReaderAbstract extends AbstractFileReaderAbstract implements ReaderInterface
+class IniReader extends FileReaderAbstract implements ReaderInterface
 {
     /**
      * @param null         $file

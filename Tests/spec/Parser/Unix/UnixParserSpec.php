@@ -7,6 +7,7 @@
 namespace spec\Hexmedia\Crontab\Parser\Unix;
 
 use Hexmedia\Crontab\Parser\Unix\UnixParser;
+use Hexmedia\Crontab\Parser\Unix\UnixParserAbstract;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 

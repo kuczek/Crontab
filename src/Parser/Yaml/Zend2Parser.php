@@ -6,7 +6,7 @@
 
 namespace Hexmedia\Crontab\Parser\Yaml;
 
-use Hexmedia\Crontab\Parser\AbstractParser;
+use Hexmedia\Crontab\Parser\ParserAbstract;
 use Hexmedia\Crontab\Parser\ParserInterface;
 
 /**
@@ -16,7 +16,7 @@ use Hexmedia\Crontab\Parser\ParserInterface;
  * TODO: This class needs to be written with additional support for different yaml decoders.
  * TODO: currently will not work at all.
  */
-class Zend2Parser extends AbstractParser implements ParserInterface
+class Zend2ParserAbstract extends ParserAbstract implements ParserInterface
 {
     /**
      * @return array

@@ -37,7 +37,7 @@ abstract class ParserFactoryAbstract
     abstract public function getDefaultParsers();
 
     /**
-     * @param $className
+     * @param string $className
      * @throws UnexistingParserException
      */
     public function addParser($className)
@@ -50,7 +50,7 @@ abstract class ParserFactoryAbstract
     }
 
     /**
-     * @param $className
+     * @param string $className
      * @return bool
      */
     public function removeParser($className)
@@ -59,6 +59,7 @@ abstract class ParserFactoryAbstract
 
         if (false !== $key) {
             unset($this->parsers[$key]);
+
             return true;
         }
 

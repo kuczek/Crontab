@@ -10,10 +10,10 @@ use Hexmedia\Crontab\Crontab;
 use Hexmedia\Crontab\Parser\Yaml\ParserFactory;
 
 /**
- * Class YamlReaderAbstract
+ * Class YamlReader
  * @package Hexmedia\Crontab\Reader
  */
-class YamlReaderAbstract extends AbstractFileReaderAbstract implements ReaderInterface
+class YamlReader extends FileReaderAbstract implements ReaderInterface
 {
     /**
      * @param string       $file

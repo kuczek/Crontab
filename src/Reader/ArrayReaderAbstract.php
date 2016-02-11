@@ -11,10 +11,10 @@ use Hexmedia\Crontab\Task;
 use Hexmedia\Crontab\Variables;
 
 /**
- * Class ArrayReader
+ * Class ArrayReaderAbstract
  * @package Hexmedia\Crontab\Reader
  */
-abstract class AbstractArrayReader implements ReaderInterface
+abstract class ArrayReaderAbstract implements ReaderInterface
 {
     /**
      * @var Crontab
@@ -60,6 +60,7 @@ abstract class AbstractArrayReader implements ReaderInterface
     public function read()
     {
         $array = $this->prepareArray();
+
         return $this->readArray($array);
     }
 

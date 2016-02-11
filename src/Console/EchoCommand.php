@@ -14,7 +14,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * Class EchoCommand
  * @package Hexmedia\Crontab\Console
  */
-class EchoCommand extends AbstractCommand
+class EchoCommand extends CommandAbstract
 {
     /**
      *

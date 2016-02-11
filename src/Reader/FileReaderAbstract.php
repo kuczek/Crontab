@@ -9,10 +9,10 @@ namespace Hexmedia\Crontab\Reader;
 use Hexmedia\Crontab\Crontab;
 
 /**
- * Class FileReader
+ * Class FileReaderAbstract
  * @package Hexmedia\Crontab\Reader
  */
-abstract class AbstractFileReaderAbstract extends AbstractArrayReader
+abstract class FileReaderAbstract extends ArrayReaderAbstract
 {
     /**
      * @var string

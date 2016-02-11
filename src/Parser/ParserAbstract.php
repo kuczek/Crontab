@@ -7,10 +7,10 @@
 namespace Hexmedia\Crontab\Parser;
 
 /**
- * Class AbstractParser
+ * Class ParserAbstract
  * @package Hexmedia\Crontab\Parser
  */
-abstract class AbstractParser implements ParserInterface
+abstract class ParserAbstract implements ParserInterface
 {
     /**
      * @var string

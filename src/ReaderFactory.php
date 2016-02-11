@@ -6,12 +6,12 @@
 
 namespace Hexmedia\Crontab;
 
-use Hexmedia\Crontab\Reader\IniReaderAbstract;
-use Hexmedia\Crontab\Reader\JsonReaderAbstract;
+use Hexmedia\Crontab\Reader\IniReader;
+use Hexmedia\Crontab\Reader\JsonReader;
 use Hexmedia\Crontab\Reader\ReaderInterface;
-use Hexmedia\Crontab\Reader\UnixSystemReader;
-use Hexmedia\Crontab\Reader\XmlReaderAbstract;
-use Hexmedia\Crontab\Reader\YamlReaderAbstract;
+use Hexmedia\Crontab\Reader\UnixReaderAbstract;
+use Hexmedia\Crontab\Reader\XmlReader;
+use Hexmedia\Crontab\Reader\YamlReader;
 use Hexmedia\Crontab\Exception\FactoryException;
 
 /**
@@ -21,7 +21,7 @@ use Hexmedia\Crontab\Exception\FactoryException;
 class ReaderFactory
 {
     /**
-     * @param $configuration
+     * @param array $configuration
      * @return ReaderInterface
      * @throws FactoryException
      * @throws \Exception
@@ -51,7 +51,7 @@ class ReaderFactory
 
     /**
      * @param array $configuration
-     * @return JsonReaderAbstract
+     * @return JsonReader
      * @throws FactoryException
      */
     private static function createJson(array $configuration)
@@ -64,14 +64,14 @@ class ReaderFactory
         $machine = self::configurationGetOrDefault($configuration, 'machine', null);
         $crontab = self::configurationGetOrDefault($configuration, 'crontab', null);
 
-        $reader = new JsonReaderAbstract($file, $crontab, $machine);
+        $reader = new JsonReader($file, $crontab, $machine);
 
         return $reader;
     }
 
     /**
      * @param array $configuration
-     * @return YamlReaderAbstract
+     * @return YamlReader
      * @throws FactoryException
      */
     private static function createYaml(array $configuration)
@@ -84,11 +84,16 @@ class ReaderFactory
         $machine = self::configurationGetOrDefault($configuration, 'machine', null);
         $crontab = self::configurationGetOrDefault($configuration, 'crontab', null);
 
-        $reader = new YamlReaderAbstract($file, $crontab, $machine);
+        $reader = new YamlReader($file, $crontab, $machine);
 
         return $reader;
     }
 
+    /**
+     * @param array $configuration
+     * @return IniReader
+     * @throws FactoryException
+     */
     private static function createIni($configuration)
     {
         if (!isset($configuration['file'])) {
@@ -99,11 +104,16 @@ class ReaderFactory
         $machine = self::configurationGetOrDefault($configuration, 'machine', null);
         $crontab = self::configurationGetOrDefault($configuration, 'crontab', null);
 
-        $reader = new IniReaderAbstract($file, $crontab, $machine);
+        $reader = new IniReader($file, $crontab, $machine);
 
         return $reader;
     }
 
+    /**
+     * @param array $configuration
+     * @return XmlReader
+     * @throws FactoryException
+     */
     private static function createXml($configuration)
     {
         if (!isset($configuration['file'])) {
@@ -114,22 +124,31 @@ class ReaderFactory
         $machine = self::configurationGetOrDefault($configuration, 'machine', null);
         $crontab = self::configurationGetOrDefault($configuration, 'crontab', null);
 
-        $reader = new XmlReaderAbstract($file, $crontab, $machine);
+        $reader = new XmlReader($file, $crontab, $machine);
 
         return $reader;
     }
 
-    //TODO: FIXME
+    /**
+     * @param array $configuration
+     * @return UnixReader
+     */
     private static function createUnix($configuration)
     {
         $user = self::configurationGetOrDefault($configuration, 'user', null);
         $crontab = self::configurationGetOrDefault($configuration, 'crontab', null);
 
-        $reader = new UnixSystemReader($user, $crontab);
+        $reader = new UnixReaderAbstract($user, $crontab);
 
         return $reader;
     }
 
+    /**
+     * @param array $configuration
+     * @param mixed $index
+     * @param mixed $default
+     * @return mixed
+     */
     private static function configurationGetOrDefault($configuration, $index, $default)
     {
         return isset($configuration[$index]) ? $configuration[$index] : $default;

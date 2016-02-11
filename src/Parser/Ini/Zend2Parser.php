@@ -6,14 +6,14 @@
 
 namespace Hexmedia\Crontab\Parser\Ini;
 
-use Hexmedia\Crontab\Parser\AbstractParser;
+use Hexmedia\Crontab\Parser\ParserAbstract;
 use Hexmedia\Crontab\Parser\ParserInterface;
 
 /**
  * Class Zend2Parser
  * @package Hexmedia\Crontab\Parser\Ini
  */
-class Zend2Parser extends AbstractParser implements ParserInterface
+class Zend2ParserAbstract extends ParserAbstract implements ParserInterface
 {
     /**
      * @return array

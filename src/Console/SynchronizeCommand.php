@@ -14,7 +14,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * Class SynchronizeCommand
  * @package Hexmedia\Crontab\Console
  */
-class SynchronizeCommand extends AbstractCommand
+class SynchronizeCommand extends CommandAbstract
 {
     /**
      *

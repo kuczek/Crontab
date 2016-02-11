@@ -7,10 +7,10 @@
 namespace Hexmedia\Crontab\Reader;
 
 /**
- * Class XmlReaderAbstract
+ * Class XmlReader
  * @package Hexmedia\Crontab\Reader
  */
-class XmlReaderAbstract extends AbstractFileReaderAbstract implements ReaderInterface
+class XmlReader extends FileReaderAbstract implements ReaderInterface
 {
     /**
      * @return array

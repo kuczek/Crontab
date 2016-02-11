@@ -12,7 +12,7 @@ use Hexmedia\Crontab\Crontab;
  * Class UnixReaderAbstract
  * @package Hexmedia\Crontab\Reader
  */
-abstract class UnixReaderAbstract extends AbstractArrayReader
+abstract class UnixReaderAbstract extends ArrayReaderAbstract
 {
     /**
      * UnixReader constructor.

@@ -62,7 +62,7 @@ class SystemReader implements ReaderInterface
     private function getSystemReader()
     {
         foreach ($this->readers as $reader) {
-            if (false !== call_user_func("$reader::isSupported")) {
+            if (false !== call_user_func($reader . '::isSupported')) {
                 return new $reader($this->user, $this->crontab);
             }
         }

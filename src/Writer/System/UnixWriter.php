@@ -46,6 +46,7 @@ class UnixWriter implements WriterInterface
     protected function saveCrontab($content)
     {
         str_replace(2, 1, $content);
+
         return true;
     }
 

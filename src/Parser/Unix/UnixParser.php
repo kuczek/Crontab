@@ -7,15 +7,14 @@
 namespace Hexmedia\Crontab\Parser\Unix;
 
 use Hexmedia\Crontab\Exception\ParseException;
-use Hexmedia\Crontab\Parser\AbstractParser;
+use Hexmedia\Crontab\Parser\ParserAbstract;
 use Hexmedia\Crontab\Parser\ParserInterface;
 
 /**
- * Class AbstractParser
+ * Class UnixParser
  * @package Hexmedia\Crontab\Parser\Unix
- *
  */
-class UnixParser extends AbstractParser implements ParserInterface
+class UnixParser extends ParserAbstract implements ParserInterface
 {
     /**
      * @var array

@@ -6,14 +6,14 @@
 
 namespace Hexmedia\Crontab\Parser\Yaml;
 
-use Hexmedia\Crontab\Parser\AbstractParser;
+use Hexmedia\Crontab\Parser\ParserAbstract;
 use Hexmedia\Crontab\Parser\ParserInterface;
 
 /**
  * Class SymfonyParser
  * @package Hexmedia\Crontab\Parser\Yaml
  */
-class SymfonyParser extends AbstractParser implements ParserInterface
+class SymfonyParser extends ParserAbstract implements ParserInterface
 {
     /**
      * @return array

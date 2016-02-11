@@ -17,10 +17,10 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class AbstractCommand
+ * Class CommandAbstract
  * @package Hexmedia\Crontab\Console
  */
-abstract class AbstractCommand extends Command
+abstract class CommandAbstract extends Command
 {
     /**
      *

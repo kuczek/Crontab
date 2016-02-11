@@ -51,7 +51,7 @@ class UnixSystemReader extends UnixReaderAbstract
     {
         $output = array();
 
-        $result = exec(sprintf('crontab -l %s', ($this->user ? "-u $this->user" : '')), $output);
+        $result = exec(sprintf('crontab -l %s', ($this->user ? '-u ' . $this->user : '')), $output);
 
         if ($result) {
             return implode("\n", $output);

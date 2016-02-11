@@ -6,14 +6,14 @@
 
 namespace Hexmedia\Crontab\Parser\Ini;
 
-use Hexmedia\Crontab\Parser\AbstractParser;
+use Hexmedia\Crontab\Parser\ParserAbstract;
 use Hexmedia\Crontab\Parser\ParserInterface;
 
 /**
  * Class AustinHydeParser
  * @package Hexmedia\Crontab\Parser\Ini
  */
-class AustinHydeParser extends AbstractParser implements ParserInterface
+class AustinHydeParserAbstract extends ParserAbstract implements ParserInterface
 {
     /**
      * @return \ArrayObject

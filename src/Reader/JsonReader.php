@@ -9,10 +9,10 @@ namespace Hexmedia\Crontab\Reader;
 use Hexmedia\Crontab\Crontab;
 
 /**
- * Class JsonReaderAbstract
+ * Class JsonReader
  * @package Hexmedia\Crontab\Reader
  */
-class JsonReaderAbstract extends AbstractFileReaderAbstract implements ReaderInterface
+class JsonReader extends FileReaderAbstract implements ReaderInterface
 {
     /**
      * @param string       $file

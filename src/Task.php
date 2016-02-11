@@ -267,7 +267,7 @@ class Task
     }
 
     /**
-     * @param $name
+     * @param string $name
      */
     public function setMd5Name($name)
     {

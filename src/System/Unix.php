@@ -215,6 +215,7 @@ class Unix
 
         if (false !== $key) {
             unset(self::$unixes[$key]);
+
             return true;
         }
 

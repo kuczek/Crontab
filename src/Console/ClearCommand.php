@@ -17,7 +17,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * Class ClearCommand
  * @package Hexmedia\Crontab\Console
  */
-class ClearCommand extends AbstractCommand
+class ClearCommand extends CommandAbstract
 {
     /**
      *
