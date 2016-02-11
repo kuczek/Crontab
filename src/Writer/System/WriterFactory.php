@@ -31,7 +31,7 @@ class WriterFactory
     public static function create()
     {
         foreach (self::getWriters() as $writer) {
-            if (true === call_user_func("$writer::isSupported")) {
+            if (true === call_user_func($writer . '::isSupported')) {
                 return new $writer();
             }
         }

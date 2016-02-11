@@ -21,7 +21,6 @@ class ParserFactory extends ParserFactoryAbstract
     {
         return array(
             '\\Hexmedia\\Crontab\\Parser\\Yaml\\SymfonyParser',
-        //            "\\Hexmedia\\Crontab\\Parser\\Yaml\\Zend2Parser",
             '\\Hexmedia\\Crontab\\Parser\\Yaml\\ZendParser',
         );
     }

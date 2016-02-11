@@ -40,8 +40,8 @@ class UnixWriter implements WriterInterface
 
     /**
      * @param string $content
-     * @return bool
      *
+     * @return bool
      */
     protected function saveCrontab($content)
     {
@@ -51,6 +51,7 @@ class UnixWriter implements WriterInterface
 
     /**
      * @return bool
+     *
      * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public static function isSupported()
