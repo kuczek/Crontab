@@ -32,6 +32,6 @@ class SymfonyParser extends AbstractParser implements ParserInterface
      */
     public static function isSupported()
     {
-        return class_exists("\\Symfony\\Component\\Yaml\\Parser");
+        return class_exists('\\Symfony\\Component\\Yaml\\Parser');
     }
 }

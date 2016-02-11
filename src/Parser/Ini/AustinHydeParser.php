@@ -52,6 +52,6 @@ class AustinHydeParser extends AbstractParser implements ParserInterface
      */
     public static function isSupported()
     {
-        return class_exists("\\IniParser");
+        return class_exists('\\IniParser');
     }
 }

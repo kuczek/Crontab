@@ -22,7 +22,7 @@ class UnixFileReader extends UnixReaderAbstract
 
     /**
      * UnixFileReader constructor.
-     * @param string $file
+     * @param string       $file
      * @param Crontab|null $crontab
      */
     public function __construct($file, Crontab $crontab = null)

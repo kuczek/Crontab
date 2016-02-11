@@ -25,8 +25,8 @@ class ClearCommand extends AbstractCommand
     protected function configureName()
     {
         $this
-            ->setName("clear")
-            ->setDescription("Clear this project crontabs from this machine");
+            ->setName('clear')
+            ->setDescription('Clear this project crontabs from this machine');
     }
 
     /**
@@ -36,8 +36,8 @@ class ClearCommand extends AbstractCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $name = $input->getArgument("name");
-        $user = $input->getOption("user");
+        $name = $input->getArgument('name');
+        $user = $input->getOption('user');
 
         $crontab = new Crontab($user, $name);
 
@@ -52,8 +52,8 @@ class ClearCommand extends AbstractCommand
 
     /**
      * @param OutputInterface $output
-     * @param Crontab $crontab
-     * @param string|null $user
+     * @param Crontab         $crontab
+     * @param string|null     $user
      * @return mixed
      */
     public function output(OutputInterface $output, Crontab $crontab, $user = null)
@@ -64,13 +64,13 @@ class ClearCommand extends AbstractCommand
 
         $writer->save($crontab);
 
-        $output->writeln("Your crontab was updated!");
+        $output->writeln('Your crontab was updated!');
     }
 
     protected function configureArguments()
     {
         $this
-            ->addArgument("name", InputArgument::REQUIRED, "Name of project")
-            ->addArgument("configuration-file", InputArgument::OPTIONAL, "Configuration file");
+            ->addArgument('name', InputArgument::REQUIRED, 'Name of project')
+            ->addArgument('configuration-file', InputArgument::OPTIONAL, 'Configuration file');
     }
 }

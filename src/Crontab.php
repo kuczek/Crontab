@@ -77,7 +77,7 @@ class Crontab
     public function removeTask(Task $task)
     {
         if ($task->isNotManaged()) {
-            throw new NotManagedException("This task is not managed by this application so you cannot remove it!");
+            throw new NotManagedException('This task is not managed by this application so you cannot remove it!');
         }
 
         foreach ($this->managedTasks as $key => $taskIteration) {

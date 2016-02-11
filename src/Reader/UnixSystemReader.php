@@ -17,7 +17,7 @@ class UnixSystemReader extends UnixReaderAbstract
     /**
      * @var array
      */
-    private static $supportedOses = array("Linux", "FreeBSD");
+    private static $supportedOses = array('Linux', 'FreeBSD');
 
     /**
      * @var string
@@ -26,7 +26,7 @@ class UnixSystemReader extends UnixReaderAbstract
 
     /**
      * UnixSystemReader constructor.
-     * @param string $user
+     * @param string       $user
      * @param Crontab|null $crontab
      */
     public function __construct($user, Crontab $crontab = null)
@@ -51,7 +51,7 @@ class UnixSystemReader extends UnixReaderAbstract
     {
         $output = array();
 
-        $result = exec(sprintf("crontab -l %s", ($this->user ? "-u $this->user" : "")), $output);
+        $result = exec(sprintf('crontab -l %s', ($this->user ? "-u $this->user" : '')), $output);
 
         if ($result) {
             return implode("\n", $output);

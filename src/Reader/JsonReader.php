@@ -15,9 +15,9 @@ use Hexmedia\Crontab\Crontab;
 class JsonReaderAbstract extends AbstractFileReaderAbstract implements ReaderInterface
 {
     /**
-     * @param string $file
+     * @param string       $file
      * @param Crontab|null $crontab
-     * @param string|null $machine
+     * @param string|null  $machine
      */
     public function __construct($file, Crontab $crontab = null, $machine = null)
     {

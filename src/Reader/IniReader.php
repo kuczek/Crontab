@@ -16,9 +16,9 @@ use Hexmedia\Crontab\Parser\Ini\ParserFactory;
 class IniReaderAbstract extends AbstractFileReaderAbstract implements ReaderInterface
 {
     /**
-     * @param null $file
+     * @param null         $file
      * @param Crontab|null $crontab
-     * @param null $machine
+     * @param null         $machine
      */
     public function __construct($file, Crontab $crontab = null, $machine = null)
     {

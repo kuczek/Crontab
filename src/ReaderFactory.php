@@ -30,17 +30,17 @@ class ReaderFactory
     {
         //TODO: HERE WE CAN ADD TYPE DETECTOR ON FILE NAME
         if (!isset($configuration['type'])) {
-            throw new FactoryException("No type defined, cannot use.");
+            throw new FactoryException('No type defined, cannot use.');
         }
 
         switch ($configuration['type']) {
-            case "json":
+            case 'json':
                 return self::createJson($configuration);
-            case "yaml":
+            case 'yaml':
                 return self::createYaml($configuration);
-            case "ini":
+            case 'ini':
                 return self::createIni($configuration);
-            case "xml":
+            case 'xml':
                 return self::createXml($configuration);
             case 'unix':
                 return self::createUnix($configuration);
@@ -57,7 +57,7 @@ class ReaderFactory
     private static function createJson(array $configuration)
     {
         if (!isset($configuration['file'])) {
-            throw new FactoryException("File needs to be defined for type json");
+            throw new FactoryException('File needs to be defined for type json');
         }
 
         $file = $configuration['file'];
@@ -77,7 +77,7 @@ class ReaderFactory
     private static function createYaml(array $configuration)
     {
         if (!isset($configuration['file'])) {
-            throw new FactoryException("File needs to be defined for type yaml");
+            throw new FactoryException('File needs to be defined for type yaml');
         }
 
         $file = $configuration['file'];
@@ -92,7 +92,7 @@ class ReaderFactory
     private static function createIni($configuration)
     {
         if (!isset($configuration['file'])) {
-            throw new FactoryException("File needs to be defined for type yaml");
+            throw new FactoryException('File needs to be defined for type yaml');
         }
 
         $file = $configuration['file'];
@@ -107,7 +107,7 @@ class ReaderFactory
     private static function createXml($configuration)
     {
         if (!isset($configuration['file'])) {
-            throw new FactoryException("File needs to be defined for type yaml");
+            throw new FactoryException('File needs to be defined for type yaml');
         }
 
         $file = $configuration['file'];

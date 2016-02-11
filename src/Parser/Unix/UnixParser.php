@@ -34,7 +34,7 @@ class UnixParser extends AbstractParser implements ParserInterface
         $content = "\n" . $this->getContent(); //a little trick
         //                                       to allow allow only rules that begins at the begining of line
 
-        if (false === preg_match_all("/" . $this->getCrontabRegexRule() . "/", $content, $matches, PREG_SET_ORDER)) {
+        if (false === preg_match_all('/' . $this->getCrontabRegexRule() . '/', $content, $matches, PREG_SET_ORDER)) {
             throw new ParseException(sprintf("Cannot match this file error: '%s'", preg_last_error()));
         }
 
@@ -83,13 +83,13 @@ class UnixParser extends AbstractParser implements ParserInterface
         $variables = array();
 
         if ($match) {
-            if (preg_match_all("/" . $this->getVariableRule() . '/', $match, $matches, PREG_SET_ORDER)) {
+            if (preg_match_all('/' . $this->getVariableRule() . '/', $match, $matches, PREG_SET_ORDER)) {
                 foreach ($matches as $m) {
                     $variables[$m['variable']] = $m['value'];
                 }
             }
 
-            if (preg_match_all("/" . $this->getCommentRule() . "/", $match, $matches, PREG_SET_ORDER)) {
+            if (preg_match_all('/' . $this->getCommentRule() . '/', $match, $matches, PREG_SET_ORDER)) {
                 foreach ($matches as $m) {
                     $comment .= trim($m['comment']) . "\n";
                 }
@@ -114,9 +114,9 @@ class UnixParser extends AbstractParser implements ParserInterface
         $variableRule = sprintf('(%s\n?){0,}', $this->getVariableRule());
         $commentRule = sprintf('(%s\n?){0,}', $this->getCommentRule());
 
-        $cAndVRule = "(?<vandc>(" . $commentRule . $variableRule . "){0,})";
+        $cAndVRule = '(?<vandc>(' . $commentRule . $variableRule . '){0,})';
 
-        $rule = "(?<rule>" . $cAndVRule . $crontabRule . ")";
+        $rule = '(?<rule>' . $cAndVRule . $crontabRule . ')';
 
         return $rule;
     }

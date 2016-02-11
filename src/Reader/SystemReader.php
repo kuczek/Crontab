@@ -16,7 +16,7 @@ use Hexmedia\Crontab\Exception\NotReaderFoundForOSException;
 class SystemReader implements ReaderInterface
 {
     private $readers = array(
-        "\\Hexmedia\\Crontab\\Reader\\UnixSystemReader"
+        '\\Hexmedia\\Crontab\\Reader\\UnixSystemReader'
     );
 
     /**
@@ -36,7 +36,7 @@ class SystemReader implements ReaderInterface
 
     /**
      * SystemReader constructor.
-     * @param string $user
+     * @param string       $user
      * @param Crontab|null $crontab
      */
     public function __construct($user, Crontab $crontab = null)

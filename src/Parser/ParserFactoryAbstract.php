@@ -43,7 +43,7 @@ abstract class ParserFactoryAbstract
     public function addParser($className)
     {
         if (!class_exists($className)) {
-            throw new UnexistingParserException(sprintf("Parser %s does not exists!", $className));
+            throw new UnexistingParserException(sprintf('Parser %s does not exists!', $className));
         }
 
         $this->parsers[] = $className;
@@ -73,12 +73,12 @@ abstract class ParserFactoryAbstract
     public function create($content)
     {
         foreach ($this->parsers as $parserName) {
-            if (call_user_func($parserName . "::isSupported")) {
+            if (call_user_func($parserName . '::isSupported')) {
                 return new $parserName($content);
             }
         }
 
-        throw new NoSupportedParserException("There is no supported parser for this type.");
+        throw new NoSupportedParserException('There is no supported parser for this type.');
     }
 
     /**
@@ -91,7 +91,7 @@ abstract class ParserFactoryAbstract
 
         if (false === $key) {
             foreach ($this->parsers as $key2 => $parser) {
-                if (preg_match("/\\\\([A-Za-z0-9]*)$/", $parser, $matches)) {
+                if (preg_match('/\\\\([A-Za-z0-9]*)$/', $parser, $matches)) {
                     if ($matches[1] == $preferred) {
                         return $key2;
                     }

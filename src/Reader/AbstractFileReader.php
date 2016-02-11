@@ -21,9 +21,9 @@ abstract class AbstractFileReaderAbstract extends AbstractArrayReader
 
     /**
      * FileReader constructor.
-     * @param null $file
+     * @param null         $file
      * @param Crontab|null $crontab
-     * @param null $machine
+     * @param null         $machine
      */
     public function __construct($file = null, Crontab $crontab = null, $machine = null)
     {

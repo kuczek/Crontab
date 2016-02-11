@@ -61,7 +61,7 @@ class UnixWriter implements WriterInterface
     private function prepareContent(Crontab $crontab)
     {
         $content = "#WARNING!!!\n";
-        $content .= "#This crontab file it at least partialy managed by Crontab by Hexmedia, please check all " .
+        $content .= '#This crontab file it at least partialy managed by Crontab by Hexmedia, please check all ' .
             "restrictions that comes with that library at: https://github.com/Hexmedia/Crontab/blob/master/README.md\n";
         $content .= "#EOT\n\n";
 
@@ -93,7 +93,7 @@ class UnixWriter implements WriterInterface
             return rtrim($com);
         }, $exp);
 
-        return "#" . trim(implode("\n#", $exp)) . "\n";
+        return '#' . trim(implode("\n#", $exp)) . "\n";
     }
 
     /**
@@ -126,7 +126,7 @@ class UnixWriter implements WriterInterface
      */
     private function prepareTask(Task $task, Crontab $crontab)
     {
-        $log = $task->getLogFile() ? "> " . $task->getLogFile() : '';
+        $log = $task->getLogFile() ? '> ' . $task->getLogFile() : '';
 
         if ($task->isNotManaged()) {
             $comment = $task->getBeforeComment();
@@ -136,7 +136,7 @@ class UnixWriter implements WriterInterface
 
         $comment = $this->prepareComment($comment);
 
-        $variables = "";
+        $variables = '';
         if ($task->getVariables() instanceof \Iterator) {
             foreach ($task->getVariables() as $name => $value) {
                 $variables .= sprintf("%s=%s\n", $name, $value);
@@ -144,7 +144,7 @@ class UnixWriter implements WriterInterface
         }
 
         return sprintf(
-            "%s%s%s %s %s %s %s       %s %s",
+            '%s%s%s %s %s %s %s       %s %s',
             $comment,
             $variables,
             $task->getMinute(),

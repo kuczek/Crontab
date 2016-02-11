@@ -32,6 +32,6 @@ class Zend2Parser extends AbstractParser implements ParserInterface
      */
     public static function isSupported()
     {
-        return class_exists("\\Zend\\Config\\Reader\\Ini");
+        return class_exists('\\Zend\\Config\\Reader\\Ini');
     }
 }

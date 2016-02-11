@@ -28,10 +28,10 @@ abstract class AbstractCommand extends Command
     protected function configure()
     {
         $this
-            ->addOption("machine", "m", InputOption::VALUE_OPTIONAL, "Machine name to synchronize")
-            ->addOption("user", "u", InputOption::VALUE_OPTIONAL, "Username for synchronization (crontab -u)")
-            ->addOption("type", "t", InputOption::VALUE_REQUIRED, "Type of parsed file, if not given system will guess")
-            ->addOption("dry-run", null, InputOption::VALUE_OPTIONAL, "Do not write crontab file");
+            ->addOption('machine', 'm', InputOption::VALUE_OPTIONAL, 'Machine name to synchronize')
+            ->addOption('user', 'u', InputOption::VALUE_OPTIONAL, 'Username for synchronization (crontab -u)')
+            ->addOption('type', 't', InputOption::VALUE_REQUIRED, 'Type of parsed file, if not given system will guess')
+            ->addOption('dry-run', null, InputOption::VALUE_OPTIONAL, 'Do not write crontab file');
 
         $this->configureArguments();
         $this->configureName();
@@ -45,8 +45,8 @@ abstract class AbstractCommand extends Command
     protected function configureArguments()
     {
         $this
-            ->addArgument("configuration-file", InputArgument::REQUIRED, "Configuration file")
-            ->addArgument("name", InputArgument::REQUIRED, "Name of project");
+            ->addArgument('configuration-file', InputArgument::REQUIRED, 'Configuration file')
+            ->addArgument('name', InputArgument::REQUIRED, 'Name of project');
     }
 
     /**
@@ -57,8 +57,8 @@ abstract class AbstractCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $name = $input->getArgument("name");
-        $user = $input->getOption("user");
+        $name = $input->getArgument('name');
+        $user = $input->getOption('user');
 
         $crontab = new Crontab($user, $name);
 
@@ -79,8 +79,8 @@ abstract class AbstractCommand extends Command
 
     /**
      * @param OutputInterface $output
-     * @param Crontab $crontab
-     * @param string|null $user
+     * @param Crontab         $crontab
+     * @param string|null     $user
      * @return mixed
      */
     abstract public function output(OutputInterface $output, Crontab $crontab, $user = null);

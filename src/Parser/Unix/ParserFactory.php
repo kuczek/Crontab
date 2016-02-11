@@ -20,7 +20,7 @@ class ParserFactory extends ParserFactoryAbstract
     public function getDefaultParsers()
     {
         return array(
-            "\\Hexmedia\\Crontab\\Parser\\Unix\\UnixParser",
+            '\\Hexmedia\\Crontab\\Parser\\Unix\\UnixParser',
         );
     }
 }

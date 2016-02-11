@@ -66,7 +66,7 @@ class WriterFactory
     public static function addWriter($writer)
     {
         if (false === class_exists($writer)) {
-            throw new WriterNotExistsException(sprintf("Writer with given name %s does not exists.", $writer));
+            throw new WriterNotExistsException(sprintf('Writer with given name %s does not exists.', $writer));
         }
 
         self::$writers[] = $writer;

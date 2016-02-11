@@ -22,14 +22,14 @@ class SynchronizeCommand extends AbstractCommand
     protected function configureName()
     {
         $this
-            ->setName("synchronize")
-            ->setDescription("Synchronizes with system crontab");
+            ->setName('synchronize')
+            ->setDescription('Synchronizes with system crontab');
     }
 
     /**
      * @param OutputInterface $output
-     * @param Crontab $crontab
-     * @param string|null $user
+     * @param Crontab         $crontab
+     * @param string|null     $user
      * @return mixed
      */
     public function output(OutputInterface $output, Crontab $crontab, $user = null)
@@ -38,6 +38,6 @@ class SynchronizeCommand extends AbstractCommand
 
         $writer->save($crontab);
 
-        $output->writeln("Your crontab was updated!");
+        $output->writeln('Your crontab was updated!');
     }
 }

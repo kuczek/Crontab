@@ -20,27 +20,27 @@ class Task
     /**
      * @var string
      */
-    private $minute = "*";
+    private $minute = '*';
 
     /**
      * @var string
      */
-    private $hour = "*";
+    private $hour = '*';
 
     /**
      * @var string
      */
-    private $dayOfMonth = "*";
+    private $dayOfMonth = '*';
 
     /**
      * @var string
      */
-    private $month = "*";
+    private $month = '*';
 
     /**
      * @var string
      */
-    private $dayOfWeek = "*";
+    private $dayOfWeek = '*';
 
     /**
      * @var string

@@ -30,6 +30,6 @@ class ZendParser extends AbstractParser implements ParserInterface
      */
     public static function isSupported()
     {
-        return class_exists("\\Zend_Config_Yaml");
+        return class_exists('\\Zend_Config_Yaml');
     }
 }

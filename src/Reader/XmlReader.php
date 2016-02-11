@@ -33,7 +33,7 @@ class XmlReaderAbstract extends AbstractFileReaderAbstract implements ReaderInte
         $responseArray = array();
 
         foreach ($xml->task as $task) {
-            $responseArray[(string)$task->name] = $this->taskToArray($task);
+            $responseArray[(string) $task->name] = $this->taskToArray($task);
         }
 
         return $responseArray;
@@ -47,14 +47,14 @@ class XmlReaderAbstract extends AbstractFileReaderAbstract implements ReaderInte
     {
         $taskArray = array();
 
-        $taskArray['command'] = (string)$task->command;
-        $taskArray['month'] = (string)$task->month;
-        $taskArray['day_of_month'] = (string)$task->dayOfMonth;
-        $taskArray['day_of_week'] = (string)$task->dayOfWeek;
-        $taskArray['hour'] = (string)$task->hour;
-        $taskArray['minute'] = (string)$task->minute;
-        $taskArray['logFile'] = (string)$task->logFile;
-        $taskArray['machine'] = (string)$task->machine;
+        $taskArray['command'] = (string) $task->command;
+        $taskArray['month'] = (string) $task->month;
+        $taskArray['day_of_month'] = (string) $task->dayOfMonth;
+        $taskArray['day_of_week'] = (string) $task->dayOfWeek;
+        $taskArray['hour'] = (string) $task->hour;
+        $taskArray['minute'] = (string) $task->minute;
+        $taskArray['logFile'] = (string) $task->logFile;
+        $taskArray['machine'] = (string) $task->machine;
         $taskArray['variables'] = $this->parseVariables($task->variables->variable);
 
         return $taskArray;
@@ -70,7 +70,7 @@ class XmlReaderAbstract extends AbstractFileReaderAbstract implements ReaderInte
 
         /** @var \SimpleXMLElement $variable */
         foreach ($variables as $variable) {
-            $variablesArray[(string)$variable->attributes()->name] = (string)$variable;
+            $variablesArray[(string) $variable->attributes()->name] = (string) $variable;
         }
 
         return $variablesArray;
