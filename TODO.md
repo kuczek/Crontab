@@ -11,7 +11,7 @@ This version
 
 Next Versions
 ------------
-* support for windows Tasks (more info: http://stackoverflow.com/questions/132971/what-is-the-windows-version-of-cron)
+* support for windows Tasks (more info: http://stackoverflow.com/questions/132971/what-is-the-windows-version-of-cron, https://msdn.microsoft.com/en-us/library/windows/desktop/bb736357(v=vs.85).aspx)
 * support for special strings in unix cron (only reading will be enough i think), and possibility to setup cron for startup.
 * create comment object that can be added to task or variable
 * support for comments in variables, currently, all comments between variables will be ignored, and removed.

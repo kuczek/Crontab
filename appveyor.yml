@@ -3,6 +3,10 @@ shallow_clone: true
 platform: x86
 clone_folder: c:\projects\crontab
 
+branches:
+  only:
+    - master
+
 cache:
     - c:\php -> appveyor.yml
     - '%APPDATA%\Composer -> appveyor.yml'

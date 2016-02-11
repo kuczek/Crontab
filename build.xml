@@ -4,6 +4,7 @@
     <property name="deps" value="normal"/>
     <property name="citool" value="local"/>
     <property name="phpversion" value="${php.version}"/>
+    <property name="coveralls" value="false"/>
 
     <property name="build.report.dir" value="./build/report"/>
 
@@ -66,7 +67,7 @@
             <and>
                 <equals arg1="${citool}" arg2="travis"/>
                 <equals arg1="${deps}" arg2="normal"/>
-                <equals arg1="${phpversion}" arg2="7.0"/>
+                <equals arg1="${coveralls}" arg2="true"/>
             </and>
             <then>
                 <delete file="${build.config.file.phpspec}.travis"/>
