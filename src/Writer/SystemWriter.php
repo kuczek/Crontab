@@ -1,10 +1,18 @@
 <?php
+/**
+ * @copyright 2014-2016 hexmedia.pl
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ */
 
 namespace Hexmedia\Crontab\Writer;
 
 use Hexmedia\Crontab\Crontab;
 use Hexmedia\Crontab\Writer\System\WriterFactory;
 
+/**
+ * Class SystemWriter
+ * @package Hexmedia\Crontab\Writer
+ */
 class SystemWriter implements WriterInterface
 {
     /** @var System\WriterInterface|null writer */

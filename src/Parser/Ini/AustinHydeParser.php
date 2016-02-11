@@ -1,9 +1,7 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: kkuczek
- * Date: 2016-01-26
- * Time: 15:46
+ * @copyright 2014-2016 hexmedia.pl
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
  */
 
 namespace Hexmedia\Crontab\Parser\Ini;
@@ -11,8 +9,15 @@ namespace Hexmedia\Crontab\Parser\Ini;
 use Hexmedia\Crontab\Parser\AbstractParser;
 use Hexmedia\Crontab\Parser\ParserInterface;
 
+/**
+ * Class AustinHydeParser
+ * @package Hexmedia\Crontab\Parser\Ini
+ */
 class AustinHydeParser extends AbstractParser implements ParserInterface
 {
+    /**
+     * @return \ArrayObject
+     */
     public function parse()
     {
         $parser = new \IniParser($this->content);
@@ -25,6 +30,10 @@ class AustinHydeParser extends AbstractParser implements ParserInterface
         return $parsed;
     }
 
+    /**
+     * @param \ArrayObject $arrayObject
+     * @return array
+     */
     private function transformToArray(\ArrayObject $arrayObject)
     {
         $array = $arrayObject->getArrayCopy();
@@ -38,6 +47,9 @@ class AustinHydeParser extends AbstractParser implements ParserInterface
         return $array;
     }
 
+    /**
+     * @return bool
+     */
     public static function isSupported()
     {
         return class_exists("\\IniParser");

@@ -1,19 +1,37 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: kkuczek
- * Date: 2016-01-25
- * Time: 16:39
+ * @copyright 2014-2016 hexmedia.pl
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
  */
+
 
 namespace Hexmedia\Crontab;
 
+/**
+ * Class Variables
+ * @package Hexmedia\Crontab
+ */
 class Variables implements \Iterator
 {
+    /**
+     * @var int
+     */
     private $currentIndex = 0;
+
+    /**
+     * @var array
+     */
     private $values = array();
+
+    /**
+     * @var array
+     */
     private $keys = array();
 
+    /**
+     * Variables constructor.
+     * @param array $variables
+     */
     public function __construct(array $variables)
     {
         $this->values = $variables;

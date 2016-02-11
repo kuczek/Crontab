@@ -1,17 +1,22 @@
 <?php
+/**
+ * @copyright 2014-2016 hexmedia.pl
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ */
 
 namespace Hexmedia\Crontab\Parser\Ini;
 
 use Hexmedia\Crontab\Parser\ParserFactoryAbstract;
 
 /**
- * Created by PhpStorm.
- * User: kkuczek
- * Date: 2016-01-26
- * Time: 15:28
+ * Class ParserFactory
+ * @package Hexmedia\Crontab\Parser\Ini
  */
 class ParserFactory extends ParserFactoryAbstract
 {
+    /**
+     * @return array
+     */
     public function getDefaultParsers()
     {
         return array(

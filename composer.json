@@ -22,7 +22,7 @@
   },
   "require": {
     "php": ">=5.3.3",
-    "symfony/console": ">=2.3,<4"
+    "symfony/console": ">=2.3,<4.0"
   },
   "require-dev": {
     "phpunit/phpunit" : ">=4.0,<6",
@@ -41,8 +41,7 @@
     "phploc/phploc": ">=2.0,<4",
     "symfony/process": ">=2.3,<4",
     "seld/jsonlint": "^1.4",
-    "hexmedia/yaml-linter": "^0.2.0",
-    "sclable/xml-lint": "^0.2.1"
+    "hexmedia/yaml-linter": "^0.2.0"
   },
   "suggest": {
     "symfony/yaml": "Enables support for yaml configuration files.",

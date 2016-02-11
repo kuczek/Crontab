@@ -1,4 +1,8 @@
 <?php
+/**
+ * @copyright 2014-2016 hexmedia.pl
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ */
 
 namespace spec\Hexmedia\Crontab\Writer\System;
 
@@ -10,7 +14,6 @@ use Prophecy\Argument;
 
 class UnixWriterSpec extends ObjectBehavior
 {
-
     private function prepareTask(&$task, $variables, $notManaged = false)
     {
         $task->getCommand()->willReturn("test");

@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2015 hexmedia.pl
+ * @copyright 2014-2016 hexmedia.pl"true" === getenv
  * @author    Krystian Kuczek <krystian@hexmedia.pl>
  */
 
@@ -8,6 +8,10 @@ namespace Hexmedia\Crontab;
 
 use Hexmedia\Crontab\Exception\NotManagedException;
 
+/**
+ * Class Crontab
+ * @package Hexmedia\Crontab
+ */
 class Crontab
 {
     /**
@@ -111,6 +115,9 @@ class Crontab
         return $this;
     }
 
+    /**
+     * @return null|string
+     */
     public function getUser()
     {
         return $this->user;

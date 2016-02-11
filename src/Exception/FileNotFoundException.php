@@ -1,13 +1,15 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: krun
- * Date: 30.01.16
- * Time: 20:25
+ * @copyright 2014-2016 hexmedia.pl
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
  */
 
 namespace Hexmedia\Crontab\Exception;
 
+/**
+ * Class FileNotFoundException
+ * @package Hexmedia\Crontab\Exception
+ */
 class FileNotFoundException extends \Exception
 {
 

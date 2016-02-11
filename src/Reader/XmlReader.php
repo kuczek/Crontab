@@ -1,15 +1,20 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: kkuczek
- * Date: 2016-01-26
- * Time: 17:10
+ * @copyright 2014-2016 hexmedia.pl
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
  */
 
 namespace Hexmedia\Crontab\Reader;
 
-class XmlReader extends FileReader implements ReaderInterface
+/**
+ * Class XmlReaderAbstract
+ * @package Hexmedia\Crontab\Reader
+ */
+class XmlReaderAbstract extends AbstractFileReaderAbstract implements ReaderInterface
 {
+    /**
+     * @return array
+     */
     protected function parse()
     {
         $xml = new \SimpleXMLElement($this->getContent());
@@ -19,6 +24,10 @@ class XmlReader extends FileReader implements ReaderInterface
         return $parsed;
     }
 
+    /**
+     * @param \SimpleXMLElement $xml
+     * @return array
+     */
     private function convertToArray($xml)
     {
         $responseArray = array();
@@ -30,6 +39,10 @@ class XmlReader extends FileReader implements ReaderInterface
         return $responseArray;
     }
 
+    /**
+     * @param \SimpleXMLElement $task
+     * @return array
+     */
     private function taskToArray($task)
     {
         $taskArray = array();
@@ -42,17 +55,21 @@ class XmlReader extends FileReader implements ReaderInterface
         $taskArray['minute'] = (string)$task->minute;
         $taskArray['logFile'] = (string)$task->logFile;
         $taskArray['machine'] = (string)$task->machine;
-        $taskArray['variables'] = $this->parseVariables($task->variables);
+        $taskArray['variables'] = $this->parseVariables($task->variables->variable);
 
         return $taskArray;
     }
 
+    /**
+     * @param \SimpleXMLElement[] $variables
+     * @return array
+     */
     private function parseVariables($variables)
     {
         $variablesArray = array();
 
         /** @var \SimpleXMLElement $variable */
-        foreach ($variables->variable as $variable) {
+        foreach ($variables as $variable) {
             $variablesArray[(string)$variable->attributes()->name] = (string)$variable;
         }
 

@@ -1,11 +1,15 @@
 <?php
 /**
- * @copyright 2015 hexmedia.pl
+ * @copyright 2014-2016 hexmedia.pl
  * @author    Krystian Kuczek <krystian@hexmedia.pl>
  */
 
 namespace Hexmedia\Crontab;
 
+/**
+ * Class Task
+ * @package Hexmedia\Crontab
+ */
 class Task
 {
     /**

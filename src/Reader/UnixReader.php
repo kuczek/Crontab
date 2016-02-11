@@ -1,16 +1,18 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: krun
- * Date: 31.01.16
- * Time: 00:43
+ * @copyright 2014-2016 hexmedia.pl
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
  */
 
 namespace Hexmedia\Crontab\Reader;
 
 use Hexmedia\Crontab\Crontab;
 
-abstract class UnixReader extends ArrayReader
+/**
+ * Class UnixReaderAbstract
+ * @package Hexmedia\Crontab\Reader
+ */
+abstract class UnixReaderAbstract extends AbstractArrayReader
 {
     /**
      * UnixReader constructor.

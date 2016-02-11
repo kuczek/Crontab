@@ -1,11 +1,19 @@
 <?php
+/**
+ * @copyright 2014-2016 hexmedia.pl
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ */
 
 namespace Hexmedia\Crontab\Reader;
 
 use Hexmedia\Crontab\Crontab;
 use Hexmedia\Crontab\Exception\FileNotFoundException;
 
-class UnixFileReader extends UnixReader
+/**
+ * Class UnixFileReader
+ * @package Hexmedia\Crontab\Reader
+ */
+class UnixFileReader extends UnixReaderAbstract
 {
     /**
      * @var string

@@ -1,4 +1,8 @@
 <?php
+/**
+ * @copyright 2014-2016 hexmedia.pl
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ */
 
 namespace Hexmedia\Crontab\Console;
 
@@ -9,8 +13,15 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Class ClearCommand
+ * @package Hexmedia\Crontab\Console
+ */
 class ClearCommand extends AbstractCommand
 {
+    /**
+     *
+     */
     protected function configureName()
     {
         $this

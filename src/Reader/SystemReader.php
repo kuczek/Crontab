@@ -1,10 +1,18 @@
 <?php
+/**
+ * @copyright 2014-2016 hexmedia.pl
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ */
 
 namespace Hexmedia\Crontab\Reader;
 
 use Hexmedia\Crontab\Crontab;
 use Hexmedia\Crontab\Exception\NotReaderFoundForOSException;
 
+/**
+ * Class SystemReader
+ * @package Hexmedia\Crontab\Reader
+ */
 class SystemReader implements ReaderInterface
 {
     private $readers = array(
@@ -28,7 +36,7 @@ class SystemReader implements ReaderInterface
 
     /**
      * SystemReader constructor.
-     * @param $user
+     * @param string $user
      * @param Crontab|null $crontab
      */
     public function __construct($user, Crontab $crontab = null)
@@ -85,7 +93,7 @@ class SystemReader implements ReaderInterface
     /**
      * @param string $reader
      *
-     * @return this;
+     * @return $this;
      */
     public function removeReader($reader)
     {

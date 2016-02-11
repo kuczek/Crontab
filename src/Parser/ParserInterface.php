@@ -15,5 +15,8 @@ interface ParserInterface
      */
     public function parse();
 
+    /**
+     * @return bool
+     */
     public static function isSupported();
 }

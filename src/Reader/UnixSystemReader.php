@@ -1,11 +1,22 @@
 <?php
+/**
+ * @copyright 2014-2016 hexmedia.pl
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ */
 
 namespace Hexmedia\Crontab\Reader;
 
 use Hexmedia\Crontab\Crontab;
 
-class UnixSystemReader extends UnixReader
+/**
+ * Class UnixSystemReader
+ * @package Hexmedia\Crontab\Reader
+ */
+class UnixSystemReader extends UnixReaderAbstract
 {
+    /**
+     * @var array
+     */
     private static $supportedOses = array("Linux", "FreeBSD");
 
     /**
@@ -13,6 +24,11 @@ class UnixSystemReader extends UnixReader
      */
     private $user;
 
+    /**
+     * UnixSystemReader constructor.
+     * @param string $user
+     * @param Crontab|null $crontab
+     */
     public function __construct($user, Crontab $crontab = null)
     {
         $this->user = $user;
@@ -20,6 +36,9 @@ class UnixSystemReader extends UnixReader
         parent::__construct($crontab);
     }
 
+    /**
+     * @return bool
+     */
     public static function isSupported()
     {
         return in_array(PHP_OS, self::$supportedOses);

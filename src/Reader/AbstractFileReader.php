@@ -1,16 +1,18 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: kkuczek
- * Date: 2016-01-26
- * Time: 12:35
+ * @copyright 2014-2016 hexmedia.pl
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
  */
 
 namespace Hexmedia\Crontab\Reader;
 
 use Hexmedia\Crontab\Crontab;
 
-abstract class FileReader extends ArrayReader
+/**
+ * Class FileReader
+ * @package Hexmedia\Crontab\Reader
+ */
+abstract class AbstractFileReaderAbstract extends AbstractArrayReader
 {
     /**
      * @var string
@@ -52,11 +54,17 @@ abstract class FileReader extends ArrayReader
         return $this->readArray($parsed);
     }
 
+    /**
+     * @return string
+     */
     protected function getFile()
     {
         return $this->file;
     }
 
+    /**
+     * @return string
+     */
     protected function getContent()
     {
         return file_get_contents($this->getFile());

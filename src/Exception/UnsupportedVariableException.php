@@ -1,13 +1,15 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: kkuczek
- * Date: 2016-01-25
- * Time: 16:48
+ * @copyright 2014-2016 hexmedia.pl
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
  */
 
 namespace Hexmedia\Crontab\Exception;
 
+/**
+ * Class UnsupportedVariableException
+ * @package Hexmedia\Crontab\Exception
+ */
 class UnsupportedVariableException extends \Exception
 {
 

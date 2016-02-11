@@ -1,27 +1,32 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: kkuczek
- * Date: 2016-01-25
- * Time: 13:25
+ * @copyright 2014-2016 hexmedia.pl
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
  */
 
 namespace Hexmedia\Crontab\Reader;
 
 use Hexmedia\Crontab\Crontab;
 
-class JsonReader extends FileReader implements ReaderInterface
+/**
+ * Class JsonReaderAbstract
+ * @package Hexmedia\Crontab\Reader
+ */
+class JsonReaderAbstract extends AbstractFileReaderAbstract implements ReaderInterface
 {
     /**
-     * @param null $file
+     * @param string $file
      * @param Crontab|null $crontab
-     * @param null $machine
+     * @param string|null $machine
      */
     public function __construct($file, Crontab $crontab = null, $machine = null)
     {
         parent::__construct($file, $crontab, $machine);
     }
 
+    /**
+     * @return array
+     */
     protected function parse()
     {
         $parsed = json_decode($this->getContent(), true);

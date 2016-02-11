@@ -1,21 +1,23 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: kkuczek
- * Date: 2016-01-26
- * Time: 13:48
+ * @copyright 2014-2016 hexmedia.pl
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
  */
 
 namespace Hexmedia\Crontab;
 
-use Hexmedia\Crontab\Reader\IniReader;
-use Hexmedia\Crontab\Reader\JsonReader;
+use Hexmedia\Crontab\Reader\IniReaderAbstract;
+use Hexmedia\Crontab\Reader\JsonReaderAbstract;
 use Hexmedia\Crontab\Reader\ReaderInterface;
 use Hexmedia\Crontab\Reader\UnixSystemReader;
-use Hexmedia\Crontab\Reader\XmlReader;
-use Hexmedia\Crontab\Reader\YamlReader;
+use Hexmedia\Crontab\Reader\XmlReaderAbstract;
+use Hexmedia\Crontab\Reader\YamlReaderAbstract;
 use Hexmedia\Crontab\Exception\FactoryException;
 
+/**
+ * Class ReaderFactory
+ * @package Hexmedia\Crontab
+ */
 class ReaderFactory
 {
     /**
@@ -49,7 +51,7 @@ class ReaderFactory
 
     /**
      * @param array $configuration
-     * @return JsonReader
+     * @return JsonReaderAbstract
      * @throws FactoryException
      */
     private static function createJson(array $configuration)
@@ -62,14 +64,14 @@ class ReaderFactory
         $machine = self::configurationGetOrDefault($configuration, 'machine', null);
         $crontab = self::configurationGetOrDefault($configuration, 'crontab', null);
 
-        $reader = new JsonReader($file, $crontab, $machine);
+        $reader = new JsonReaderAbstract($file, $crontab, $machine);
 
         return $reader;
     }
 
     /**
      * @param array $configuration
-     * @return YamlReader
+     * @return YamlReaderAbstract
      * @throws FactoryException
      */
     private static function createYaml(array $configuration)
@@ -82,7 +84,7 @@ class ReaderFactory
         $machine = self::configurationGetOrDefault($configuration, 'machine', null);
         $crontab = self::configurationGetOrDefault($configuration, 'crontab', null);
 
-        $reader = new YamlReader($file, $crontab, $machine);
+        $reader = new YamlReaderAbstract($file, $crontab, $machine);
 
         return $reader;
     }
@@ -97,7 +99,7 @@ class ReaderFactory
         $machine = self::configurationGetOrDefault($configuration, 'machine', null);
         $crontab = self::configurationGetOrDefault($configuration, 'crontab', null);
 
-        $reader = new IniReader($file, $crontab, $machine);
+        $reader = new IniReaderAbstract($file, $crontab, $machine);
 
         return $reader;
     }
@@ -112,7 +114,7 @@ class ReaderFactory
         $machine = self::configurationGetOrDefault($configuration, 'machine', null);
         $crontab = self::configurationGetOrDefault($configuration, 'crontab', null);
 
-        $reader = new XmlReader($file, $crontab, $machine);
+        $reader = new XmlReaderAbstract($file, $crontab, $machine);
 
         return $reader;
     }

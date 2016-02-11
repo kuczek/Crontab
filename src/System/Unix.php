@@ -1,4 +1,8 @@
 <?php
+/**
+ * @copyright 2014-2016 hexmedia.pl
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ */
 
 namespace Hexmedia\Crontab\System;
 
@@ -6,12 +10,17 @@ use Hexmedia\Crontab\Exception\SystemOperationException;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 
+/**
+ * Class Unix
+ * @package Hexmedia\Crontab\System
+ */
 class Unix
 {
     /**
      * @var string|null
      */
     private static $temporaryDir = null;
+
     /**
      * @var ProcessBuilder
      */
@@ -143,6 +152,11 @@ class Unix
         return true;
     }
 
+    /**
+     * @param null $user
+     * @return bool
+     * @throws SystemOperationException
+     */
     public static function isSetUp($user = null)
     {
         return false !== self::get($user);
@@ -172,6 +186,9 @@ class Unix
         return in_array(PHP_OS, self::$unixes);
     }
 
+    /**
+     * @return array
+     */
     public static function getUnixList()
     {
         return self::$unixes;

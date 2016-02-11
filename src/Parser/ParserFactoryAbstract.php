@@ -1,9 +1,7 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: kkuczek
- * Date: 2016-01-26
- * Time: 17:45
+ * @copyright 2014-2016 hexmedia.pl
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
  */
 
 namespace Hexmedia\Crontab\Parser;
@@ -11,6 +9,10 @@ namespace Hexmedia\Crontab\Parser;
 use Hexmedia\Crontab\Exception\NoSupportedParserException;
 use Hexmedia\Crontab\Exception\UnexistingParserException;
 
+/**
+ * Class ParserFactoryAbstract
+ * @package Hexmedia\Crontab\Parser
+ */
 abstract class ParserFactoryAbstract
 {
     /**

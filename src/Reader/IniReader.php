@@ -1,9 +1,7 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: kkuczek
- * Date: 2016-01-25
- * Time: 13:25
+ * @copyright 2014-2016 hexmedia.pl
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
  */
 
 namespace Hexmedia\Crontab\Reader;
@@ -11,7 +9,11 @@ namespace Hexmedia\Crontab\Reader;
 use Hexmedia\Crontab\Crontab;
 use Hexmedia\Crontab\Parser\Ini\ParserFactory;
 
-class IniReader extends FileReader implements ReaderInterface
+/**
+ * Class IniReader
+ * @package Hexmedia\Crontab\Reader
+ */
+class IniReaderAbstract extends AbstractFileReaderAbstract implements ReaderInterface
 {
     /**
      * @param null $file
@@ -23,6 +25,10 @@ class IniReader extends FileReader implements ReaderInterface
         parent::__construct($file, $crontab, $machine);
     }
 
+    /**
+     * @return array
+     * @throws \Hexmedia\Crontab\Exception\NoSupportedParserException
+     */
     protected function parse()
     {
         $parserFactory = new ParserFactory();

@@ -1,9 +1,7 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: kkuczek
- * Date: 2016-01-26
- * Time: 17:49
+ * @copyright 2014-2016 hexmedia.pl
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
  */
 
 namespace Hexmedia\Crontab\Parser\Yaml;
@@ -32,6 +30,9 @@ class Zend2Parser extends AbstractParser implements ParserInterface
         return $config;
     }
 
+    /**
+     * @return bool
+     */
     public static function isSupported()
     {
         return false;

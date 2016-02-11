@@ -1,4 +1,8 @@
 <?php
+/**
+ * @copyright 2014-2016 hexmedia.pl
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ */
 
 namespace Hexmedia\Crontab\Parser\Unix;
 
@@ -21,6 +25,10 @@ class UnixParser extends AbstractParser implements ParserInterface
         'FreeBSD'
     );
 
+    /**
+     * @return array
+     * @throws ParseException
+     */
     public function parse()
     {
         $content = "\n" . $this->getContent(); //a little trick
@@ -113,11 +121,17 @@ class UnixParser extends AbstractParser implements ParserInterface
         return $rule;
     }
 
+    /**
+     * @return string
+     */
     private function getCommentRule()
     {
         return '(#(?<comment>.*))';
     }
 
+    /**
+     * @return string
+     */
     private function getVariableRule()
     {
         return '(?<variable>[A-Za-z0-9_]*)=(?<value>.*)';
@@ -130,7 +144,6 @@ class UnixParser extends AbstractParser implements ParserInterface
     {
         return in_array(PHP_OS, self::getSupportedOs());
     }
-
 
     /**
      * @param string $osName

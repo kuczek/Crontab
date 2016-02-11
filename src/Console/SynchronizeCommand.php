@@ -1,4 +1,8 @@
 <?php
+/**
+ * @copyright 2014-2016 hexmedia.pl
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ */
 
 namespace Hexmedia\Crontab\Console;
 
@@ -6,8 +10,15 @@ use Hexmedia\Crontab\Crontab;
 use Hexmedia\Crontab\Writer\SystemWriter;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Class SynchronizeCommand
+ * @package Hexmedia\Crontab\Console
+ */
 class SynchronizeCommand extends AbstractCommand
 {
+    /**
+     *
+     */
     protected function configureName()
     {
         $this

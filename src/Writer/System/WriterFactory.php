@@ -1,4 +1,8 @@
 <?php
+/**
+ * @copyright 2014-2016 hexmedia.pl
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ */
 
 /**
  * @(c) 2013-2015 Hexmedia.pl <krystian@hexmedia.pl>

@@ -1,9 +1,7 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: kkuczek
- * Date: 2016-01-26
- * Time: 12:31
+ * @copyright 2014-2016 hexmedia.pl
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
  */
 
 namespace Hexmedia\Crontab\Reader;
@@ -12,7 +10,11 @@ use Hexmedia\Crontab\Crontab;
 use Hexmedia\Crontab\Task;
 use Hexmedia\Crontab\Variables;
 
-abstract class ArrayReader implements ReaderInterface
+/**
+ * Class ArrayReader
+ * @package Hexmedia\Crontab\Reader
+ */
+abstract class AbstractArrayReader implements ReaderInterface
 {
     /**
      * @var Crontab
@@ -20,14 +22,14 @@ abstract class ArrayReader implements ReaderInterface
     private $crontab;
 
     /**
-     * @var null
+     * @var string|null
      */
     private $machine = null;
 
     /**
      * ArrayReader constructor.
      * @param Crontab|null $crontab
-     * @param null $machine;
+     * @param string|null $machine
      */
     public function __construct(Crontab $crontab = null, $machine = null)
     {
@@ -35,6 +37,10 @@ abstract class ArrayReader implements ReaderInterface
         $this->machine = $machine;
     }
 
+    /**
+     * @param array $array
+     * @return Crontab
+     */
     protected function readArray(array $array)
     {
         foreach ($array as $name => $task) {
@@ -48,12 +54,18 @@ abstract class ArrayReader implements ReaderInterface
         return $this->crontab;
     }
 
+    /**
+     * @return Crontab
+     */
     public function read()
     {
         $array = $this->prepareArray();
         return $this->readArray($array);
     }
 
+    /**
+     * @return array
+     */
     abstract protected function prepareArray();
 
     /**
@@ -78,6 +90,10 @@ abstract class ArrayReader implements ReaderInterface
         return $task;
     }
 
+    /**
+     * @param string $machine
+     * @return bool
+     */
     private function checkIfForThisMachine($machine)
     {
         if (null === $this->machine) {
