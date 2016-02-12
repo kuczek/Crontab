@@ -8,11 +8,10 @@
 namespace Hexmedia\Crontab\Exception;
 
 /**
- * Class ParseException
- *
- * @package Hexmedia\CrontabBundle\Exception
+ * Class NoWriterException
+ * @package Hexmedia\Crontab\Exception
  */
-class ParseException extends \Exception
+class NoWriterForSystemException extends \Exception
 {
 
 }

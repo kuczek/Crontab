@@ -1,9 +1,18 @@
 <?php
 
+/**
+ * @(c) 2013-2015 Hexmedia.pl <krystian@hexmedia.pl>
+ */
+
 namespace Hexmedia\Crontab\Writer\System;
 
+use Hexmedia\Crontab\Exception\NoWriterForSystemException;
 use Hexmedia\Crontab\Exception\WriterNotExistsException;
 
+/**
+ * Class WriterFactory
+ * @package Hexmedia\Crontab\Writer\System
+ */
 class WriterFactory
 {
     /**
@@ -13,6 +22,7 @@ class WriterFactory
 
     /**
      * @return WriterInterface|null
+     * @throws NoWriterForSystemException
      */
     public static function create()
     {
@@ -22,7 +32,9 @@ class WriterFactory
             }
         }
 
-        return null;
+        throw new NoWriterForSystemException(
+            sprintf("Writer for your operating system '%s' was not found!", PHP_OS)
+        );
     }
 
     /**
