@@ -32,8 +32,24 @@
         <include name="**/*.php"></include>
     </fileset>
 
-    <target name="composer">
-        <composer command="install"/>
+    <target name="composer-check">
+        <exec executable="which" outputProperty="composer.file">
+            <arg line="composer"/>
+        </exec>
+
+        <if>
+            <available file="${composer.file}" property="composer.exists"/>
+            <then>
+
+            </then>
+            <else>
+                <input message="Enter path to your composer file: " propertyName="composer.file"/>
+            </else>
+        </if>
+    </target>
+
+    <target name="composer" depends="composer-check">
+        <composer command="install" composer="${composer.file}"/>
     </target>
 
     <target name="prepare">
@@ -248,10 +264,60 @@
         </if>
     </target>
 
+    <target name="travislint">
+        <if>
+            <and>
+                <os family="Unix"></os>
+                <not>
+                    <equals arg1="${citool}" arg2="travis"/>
+                </not>
+            </and>
+            <then>
+                <exec executable="which" outputProperty="travis.command">
+                    <arg line="travis"/>
+                </exec>
+
+                <echo message="Travis command is: '${travis.command}'"/>
+
+                <if>
+                    <and>
+                        <not>
+                            <equals arg1="${travis.command}" arg2="" />
+                        </not>
+                        <available property="travis.exists" file="${travis.command}"/>
+                    </and>
+                    <then>
+                        <exec executable="${travis.command}" checkreturn="true" outputProperty="travis.output">
+                            <arg line="lint"/>
+                        </exec>
+
+                        <if>
+                            <contains string="${travis.output}" substring="Warnings for .travis.yml"
+                                      casesensitive="true"/>
+                            <then>
+                                <echo message="${travis.output}" level="warning"/>
+                                <fail message="Travis crontab is wrong!"/>
+                            </then>
+                        </if>
+                    </then>
+                    <else>
+                        <echo message="Will not check travis."/>
+                    </else>
+                </if>
+            </then>
+            <else>
+                <echo message="Will not check travis."/>
+            </else>
+        </if>
+    </target>
+
+    <target name="composerlint" depends="composer-check">
+        <composer composer="${composer.file}" command="validate"/>
+    </target>
 
     <!-- Full tasks -->
 
-    <target name="lint" depends="jsonlint,yamllint,xmllint"/>
+    <target name="lint" depends="composerlint,travislint,jsonlint,yamllint,xmllint"/>
 
     <target name="tests" depends="phpmd, phpcs, phploc, phpcpd, phpspec"/>
     <target name="tests-local" depends="phpmd-local, phpspec-local, phpcs, phploc-local, phpcpd"/>
