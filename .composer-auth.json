@@ -1,7 +1,7 @@
 {
   "github-oauth": {
     "github.com": "PLEASE DO NOT USE THIS TOKEN IN YOUR OWN PROJECTS/FORKS",
-    "github.com": "This token is reserved for testing the symfony/symfony repository",
+    "github.com": "This token is reserved for testing the Hexmedia/Crontab repository",
     "github.com": "7ef309823a135cbd4d0bc02940178a783b23c522"
   }
 }
