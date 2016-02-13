@@ -1,7 +1,8 @@
 <?php
 /**
- * @copyright 2013-2016 Hexmedia.pl
  * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
  */
 
 namespace Hexmedia\Crontab\Reader;
@@ -10,7 +11,7 @@ namespace Hexmedia\Crontab\Reader;
  * Class XmlReader
  * @package Hexmedia\Crontab\Reader
  */
-class XmlReader extends FileReaderAbstract implements ReaderInterface
+class XmlReader extends FileReaderAbstractArrayReader implements ReaderInterface
 {
     /**
      * @return array

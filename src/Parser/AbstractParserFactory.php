@@ -1,7 +1,8 @@
 <?php
 /**
- * @copyright 2013-2016 Hexmedia.pl
  * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
  */
 
 namespace Hexmedia\Crontab\Parser;
@@ -13,7 +14,7 @@ use Hexmedia\Crontab\Exception\UnexistingParserException;
  * Class ParserFactoryAbstract
  * @package Hexmedia\Crontab\Parser
  */
-abstract class ParserFactoryAbstract
+abstract class AbstractParserFactory
 {
     /**
      * @var array|mixed

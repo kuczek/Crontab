@@ -1,7 +1,8 @@
 <?php
 /**
- * @copyright 2013-2016 Hexmedia.pl
  * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
  */
 
 namespace Hexmedia\Crontab\Reader;
@@ -12,7 +13,7 @@ use Hexmedia\Crontab\Crontab;
  * Class JsonReader
  * @package Hexmedia\Crontab\Reader
  */
-class JsonReader extends FileReaderAbstract implements ReaderInterface
+class JsonReader extends FileReaderAbstractArrayReader implements ReaderInterface
 {
     /**
      * @param string       $file

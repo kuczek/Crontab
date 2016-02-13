@@ -1,18 +1,19 @@
 <?php
 /**
- * @copyright 2013-2016 Hexmedia.pl
  * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
  */
 
 namespace Hexmedia\Crontab\Parser\Yaml;
 
-use Hexmedia\Crontab\Parser\ParserFactoryAbstract;
+use Hexmedia\Crontab\Parser\AbstractParserFactory;
 
 /**
  * Class ParserFactory
  * @package Hexmedia\Crontab\Parser\Yaml
  */
-class ParserFactory extends ParserFactoryAbstract
+class ParserFactory extends AbstractParserFactory
 {
     /**
      * @return array

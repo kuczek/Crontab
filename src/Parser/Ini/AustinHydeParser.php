@@ -1,19 +1,20 @@
 <?php
 /**
- * @copyright 2013-2016 Hexmedia.pl
  * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
  */
 
 namespace Hexmedia\Crontab\Parser\Ini;
 
-use Hexmedia\Crontab\Parser\ParserAbstract;
+use Hexmedia\Crontab\Parser\AbstractParser;
 use Hexmedia\Crontab\Parser\ParserInterface;
 
 /**
  * Class AustinHydeParser
  * @package Hexmedia\Crontab\Parser\Ini
  */
-class AustinHydeParser extends ParserAbstract implements ParserInterface
+class AustinHydeParser extends AbstractParser implements ParserInterface
 {
     /**
      * @return \ArrayObject
@@ -31,6 +32,14 @@ class AustinHydeParser extends ParserAbstract implements ParserInterface
     }
 
     /**
+     * @return bool
+     */
+    public static function isSupported()
+    {
+        return class_exists('\\IniParser');
+    }
+
+    /**
      * @param \ArrayObject $arrayObject
      * @return array
      */
@@ -45,13 +54,5 @@ class AustinHydeParser extends ParserAbstract implements ParserInterface
         }
 
         return $array;
-    }
-
-    /**
-     * @return bool
-     */
-    public static function isSupported()
-    {
-        return class_exists('\\IniParser');
     }
 }

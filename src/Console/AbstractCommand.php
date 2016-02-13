@@ -1,7 +1,8 @@
 <?php
 /**
- * @copyright 2013-2016 Hexmedia.pl
  * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
  */
 
 namespace Hexmedia\Crontab\Console;
@@ -18,10 +19,21 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class CommandAbstract
+ *
  * @package Hexmedia\Crontab\Console
  */
-abstract class CommandAbstract extends Command
+abstract class AbstractCommand extends Command
 {
+
+    /**
+     * @param OutputInterface $output
+     * @param Crontab         $crontab
+     * @param string|null     $user
+     *
+     * @return mixed
+     */
+    abstract public function output(OutputInterface $output, Crontab $crontab, $user = null);
+
     /**
      *
      */
@@ -37,6 +49,9 @@ abstract class CommandAbstract extends Command
         $this->configureName();
     }
 
+    /**
+     * @return mixed
+     */
     abstract protected function configureName();
 
     /**
@@ -50,8 +65,9 @@ abstract class CommandAbstract extends Command
     }
 
     /**
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
+     *
      * @return null
      * @SuppressWarnings(PHPMD.StaticAccess)
      */
@@ -76,14 +92,6 @@ abstract class CommandAbstract extends Command
 
         $this->output($output, $crontab, $user);
     }
-
-    /**
-     * @param OutputInterface $output
-     * @param Crontab         $crontab
-     * @param string|null     $user
-     * @return mixed
-     */
-    abstract public function output(OutputInterface $output, Crontab $crontab, $user = null);
 
     /**
      * @param InputInterface $input

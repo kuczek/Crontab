@@ -1,7 +1,8 @@
 <?php
 /**
- * @copyright 2013-2016 Hexmedia.pl
  * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
  */
 
 namespace Hexmedia\Crontab\Reader;
@@ -14,7 +15,7 @@ use Hexmedia\Crontab\Variables;
  * Class ArrayReaderAbstract
  * @package Hexmedia\Crontab\Reader
  */
-abstract class ArrayReaderAbstract implements ReaderInterface
+abstract class AbstractArrayReader implements ReaderInterface
 {
     /**
      * @var Crontab
@@ -38,6 +39,16 @@ abstract class ArrayReaderAbstract implements ReaderInterface
     }
 
     /**
+     * @return Crontab
+     */
+    public function read()
+    {
+        $array = $this->prepareArray();
+
+        return $this->readArray($array);
+    }
+
+    /**
      * @param array $array
      * @return Crontab
      */
@@ -52,16 +63,6 @@ abstract class ArrayReaderAbstract implements ReaderInterface
         }
 
         return $this->crontab;
-    }
-
-    /**
-     * @return Crontab
-     */
-    public function read()
-    {
-        $array = $this->prepareArray();
-
-        return $this->readArray($array);
     }
 
     /**

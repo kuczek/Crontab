@@ -1,7 +1,8 @@
 <?php
 /**
- * @copyright 2013-2016 Hexmedia.pl
  * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
  */
 
 namespace Hexmedia\Crontab\Console;
@@ -17,8 +18,25 @@ use Symfony\Component\Console\Output\OutputInterface;
  * Class ClearCommand
  * @package Hexmedia\Crontab\Console
  */
-class ClearCommand extends CommandAbstract
+class ClearCommand extends AbstractCommand
 {
+    /**
+     * @param OutputInterface $output
+     * @param Crontab         $crontab
+     * @param string|null     $user
+     * @return mixed
+     */
+    public function output(OutputInterface $output, Crontab $crontab, $user = null)
+    {
+        $crontab->clearManagedTasks();
+
+        $writer = new SystemWriter(array('user' => $user));
+
+        $writer->save($crontab);
+
+        $output->writeln('Your crontab was updated!');
+    }
+
     /**
      *
      */
@@ -48,23 +66,6 @@ class ClearCommand extends CommandAbstract
         $crontab->clearManagedTasks();
 
         $this->output($output, $crontab, $user);
-    }
-
-    /**
-     * @param OutputInterface $output
-     * @param Crontab         $crontab
-     * @param string|null     $user
-     * @return mixed
-     */
-    public function output(OutputInterface $output, Crontab $crontab, $user = null)
-    {
-        $crontab->clearManagedTasks();
-
-        $writer = new SystemWriter(array('user' => $user));
-
-        $writer->save($crontab);
-
-        $output->writeln('Your crontab was updated!');
     }
 
     protected function configureArguments()

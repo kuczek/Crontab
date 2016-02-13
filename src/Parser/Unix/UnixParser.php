@@ -1,27 +1,28 @@
 <?php
 /**
- * @copyright 2013-2016 Hexmedia.pl
  * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
  */
 
 namespace Hexmedia\Crontab\Parser\Unix;
 
 use Hexmedia\Crontab\Exception\ParseException;
-use Hexmedia\Crontab\Parser\ParserAbstract;
+use Hexmedia\Crontab\Parser\AbstractParser;
 use Hexmedia\Crontab\Parser\ParserInterface;
 
 /**
  * Class UnixParser
  * @package Hexmedia\Crontab\Parser\Unix
  */
-class UnixParser extends ParserAbstract implements ParserInterface
+class UnixParser extends AbstractParser implements ParserInterface
 {
     /**
      * @var array
      */
     private static $supportedOs = array(
         'Linux',
-        'FreeBSD'
+        'FreeBSD',
     );
 
     /**
@@ -44,6 +45,42 @@ class UnixParser extends ParserAbstract implements ParserInterface
         }
 
         return $return;
+    }
+
+    /**
+     * @return bool
+     */
+    public static function isSupported()
+    {
+        return in_array(PHP_OS, self::getSupportedOs());
+    }
+
+    /**
+     * @param string $osName
+     */
+    public function addSupportedOs($osName)
+    {
+        self::$supportedOs[] = $osName;
+    }
+
+    /**
+     * @param string $osName
+     */
+    public function removeSupportedOs($osName)
+    {
+        $key = array_search($osName, self::$supportedOs);
+
+        unset(self::$supportedOs[$key]);
+    }
+
+    /**
+     * Returns all operating systems supported by this *nix like library
+     *
+     * @return string[]
+     */
+    public static function getSupportedOs()
+    {
+        return self::$supportedOs;
     }
 
     /**
@@ -97,7 +134,7 @@ class UnixParser extends ParserAbstract implements ParserInterface
 
         return array(
             'comment' => trim($comment),
-            'variables' => $variables
+            'variables' => $variables,
         );
     }
 
@@ -131,41 +168,5 @@ class UnixParser extends ParserAbstract implements ParserInterface
     private function getVariableRule()
     {
         return '(?<variable>[A-Za-z0-9_]*)=(?<value>.*)';
-    }
-
-    /**
-     * @return bool
-     */
-    public static function isSupported()
-    {
-        return in_array(PHP_OS, self::getSupportedOs());
-    }
-
-    /**
-     * @param string $osName
-     */
-    public function addSupportedOs($osName)
-    {
-        self::$supportedOs[] = $osName;
-    }
-
-    /**
-     * @param string $osName
-     */
-    public function removeSupportedOs($osName)
-    {
-        $key = array_search($osName, self::$supportedOs);
-
-        unset(self::$supportedOs[$key]);
-    }
-
-    /**
-     * Returns all operating systems supported by this *nix like library
-     *
-     * @return string[]
-     */
-    public static function getSupportedOs()
-    {
-        return self::$supportedOs;
     }
 }

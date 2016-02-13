@@ -1,7 +1,8 @@
 <?php
 /**
- * @copyright 2013-2016 Hexmedia.pl
  * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
  */
 
 namespace Hexmedia\Crontab\Reader;
@@ -12,7 +13,7 @@ use Hexmedia\Crontab\Crontab;
  * Class UnixSystemReader
  * @package Hexmedia\Crontab\Reader
  */
-class UnixSystemReader extends UnixReaderAbstract
+class UnixSystemReader extends AbstractUnixReader
 {
     /**
      * @var array
@@ -42,20 +43,6 @@ class UnixSystemReader extends UnixReaderAbstract
     public static function isSupported()
     {
         return in_array(PHP_OS, self::$supportedOses);
-    }
-
-    /**
-     * @return string
-     */
-    protected function getContent()
-    {
-        $output = array();
-
-        $result = exec(sprintf('crontab -l %s', ($this->user ? '-u ' . $this->user : '')), $output);
-
-        if ($result) {
-            return implode("\n", $output);
-        }
     }
 
     /**
@@ -93,5 +80,19 @@ class UnixSystemReader extends UnixReaderAbstract
         }
 
         return false;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getContent()
+    {
+        $output = array();
+
+        $result = exec(sprintf('crontab -l %s', ($this->user ? '-u ' . $this->user : '')), $output);
+
+        if ($result) {
+            return implode("\n", $output);
+        }
     }
 }

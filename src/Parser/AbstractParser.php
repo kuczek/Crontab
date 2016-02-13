@@ -1,7 +1,8 @@
 <?php
 /**
- * @copyright 2013-2016 Hexmedia.pl
  * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
  */
 
 namespace Hexmedia\Crontab\Parser;
@@ -10,7 +11,7 @@ namespace Hexmedia\Crontab\Parser;
  * Class ParserAbstract
  * @package Hexmedia\Crontab\Parser
  */
-abstract class ParserAbstract implements ParserInterface
+abstract class AbstractParser implements ParserInterface
 {
     /**
      * @var string

@@ -1,7 +1,8 @@
 <?php
 /**
- * @copyright 2013-2016 Hexmedia.pl
  * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
  */
 
 namespace Hexmedia\Crontab\Writer\System;
@@ -39,6 +40,16 @@ class UnixWriter implements WriterInterface
     }
 
     /**
+     * @return bool
+     *
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
+    public static function isSupported()
+    {
+        return Unix::isUnix();
+    }
+
+    /**
      * @param string $content
      *
      * @return bool
@@ -48,16 +59,6 @@ class UnixWriter implements WriterInterface
         str_replace(2, 1, $content);
 
         return true;
-    }
-
-    /**
-     * @return bool
-     *
-     * @SuppressWarnings(PHPMD.StaticAccess)
-     */
-    public static function isSupported()
-    {
-        return Unix::isUnix();
     }
 
     private function prepareContent(Crontab $crontab)

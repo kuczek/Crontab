@@ -1,19 +1,20 @@
 <?php
 /**
- * @copyright 2013-2016 Hexmedia.pl
  * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
  */
 
 namespace Hexmedia\Crontab\Parser\Ini;
 
-use Hexmedia\Crontab\Parser\ParserAbstract;
+use Hexmedia\Crontab\Parser\AbstractParser;
 use Hexmedia\Crontab\Parser\ParserInterface;
 
 /**
  * Class Zend2Parser
  * @package Hexmedia\Crontab\Parser\Ini
  */
-class Zend2Parser extends ParserAbstract implements ParserInterface
+class Zend2Parser extends AbstractParser implements ParserInterface
 {
     /**
      * @return array
