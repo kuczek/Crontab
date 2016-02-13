@@ -15,7 +15,7 @@
     <property name="build.report.dir.phpdcd" value="${build.report.dir}/phpdcd"/>
 
     <property name="build.phpcs.standard"
-              value="${project.basedir}/vendor/leaphub/phpcs-symfony2-standard/leaphub/phpcs/Symfony2"/>
+              value="${project.basedir}/vendor/hexmedia/code-style/hexmedia/phpcs/Hexmedia/src/Hexmedia/"/>
 
     <property name="build.config.dir" value="${build.dir}/config"/>
     <property name="build.config.file.phpmd" value="${build.config.dir}/phpmd.xml"/>

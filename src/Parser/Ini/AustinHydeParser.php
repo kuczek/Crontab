@@ -13,7 +13,7 @@ use Hexmedia\Crontab\Parser\ParserInterface;
  * Class AustinHydeParser
  * @package Hexmedia\Crontab\Parser\Ini
  */
-class AustinHydeParserAbstract extends ParserAbstract implements ParserInterface
+class AustinHydeParser extends ParserAbstract implements ParserInterface
 {
     /**
      * @return \ArrayObject

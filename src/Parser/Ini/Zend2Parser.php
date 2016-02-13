@@ -13,7 +13,7 @@ use Hexmedia\Crontab\Parser\ParserInterface;
  * Class Zend2Parser
  * @package Hexmedia\Crontab\Parser\Ini
  */
-class Zend2ParserAbstract extends ParserAbstract implements ParserInterface
+class Zend2Parser extends ParserAbstract implements ParserInterface
 {
     /**
      * @return array

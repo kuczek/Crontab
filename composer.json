@@ -41,7 +41,8 @@
     "phploc/phploc": ">=2.0,<4",
     "symfony/process": ">=2.3,<4",
     "seld/jsonlint": "^1.4",
-    "hexmedia/yaml-linter": "^0.2.0"
+    "hexmedia/yaml-linter": "<2",
+    "hexmedia/code-style": "~1.0"
   },
   "suggest": {
     "symfony/yaml": "Enables support for yaml configuration files.",
