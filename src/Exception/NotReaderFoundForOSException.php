@@ -9,6 +9,7 @@ namespace Hexmedia\Crontab\Exception;
 
 /**
  * Class NotReaderFoundForOSException
+ *
  * @package Hexmedia\Crontab\Exception
  */
 class NotReaderFoundForOSException extends \Exception

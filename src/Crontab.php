@@ -11,6 +11,7 @@ use Hexmedia\Crontab\Exception\NotManagedException;
 
 /**
  * Class Crontab
+ *
  * @package Hexmedia\Crontab
  */
 class Crontab
@@ -72,6 +73,7 @@ class Crontab
 
     /**
      * @param Task $task
+     *
      * @return $this
      * @throws NotManagedException
      */

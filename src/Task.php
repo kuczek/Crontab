@@ -9,6 +9,7 @@ namespace Hexmedia\Crontab;
 
 /**
  * Class Task
+ *
  * @package Hexmedia\Crontab
  */
 class Task
@@ -78,6 +79,7 @@ class Task
 
     /**
      * @param Variables $variables
+     *
      * @return $this
      */
     public function setVariables(Variables $variables)

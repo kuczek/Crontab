@@ -11,6 +11,7 @@ use Hexmedia\Crontab\Parser\AbstractParserFactory;
 
 /**
  * Class ParserFactory
+ *
  * @package Hexmedia\Crontab\Parser\Unix
  */
 class ParserFactory extends AbstractParserFactory

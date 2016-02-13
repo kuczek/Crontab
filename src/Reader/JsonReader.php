@@ -11,9 +11,10 @@ use Hexmedia\Crontab\Crontab;
 
 /**
  * Class JsonReader
+ *
  * @package Hexmedia\Crontab\Reader
  */
-class JsonReader extends FileReaderAbstractArrayReader implements ReaderInterface
+class JsonReader extends AbstractFileReader implements ReaderInterface
 {
     /**
      * @param string       $file

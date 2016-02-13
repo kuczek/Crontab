@@ -11,6 +11,7 @@ use Hexmedia\Crontab\Crontab;
 
 /**
  * Class UnixSystemReader
+ *
  * @package Hexmedia\Crontab\Reader
  */
 class UnixSystemReader extends AbstractUnixReader
@@ -27,6 +28,7 @@ class UnixSystemReader extends AbstractUnixReader
 
     /**
      * UnixSystemReader constructor.
+     *
      * @param string       $user
      * @param Crontab|null $crontab
      */
@@ -67,6 +69,7 @@ class UnixSystemReader extends AbstractUnixReader
 
     /**
      * @param string $name
+     *
      * @return bool
      */
     public function removeSupportedOs($name)

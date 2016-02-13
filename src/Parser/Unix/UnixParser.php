@@ -13,6 +13,7 @@ use Hexmedia\Crontab\Parser\ParserInterface;
 
 /**
  * Class UnixParser
+ *
  * @package Hexmedia\Crontab\Parser\Unix
  */
 class UnixParser extends AbstractParser implements ParserInterface
@@ -85,6 +86,7 @@ class UnixParser extends AbstractParser implements ParserInterface
 
     /**
      * @param array $match
+     *
      * @return array
      */
     private function parseOneMatch(array $match)

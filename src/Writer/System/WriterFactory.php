@@ -16,6 +16,7 @@ use Hexmedia\Crontab\Exception\WriterNotExistsException;
 
 /**
  * Class WriterFactory
+ *
  * @package Hexmedia\Crontab\Writer\System
  */
 class WriterFactory
@@ -62,6 +63,7 @@ class WriterFactory
 
     /**
      * @param string $writer
+     *
      * @throws WriterNotExistsException
      */
     public static function addWriter($writer)

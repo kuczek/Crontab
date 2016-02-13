@@ -11,6 +11,7 @@ use Hexmedia\Crontab\Crontab;
 
 /**
  * Interface ReaderInterface
+ *
  * @package Hexmedia\Crontab\Reader
  */
 interface ReaderInterface

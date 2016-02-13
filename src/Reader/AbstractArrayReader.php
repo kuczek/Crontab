@@ -13,6 +13,7 @@ use Hexmedia\Crontab\Variables;
 
 /**
  * Class ArrayReaderAbstract
+ *
  * @package Hexmedia\Crontab\Reader
  */
 abstract class AbstractArrayReader implements ReaderInterface
@@ -29,6 +30,7 @@ abstract class AbstractArrayReader implements ReaderInterface
 
     /**
      * ArrayReader constructor.
+     *
      * @param Crontab|null $crontab
      * @param string|null  $machine
      */
@@ -50,6 +52,7 @@ abstract class AbstractArrayReader implements ReaderInterface
 
     /**
      * @param array $array
+     *
      * @return Crontab
      */
     protected function readArray(array $array)
@@ -72,7 +75,8 @@ abstract class AbstractArrayReader implements ReaderInterface
 
     /**
      * @param string $name
-     * @param array $taskArray
+     * @param array  $taskArray
+     *
      * @return Task
      */
     private function createTaskFromConfig($name, array $taskArray)
@@ -94,6 +98,7 @@ abstract class AbstractArrayReader implements ReaderInterface
 
     /**
      * @param string $machine
+     *
      * @return bool
      */
     private function checkIfForThisMachine($machine)

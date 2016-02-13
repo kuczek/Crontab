@@ -17,12 +17,14 @@ use Hexmedia\Crontab\Exception\FactoryException;
 
 /**
  * Class ReaderFactory
+ *
  * @package Hexmedia\Crontab
  */
 class ReaderFactory
 {
     /**
      * @param array $configuration
+     *
      * @return ReaderInterface
      * @throws FactoryException
      * @throws \Exception
@@ -52,6 +54,7 @@ class ReaderFactory
 
     /**
      * @param array $configuration
+     *
      * @return JsonReader
      * @throws FactoryException
      */
@@ -72,6 +75,7 @@ class ReaderFactory
 
     /**
      * @param array $configuration
+     *
      * @return YamlReader
      * @throws FactoryException
      */
@@ -92,6 +96,7 @@ class ReaderFactory
 
     /**
      * @param array $configuration
+     *
      * @return IniReader
      * @throws FactoryException
      */
@@ -112,6 +117,7 @@ class ReaderFactory
 
     /**
      * @param array $configuration
+     *
      * @return XmlReader
      * @throws FactoryException
      */
@@ -132,6 +138,7 @@ class ReaderFactory
 
     /**
      * @param array $configuration
+     *
      * @return UnixReader
      */
     private static function createUnix($configuration)
@@ -148,6 +155,7 @@ class ReaderFactory
      * @param array $configuration
      * @param mixed $index
      * @param mixed $default
+     *
      * @return mixed
      */
     private static function configurationGetOrDefault($configuration, $index, $default)

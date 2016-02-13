@@ -9,6 +9,7 @@ namespace Hexmedia\Crontab\Exception;
 
 /**
  * Class UnexistingParserException
+ *
  * @package Hexmedia\Crontab\Exception
  */
 class UnexistingParserException extends \Exception

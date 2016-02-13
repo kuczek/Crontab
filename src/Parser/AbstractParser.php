@@ -9,6 +9,7 @@ namespace Hexmedia\Crontab\Parser;
 
 /**
  * Class ParserAbstract
+ *
  * @package Hexmedia\Crontab\Parser
  */
 abstract class AbstractParser implements ParserInterface
@@ -20,6 +21,7 @@ abstract class AbstractParser implements ParserInterface
 
     /**
      * AbstractParser constructor.
+     *
      * @param string $content
      */
     public function __construct($content)

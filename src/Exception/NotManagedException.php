@@ -9,6 +9,7 @@ namespace Hexmedia\Crontab\Exception;
 
 /**
  * Class NotManagedException
+ *
  * @package Hexmedia\Crontab\Exception
  */
 class NotManagedException extends \Exception

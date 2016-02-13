@@ -10,6 +10,7 @@ namespace Hexmedia\Crontab\Exception;
 
 /**
  * Class NoWriterException
+ *
  * @package Hexmedia\Crontab\Exception
  */
 class NoWriterForSystemException extends \Exception

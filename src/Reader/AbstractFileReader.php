@@ -11,6 +11,7 @@ use Hexmedia\Crontab\Crontab;
 
 /**
  * Class FileReaderAbstract
+ *
  * @package Hexmedia\Crontab\Reader
  */
 abstract class AbstractFileReader extends AbstractArrayReader
@@ -22,6 +23,7 @@ abstract class AbstractFileReader extends AbstractArrayReader
 
     /**
      * FileReader constructor.
+     *
      * @param null         $file
      * @param Crontab|null $crontab
      * @param null         $machine

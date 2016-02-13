@@ -12,6 +12,7 @@ use Hexmedia\Crontab\Exception\FileNotFoundException;
 
 /**
  * Class UnixFileReader
+ *
  * @package Hexmedia\Crontab\Reader
  */
 class UnixFileReader extends AbstractUnixReader
@@ -23,6 +24,7 @@ class UnixFileReader extends AbstractUnixReader
 
     /**
      * UnixFileReader constructor.
+     *
      * @param string       $file
      * @param Crontab|null $crontab
      */

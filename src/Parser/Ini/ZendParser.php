@@ -12,6 +12,7 @@ use Hexmedia\Crontab\Parser\ParserInterface;
 
 /**
  * Class ZendParser
+ *
  * @package Hexmedia\Crontab\Parser\Ini
  */
 class ZendParser extends AbstractParser implements ParserInterface

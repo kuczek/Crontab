@@ -13,12 +13,14 @@ use Hexmedia\Crontab\Task;
 
 /**
  * Class UnixWriter
+ *
  * @package Hexmedia\Crontab\Writer\System
  */
 class UnixWriter implements WriterInterface
 {
     /**
      * @param Crontab $crontab
+     *
      * @return string
      */
     public function write(Crontab $crontab)
@@ -30,6 +32,7 @@ class UnixWriter implements WriterInterface
 
     /**
      * @param Crontab $crontab
+     *
      * @return string
      */
     public function getContent(Crontab $crontab)
@@ -91,16 +94,20 @@ class UnixWriter implements WriterInterface
     private function prepareComment($comment)
     {
         $exp = explode("\n", $comment);
-        $exp = array_map(function ($com) {
-            return rtrim($com);
-        }, $exp);
+        $exp = array_map(
+            function ($com) {
+                return rtrim($com);
+            },
+            $exp
+        );
 
         return '#' . trim(implode("\n#", $exp)) . "\n";
     }
 
     /**
-     * @param Task $task
+     * @param Task   $task
      * @param string $crontabName
+     *
      * @return string
      */
     private function prepareTaskNameLine(Task $task, $crontabName)
@@ -124,6 +131,7 @@ class UnixWriter implements WriterInterface
 
     /**
      * @param Task $task
+     *
      * @return string
      */
     private function prepareTask(Task $task, Crontab $crontab)

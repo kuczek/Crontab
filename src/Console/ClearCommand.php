@@ -16,6 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class ClearCommand
+ *
  * @package Hexmedia\Crontab\Console
  */
 class ClearCommand extends AbstractCommand
@@ -24,6 +25,7 @@ class ClearCommand extends AbstractCommand
      * @param OutputInterface $output
      * @param Crontab         $crontab
      * @param string|null     $user
+     *
      * @return mixed
      */
     public function output(OutputInterface $output, Crontab $crontab, $user = null)
@@ -48,8 +50,9 @@ class ClearCommand extends AbstractCommand
     }
 
     /**
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
+     *
      * @return null
      */
     protected function execute(InputInterface $input, OutputInterface $output)

@@ -11,12 +11,14 @@ use Hexmedia\Crontab\Crontab;
 
 /**
  * Class UnixReaderAbstract
+ *
  * @package Hexmedia\Crontab\Reader
  */
 abstract class AbstractUnixReader extends AbstractArrayReader
 {
     /**
      * UnixReader constructor.
+     *
      * @param Crontab|null $crontab
      */
     public function __construct(Crontab $crontab = null)

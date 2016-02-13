@@ -9,6 +9,7 @@ namespace Hexmedia\Crontab\Exception;
 
 /**
  * Class UnsupportedVariableException
+ *
  * @package Hexmedia\Crontab\Exception
  */
 class UnsupportedVariableException extends \Exception

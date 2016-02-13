@@ -12,6 +12,7 @@ use Hexmedia\Crontab\Writer\System\WriterFactory;
 
 /**
  * Class SystemWriter
+ *
  * @package Hexmedia\Crontab\Writer
  */
 class SystemWriter implements WriterInterface
@@ -30,6 +31,7 @@ class SystemWriter implements WriterInterface
 
     /**
      * @param Crontab $crontab
+     *
      * @return bool
      */
     public function write(Crontab $crontab)
@@ -40,6 +42,7 @@ class SystemWriter implements WriterInterface
 
     /**
      * @param Crontab $crontab
+     *
      * @return string
      */
     public function getContent(Crontab $crontab)

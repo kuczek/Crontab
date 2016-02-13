@@ -12,6 +12,7 @@ use Hexmedia\Crontab\Exception\UnexistingParserException;
 
 /**
  * Class ParserFactoryAbstract
+ *
  * @package Hexmedia\Crontab\Parser
  */
 abstract class AbstractParserFactory
@@ -23,6 +24,7 @@ abstract class AbstractParserFactory
 
     /**
      * ParserFactoryAbstract constructor.
+     *
      * @param string|null $preferred
      */
     public function __construct($preferred = null)
@@ -39,6 +41,7 @@ abstract class AbstractParserFactory
 
     /**
      * @param string $className
+     *
      * @throws UnexistingParserException
      */
     public function addParser($className)
@@ -52,6 +55,7 @@ abstract class AbstractParserFactory
 
     /**
      * @param string $className
+     *
      * @return bool
      */
     public function removeParser($className)
@@ -69,6 +73,7 @@ abstract class AbstractParserFactory
 
     /**
      * @param string $content
+     *
      * @return ParserInterface
      * @throws NoSupportedParserException
      */
@@ -85,6 +90,7 @@ abstract class AbstractParserFactory
 
     /**
      * @param string $preferred
+     *
      * @return string
      */
     protected function searchForKey($preferred)

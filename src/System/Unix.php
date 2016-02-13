@@ -13,6 +13,7 @@ use Symfony\Component\Process\ProcessBuilder;
 
 /**
  * Class Unix
+ *
  * @package Hexmedia\Crontab\System
  */
 class Unix
@@ -42,6 +43,7 @@ class Unix
 
     /**
      * @param null|string $user
+     *
      * @return string
      * @throws SystemOperationException
      */
@@ -75,6 +77,7 @@ class Unix
     /**
      * @param string      $content
      * @param string|null $user
+     *
      * @return bool
      * @throws SystemOperationException
      */
@@ -117,6 +120,7 @@ class Unix
 
     /**
      * @param string|null $user
+     *
      * @return bool
      * @throws SystemOperationException
      */
@@ -155,6 +159,7 @@ class Unix
 
     /**
      * @param null $user
+     *
      * @return bool
      * @throws SystemOperationException
      */
@@ -197,6 +202,7 @@ class Unix
 
     /**
      * @param string $name
+     *
      * @return bool
      */
     public static function addUnix($name)
@@ -208,6 +214,7 @@ class Unix
 
     /**
      * @param string $name
+     *
      * @return bool
      */
     public static function removeUnix($name)

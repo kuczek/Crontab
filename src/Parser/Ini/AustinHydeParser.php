@@ -12,6 +12,7 @@ use Hexmedia\Crontab\Parser\ParserInterface;
 
 /**
  * Class AustinHydeParser
+ *
  * @package Hexmedia\Crontab\Parser\Ini
  */
 class AustinHydeParser extends AbstractParser implements ParserInterface
@@ -41,6 +42,7 @@ class AustinHydeParser extends AbstractParser implements ParserInterface
 
     /**
      * @param \ArrayObject $arrayObject
+     *
      * @return array
      */
     private function transformToArray(\ArrayObject $arrayObject)

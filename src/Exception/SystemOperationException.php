@@ -10,6 +10,7 @@ namespace Hexmedia\Crontab\Exception;
 
 /**
  * Class SystemOperationException
+ *
  * @package Hexmedia\Crontab\Exception
  */
 class SystemOperationException extends \Exception

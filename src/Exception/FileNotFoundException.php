@@ -9,6 +9,7 @@ namespace Hexmedia\Crontab\Exception;
 
 /**
  * Class FileNotFoundException
+ *
  * @package Hexmedia\Crontab\Exception
  */
 class FileNotFoundException extends \Exception

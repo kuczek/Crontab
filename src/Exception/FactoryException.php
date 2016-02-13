@@ -9,6 +9,7 @@ namespace Hexmedia\Crontab\Exception;
 
 /**
  * Class FactoryException
+ *
  * @package Hexmedia\Crontab\Exception
  */
 class FactoryException extends \Exception

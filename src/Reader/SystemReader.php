@@ -12,6 +12,7 @@ use Hexmedia\Crontab\Exception\NotReaderFoundForOSException;
 
 /**
  * Class SystemReader
+ *
  * @package Hexmedia\Crontab\Reader
  */
 class SystemReader implements ReaderInterface
@@ -37,6 +38,7 @@ class SystemReader implements ReaderInterface
 
     /**
      * SystemReader constructor.
+     *
      * @param string       $user
      * @param Crontab|null $crontab
      */
@@ -55,6 +57,7 @@ class SystemReader implements ReaderInterface
     {
         return $this->reader->read();
     }
+
     /**
      * @return array
      */
