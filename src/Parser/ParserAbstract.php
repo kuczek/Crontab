@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2014-2016 hexmedia.pl
+ * @copyright 2013-2016 Hexmedia.pl
  * @author    Krystian Kuczek <krystian@hexmedia.pl>
  */
 

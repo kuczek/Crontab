@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2014-2016 hexmedia.pl
+ * @copyright 2013-2016 Hexmedia.pl
  * @author    Krystian Kuczek <krystian@hexmedia.pl>
  */
 
@@ -9,7 +9,7 @@ namespace Hexmedia\Crontab;
 use Hexmedia\Crontab\Reader\IniReader;
 use Hexmedia\Crontab\Reader\JsonReader;
 use Hexmedia\Crontab\Reader\ReaderInterface;
-use Hexmedia\Crontab\Reader\UnixReaderAbstract;
+use Hexmedia\Crontab\Reader\UnixSystemReader;
 use Hexmedia\Crontab\Reader\XmlReader;
 use Hexmedia\Crontab\Reader\YamlReader;
 use Hexmedia\Crontab\Exception\FactoryException;
@@ -138,7 +138,7 @@ class ReaderFactory
         $user = self::configurationGetOrDefault($configuration, 'user', null);
         $crontab = self::configurationGetOrDefault($configuration, 'crontab', null);
 
-        $reader = new UnixReaderAbstract($user, $crontab);
+        $reader = new UnixSystemReader($user, $crontab);
 
         return $reader;
     }

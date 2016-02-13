@@ -42,7 +42,7 @@
     "symfony/process": ">=2.3,<4",
     "seld/jsonlint": "^1.4",
     "hexmedia/yaml-linter": "<2",
-    "hexmedia/code-style": "~1.0"
+    "hexmedia/code-style": "dev-crontab"
   },
   "suggest": {
     "symfony/yaml": "Enables support for yaml configuration files.",
@@ -55,5 +55,8 @@
     "branch-alias": {
       "dev-master": "1.0.x-dev"
     }
+  },
+  "scripts": {
+    "post-autoload-dump": "./vendor/hexmedia/code-style/install.sh"
   }
 }

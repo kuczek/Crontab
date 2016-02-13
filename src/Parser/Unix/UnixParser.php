@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2014-2016 hexmedia.pl
+ * @copyright 2013-2016 Hexmedia.pl
  * @author    Krystian Kuczek <krystian@hexmedia.pl>
  */
 
@@ -106,10 +106,7 @@ class UnixParser extends ParserAbstract implements ParserInterface
      */
     private function getCrontabRegexRule()
     {
-        $crontabRule = '\n(?<minutes>([0-9]{1,2}|\*|\*\/[0-9]{1,2}))[\t\s]+' .
-            '(?<hours>([0-9]{1,2}|\*|\*\/[0-9]{1,2}))[\t\s]+(?<dayOfMonth>([0-9]{1,2}|\*|\*\/[0-9]{1,2}))[\t\s]+' .
-            '(?<month>([0-9]{1,2}|\*|\*\/[0-9]{1,2}))[\t\s]+(?<dayOfWeek>([0-9]{1,2}|\*|\*\/[0-9]{1,2}))[\t\s]+' .
-            '(?<command>[^>]*)[\t\s]+(>[>\s\t]?(?<logFile>[a-zA-Z0-9\/\-\_:\.]*))?';
+        $crontabRule = '\n(?<minutes>([0-9]{1,2}|\*|\*\/[0-9]{1,2}))[\t\s]+' . '(?<hours>([0-9]{1,2}|\*|\*\/[0-9]{1,2}))[\t\s]+(?<dayOfMonth>([0-9]{1,2}|\*|\*\/[0-9]{1,2}))[\t\s]+' . '(?<month>([0-9]{1,2}|\*|\*\/[0-9]{1,2}))[\t\s]+(?<dayOfWeek>([0-9]{1,2}|\*|\*\/[0-9]{1,2}))[\t\s]+' . '(?<command>[^>]*)[\t\s]+(>[>\s\t]?(?<logFile>[a-zA-Z0-9\/\-\_:\.]*))?';
         $variableRule = sprintf('(%s\n?){0,}', $this->getVariableRule());
         $commentRule = sprintf('(%s\n?){0,}', $this->getCommentRule());
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2014-2016 hexmedia.pl
+ * @copyright 2013-2016 Hexmedia.pl
  * @author    Krystian Kuczek <krystian@hexmedia.pl>
  */
 
@@ -63,8 +63,7 @@ class UnixWriter implements WriterInterface
     private function prepareContent(Crontab $crontab)
     {
         $content = "#WARNING!!!\n";
-        $content .= '#This crontab file it at least partialy managed by Crontab by Hexmedia, please check all ' .
-            "restrictions that comes with that library at: https://github.com/Hexmedia/Crontab/blob/master/README.md\n";
+        $content .= '#This crontab file it at least partialy managed by Crontab by Hexmedia, please check all ' . "restrictions that comes with that library at: https://github.com/Hexmedia/Crontab/blob/master/README.md\n";
         $content .= "#EOT\n\n";
 
         foreach ($crontab->getNotManagedTasks() as $task) {
