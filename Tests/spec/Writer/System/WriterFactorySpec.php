@@ -3,6 +3,7 @@
 namespace spec\Hexmedia\Crontab\Writer\System;
 
 use Hexmedia\Crontab\Crontab;
+use Hexmedia\Crontab\Exception\NoWriterForSystemException;
 use Hexmedia\Crontab\Exception\WriterNotExistsException;
 use Hexmedia\Crontab\System\Unix;
 use PhpSpec\ObjectBehavior;
@@ -78,12 +79,15 @@ class WriterFactorySpec extends ObjectBehavior
         ))->during('addWriter', array('test'));
     }
 
-    function it_is_returning_null_when_there_is_no_supporting_system(Crontab $crontab)
+    function it_is_throwin_exception_when_there_is_no_supporting_system(Crontab $crontab)
     {
         $this::removeWriter($this->linuxWriterClass);
         $this::getWriters()->shouldHaveCount(0);
 
-        $this::create($crontab)->shouldReturn(null);
+
+        $this->shouldThrow(new NoWriterForSystemException(
+            sprintf("Writer for your operating system '%s' was not found!", PHP_OS)
+        ))->duringCreate("test", array($crontab));
     }
 
     function it_allows_to_set_writers()

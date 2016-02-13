@@ -41,8 +41,6 @@ before_install:
   - echo "Preparing blackfire"
   - travis_retry composer selfupdate
   - cp .composer-auth.json $HOME/.composer/auth.json
-  - $HOME/.composer/vendor/bin/box --version
-  - $HOME/.composer/vendor/bin/phing -v
   - echo '#!/bin/bash' > install.sh
   - echo -n "composer update" >> install.sh
   - echo -n " --prefer-dist" >> install.sh
@@ -54,6 +52,8 @@ install:
   - travis_retry composer global require kherge/box --prefer-dist
   - travis_retry composer global require phing/phing --prefer-dist
   - travis_retry composer global require satooshi/php-coveralls --prefer-dist
+  - $HOME/.composer/vendor/bin/box --version
+  - $HOME/.composer/vendor/bin/phing -v
   - export COMPOSER_ROOT_VERSION=dev-master
   - travis_retry /bin/bash ./install.sh
 
@@ -62,7 +62,7 @@ before_script:
   - if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then phpenv config-add xdebug.ini ; fi
 
 script:
-  - $HOME/.composer/vendor/bin/phing continous -Ddeps=$DEPS -Dcitool=travis -Dphpversion=$TRAVIS_PHP_VERSION -Dcoveralls=$COVERALLS-verbose
+  - $HOME/.composer/vendor/bin/phing continous -Ddeps=$DEPS -Dcitool=travis -Dphpversion=$TRAVIS_PHP_VERSION -Dcoveralls=$COVERALLS -verbose
 
 after_success:
   - if [ "$COVERALLS" == "true" ]; then echo "Will export coveralls!"; fi
