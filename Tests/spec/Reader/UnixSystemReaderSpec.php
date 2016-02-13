@@ -29,7 +29,7 @@ class UnixSystemReaderSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('Hexmedia\Crontab\Reader\UnixSystemReader');
-        $this->shouldImplement('Hexmedia\Crontab\Reader\UnixReaderAbstract');
+        $this->shouldImplement('Hexmedia\Crontab\Reader\AbstractUnixReader');
     }
 
     function it_is_supported()

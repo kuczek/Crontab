@@ -14,6 +14,6 @@ class ParserFactorySpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('Hexmedia\Crontab\Parser\Unix\ParserFactory');
-        $this->shouldImplement('Hexmedia\Crontab\Parser\ParserFactoryAbstract');
+        $this->shouldImplement('Hexmedia\Crontab\Parser\AbstractParserFactory');
     }
 }

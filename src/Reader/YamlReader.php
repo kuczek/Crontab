@@ -14,7 +14,7 @@ use Hexmedia\Crontab\Parser\Yaml\ParserFactory;
  * Class YamlReader
  * @package Hexmedia\Crontab\Reader
  */
-class YamlReader extends FileReaderAbstractArrayReader implements ReaderInterface
+class YamlReader extends AbstractFileReader implements ReaderInterface
 {
     /**
      * @param string       $file
