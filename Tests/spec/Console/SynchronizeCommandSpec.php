@@ -1,7 +1,8 @@
 <?php
 /**
- * @copyright 2014-2016 hexmedia.pl
  * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
  */
 
 namespace spec\Hexmedia\Crontab\Console;
