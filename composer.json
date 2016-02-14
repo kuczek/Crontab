@@ -41,7 +41,7 @@
     "phploc/phploc": ">=2.0,<4",
     "symfony/process": ">=2.3,<4",
     "seld/jsonlint": "^1.4",
-    "hexmedia/yaml-linter": "<2",
+    "hexmedia/yaml-linter": ">0.1,<2",
     "hexmedia/code-style": "dev-crontab"
   },
   "suggest": {
