@@ -1,14 +1,24 @@
 <?php
+/**
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
+ */
 
 namespace Hexmedia\Crontab\Reader;
 
 use Hexmedia\Crontab\Crontab;
 use Hexmedia\Crontab\Exception\NotReaderFoundForOSException;
 
+/**
+ * Class SystemReader
+ *
+ * @package Hexmedia\Crontab\Reader
+ */
 class SystemReader implements ReaderInterface
 {
     private $readers = array(
-        "\\Hexmedia\\Crontab\\Reader\\UnixSystemReader"
+        '\\Hexmedia\\Crontab\\Reader\\UnixSystemReader',
     );
 
     /**
@@ -28,7 +38,8 @@ class SystemReader implements ReaderInterface
 
     /**
      * SystemReader constructor.
-     * @param $user
+     *
+     * @param string       $user
      * @param Crontab|null $crontab
      */
     public function __construct($user, Crontab $crontab = null)
@@ -45,21 +56,6 @@ class SystemReader implements ReaderInterface
     public function read()
     {
         return $this->reader->read();
-    }
-
-    /**
-     * @return ReaderInterface
-     * @throws NotReaderFoundForOSException
-     */
-    private function getSystemReader()
-    {
-        foreach ($this->readers as $reader) {
-            if (false !== call_user_func("$reader::isSupported")) {
-                return new $reader($this->user, $this->crontab);
-            }
-        }
-
-        throw new NotReaderFoundForOSException(sprintf("There is no reader for your operating system '%s'", PHP_OS));
     }
 
     /**
@@ -85,7 +81,7 @@ class SystemReader implements ReaderInterface
     /**
      * @param string $reader
      *
-     * @return this;
+     * @return $this;
      */
     public function removeReader($reader)
     {
@@ -96,5 +92,20 @@ class SystemReader implements ReaderInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @return ReaderInterface
+     * @throws NotReaderFoundForOSException
+     */
+    private function getSystemReader()
+    {
+        foreach ($this->readers as $reader) {
+            if (false !== call_user_func($reader . '::isSupported')) {
+                return new $reader($this->user, $this->crontab);
+            }
+        }
+
+        throw new NotReaderFoundForOSException(sprintf("There is no reader for your operating system '%s'", PHP_OS));
     }
 }

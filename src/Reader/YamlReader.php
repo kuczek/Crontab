@@ -1,9 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: kkuczek
- * Date: 2016-01-25
- * Time: 13:25
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
  */
 
 namespace Hexmedia\Crontab\Reader;
@@ -11,18 +10,27 @@ namespace Hexmedia\Crontab\Reader;
 use Hexmedia\Crontab\Crontab;
 use Hexmedia\Crontab\Parser\Yaml\ParserFactory;
 
-class YamlReader extends FileReader implements ReaderInterface
+/**
+ * Class YamlReader
+ *
+ * @package Hexmedia\Crontab\Reader
+ */
+class YamlReader extends AbstractFileReader implements ReaderInterface
 {
     /**
-     * @param null $file
+     * @param string       $file
      * @param Crontab|null $crontab
-     * @param null $machine
+     * @param string|null  $machine
      */
     public function __construct($file, Crontab $crontab = null, $machine = null)
     {
         parent::__construct($file, $crontab, $machine);
     }
 
+    /**
+     * @return array
+     * @throws \Hexmedia\Crontab\Exception\NoSupportedParserException
+     */
     protected function parse()
     {
         $parserFactory = new ParserFactory();

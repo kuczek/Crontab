@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
+ */
 
 namespace Hexmedia\Crontab\Parser\Unix;
 
@@ -7,9 +12,9 @@ use Hexmedia\Crontab\Parser\AbstractParser;
 use Hexmedia\Crontab\Parser\ParserInterface;
 
 /**
- * Class AbstractParser
- * @package Hexmedia\Crontab\Parser\Unix
+ * Class UnixParser
  *
+ * @package Hexmedia\Crontab\Parser\Unix
  */
 class UnixParser extends AbstractParser implements ParserInterface
 {
@@ -18,15 +23,19 @@ class UnixParser extends AbstractParser implements ParserInterface
      */
     private static $supportedOs = array(
         'Linux',
-        'FreeBSD'
+        'FreeBSD',
     );
 
+    /**
+     * @return array
+     * @throws ParseException
+     */
     public function parse()
     {
         $content = "\n" . $this->getContent(); //a little trick
         //                                       to allow allow only rules that begins at the begining of line
 
-        if (false === preg_match_all("/" . $this->getCrontabRegexRule() . "/", $content, $matches, PREG_SET_ORDER)) {
+        if (false === preg_match_all('/' . $this->getCrontabRegexRule() . '/', $content, $matches, PREG_SET_ORDER)) {
             throw new ParseException(sprintf("Cannot match this file error: '%s'", preg_last_error()));
         }
 
@@ -40,7 +49,44 @@ class UnixParser extends AbstractParser implements ParserInterface
     }
 
     /**
+     * @return bool
+     */
+    public static function isSupported()
+    {
+        return in_array(PHP_OS, self::getSupportedOs());
+    }
+
+    /**
+     * @param string $osName
+     */
+    public function addSupportedOs($osName)
+    {
+        self::$supportedOs[] = $osName;
+    }
+
+    /**
+     * @param string $osName
+     */
+    public function removeSupportedOs($osName)
+    {
+        $key = array_search($osName, self::$supportedOs);
+
+        unset(self::$supportedOs[$key]);
+    }
+
+    /**
+     * Returns all operating systems supported by this *nix like library
+     *
+     * @return string[]
+     */
+    public static function getSupportedOs()
+    {
+        return self::$supportedOs;
+    }
+
+    /**
      * @param array $match
+     *
      * @return array
      */
     private function parseOneMatch(array $match)
@@ -75,13 +121,13 @@ class UnixParser extends AbstractParser implements ParserInterface
         $variables = array();
 
         if ($match) {
-            if (preg_match_all("/" . $this->getVariableRule() . '/', $match, $matches, PREG_SET_ORDER)) {
+            if (preg_match_all('/' . $this->getVariableRule() . '/', $match, $matches, PREG_SET_ORDER)) {
                 foreach ($matches as $m) {
                     $variables[$m['variable']] = $m['value'];
                 }
             }
 
-            if (preg_match_all("/" . $this->getCommentRule() . "/", $match, $matches, PREG_SET_ORDER)) {
+            if (preg_match_all('/' . $this->getCommentRule() . '/', $match, $matches, PREG_SET_ORDER)) {
                 foreach ($matches as $m) {
                     $comment .= trim($m['comment']) . "\n";
                 }
@@ -90,7 +136,7 @@ class UnixParser extends AbstractParser implements ParserInterface
 
         return array(
             'comment' => trim($comment),
-            'variables' => $variables
+            'variables' => $variables,
         );
     }
 
@@ -99,64 +145,30 @@ class UnixParser extends AbstractParser implements ParserInterface
      */
     private function getCrontabRegexRule()
     {
-        $crontabRule = '\n(?<minutes>([0-9]{1,2}|\*|\*\/[0-9]{1,2}))[\t\s]+' .
-            '(?<hours>([0-9]{1,2}|\*|\*\/[0-9]{1,2}))[\t\s]+(?<dayOfMonth>([0-9]{1,2}|\*|\*\/[0-9]{1,2}))[\t\s]+' .
-            '(?<month>([0-9]{1,2}|\*|\*\/[0-9]{1,2}))[\t\s]+(?<dayOfWeek>([0-9]{1,2}|\*|\*\/[0-9]{1,2}))[\t\s]+' .
-            '(?<command>[^>]*)[\t\s]+(>[>\s\t]?(?<logFile>[a-zA-Z0-9\/\-\_:\.]*))?';
+        $crontabRule = '\n(?<minutes>([0-9]{1,2}|\*|\*\/[0-9]{1,2}))[\t\s]+' . '(?<hours>([0-9]{1,2}|\*|\*\/[0-9]{1,2}))[\t\s]+(?<dayOfMonth>([0-9]{1,2}|\*|\*\/[0-9]{1,2}))[\t\s]+' . '(?<month>([0-9]{1,2}|\*|\*\/[0-9]{1,2}))[\t\s]+(?<dayOfWeek>([0-9]{1,2}|\*|\*\/[0-9]{1,2}))[\t\s]+' . '(?<command>[^>]*)[\t\s]+(>[>\s\t]?(?<logFile>[a-zA-Z0-9\/\-\_:\.]*))?';
         $variableRule = sprintf('(%s\n?){0,}', $this->getVariableRule());
         $commentRule = sprintf('(%s\n?){0,}', $this->getCommentRule());
 
-        $cAndVRule = "(?<vandc>(" . $commentRule . $variableRule . "){0,})";
+        $cAndVRule = '(?<vandc>(' . $commentRule . $variableRule . '){0,})';
 
-        $rule = "(?<rule>" . $cAndVRule . $crontabRule . ")";
+        $rule = '(?<rule>' . $cAndVRule . $crontabRule . ')';
 
         return $rule;
     }
 
+    /**
+     * @return string
+     */
     private function getCommentRule()
     {
         return '(#(?<comment>.*))';
     }
 
+    /**
+     * @return string
+     */
     private function getVariableRule()
     {
         return '(?<variable>[A-Za-z0-9_]*)=(?<value>.*)';
-    }
-
-    /**
-     * @return bool
-     */
-    public static function isSupported()
-    {
-        return in_array(PHP_OS, self::getSupportedOs());
-    }
-
-
-    /**
-     * @param string $osName
-     */
-    public function addSupportedOs($osName)
-    {
-        self::$supportedOs[] = $osName;
-    }
-
-    /**
-     * @param string $osName
-     */
-    public function removeSupportedOs($osName)
-    {
-        $key = array_search($osName, self::$supportedOs);
-
-        unset(self::$supportedOs[$key]);
-    }
-
-    /**
-     * Returns all operating systems supported by this *nix like library
-     *
-     * @return string[]
-     */
-    public static function getSupportedOs()
-    {
-        return self::$supportedOs;
     }
 }

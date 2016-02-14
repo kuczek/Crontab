@@ -1,13 +1,18 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: krun
- * Date: 04.02.16
- * Time: 01:07
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
  */
+
 
 namespace Hexmedia\Crontab\Exception;
 
+/**
+ * Class SystemOperationException
+ *
+ * @package Hexmedia\Crontab\Exception
+ */
 class SystemOperationException extends \Exception
 {
 

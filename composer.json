@@ -22,27 +22,27 @@
   },
   "require": {
     "php": ">=5.3.3",
-    "symfony/console": ">=2.3,<4"
+    "symfony/console": ">=2.3,<4.0"
   },
   "require-dev": {
     "phpunit/phpunit" : ">=4.0,<6",
     "sebastian/phpcpd": "^2.0",
     "sebastian/phpdcd": "^1.0",
     "phpspec/phpspec": "~2.4",
-    "henrikbjorn/phpspec-code-coverage": ">1,<3",
+    "henrikbjorn/phpspec-code-coverage": ">1.0,<3.0",
     "symfony/yaml": ">=2.3,<4",
     "symfony/config": ">=2.3,<4",
     "austinhyde/iniparser": "~1.0@dev",
     "zf1/zend-config" : "1.12.11",
     "zendframework/zend-config": "~2.5",
-    "phpmd/phpmd": "~2.3",
+    "phpmd/phpmd": "~2.3,>=2.3.1",
     "pdepend/pdepend": "~2.1",
     "squizlabs/php_codesniffer": "^2.5",
     "phploc/phploc": ">=2.0,<4",
     "symfony/process": ">=2.3,<4",
     "seld/jsonlint": "^1.4",
-    "hexmedia/yaml-linter": "^0.2.0",
-    "sclable/xml-lint": "^0.2.1"
+    "hexmedia/yaml-linter": "<2",
+    "hexmedia/code-style": "dev-crontab"
   },
   "suggest": {
     "symfony/yaml": "Enables support for yaml configuration files.",
@@ -55,5 +55,8 @@
     "branch-alias": {
       "dev-master": "1.0.x-dev"
     }
+  },
+  "scripts": {
+    "post-autoload-dump": "./vendor/hexmedia/code-style/install.sh"
   }
 }

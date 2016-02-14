@@ -1,13 +1,17 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: kkuczek
- * Date: 2016-01-26
- * Time: 19:14
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
  */
 
 namespace Hexmedia\Crontab\Exception;
 
+/**
+ * Class NoSupportedParserException
+ *
+ * @package Hexmedia\Crontab\Exception
+ */
 class NoSupportedParserException extends \Exception
 {
 

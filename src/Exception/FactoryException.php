@@ -1,13 +1,17 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: kkuczek
- * Date: 2016-01-26
- * Time: 13:50
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
  */
 
 namespace Hexmedia\Crontab\Exception;
 
+/**
+ * Class FactoryException
+ *
+ * @package Hexmedia\Crontab\Exception
+ */
 class FactoryException extends \Exception
 {
 

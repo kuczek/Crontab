@@ -14,6 +14,9 @@
     <property name="build.report.dir.phploc" value="${build.report.dir}/phploc"/>
     <property name="build.report.dir.phpdcd" value="${build.report.dir}/phpdcd"/>
 
+    <property name="build.phpcs.standard"
+              value="${project.basedir}/vendor/hexmedia/code-style/src/Hexmedia/"/>
+
     <property name="build.config.dir" value="${build.dir}/config"/>
     <property name="build.config.file.phpmd" value="${build.config.dir}/phpmd.xml"/>
     <property name="build.config.file.phpspec" value="${build.config.dir}/phpspec.yml"/>
@@ -139,7 +142,7 @@
     </target>
 
     <target name="phpcs">
-        <phpcodesniffer haltonerror="true" haltonwarning="true" verbosity="1" standard="PSR2">
+        <phpcodesniffer haltonerror="true" haltonwarning="true" verbosity="1" standard="${build.phpcs.standard}">
             <formatter type="full" outfile="${build.report.dir.phpcs}/report.txt"/>
             <fileset refid="project"/>
         </phpcodesniffer>
@@ -148,7 +151,7 @@
     <target name="phpcbf">
         <exec dir="${project.basedir}" executable="${bin}/phpcbf">
             <arg line="-w"/>
-            <arg line="--standard=PSR2"/>
+            <arg line="--standard=${build.phpcs.standard}"/>
             <arg line="${src}"/>
         </exec>
     </target>

@@ -1,11 +1,21 @@
 <?php
+/**
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
+ */
 
 namespace Hexmedia\Crontab\Reader;
 
 use Hexmedia\Crontab\Crontab;
 use Hexmedia\Crontab\Exception\FileNotFoundException;
 
-class UnixFileReader extends UnixReader
+/**
+ * Class UnixFileReader
+ *
+ * @package Hexmedia\Crontab\Reader
+ */
+class UnixFileReader extends AbstractUnixReader
 {
     /**
      * @var string
@@ -14,7 +24,8 @@ class UnixFileReader extends UnixReader
 
     /**
      * UnixFileReader constructor.
-     * @param string $file
+     *
+     * @param string       $file
      * @param Crontab|null $crontab
      */
     public function __construct($file, Crontab $crontab = null)

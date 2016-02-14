@@ -1,11 +1,17 @@
 <?php
 /**
- * @copyright 2015 hexmedia.pl
  * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
  */
 
 namespace Hexmedia\Crontab;
 
+/**
+ * Class Task
+ *
+ * @package Hexmedia\Crontab
+ */
 class Task
 {
     /**
@@ -16,27 +22,27 @@ class Task
     /**
      * @var string
      */
-    private $minute = "*";
+    private $minute = '*';
 
     /**
      * @var string
      */
-    private $hour = "*";
+    private $hour = '*';
 
     /**
      * @var string
      */
-    private $dayOfMonth = "*";
+    private $dayOfMonth = '*';
 
     /**
      * @var string
      */
-    private $month = "*";
+    private $month = '*';
 
     /**
      * @var string
      */
-    private $dayOfWeek = "*";
+    private $dayOfWeek = '*';
 
     /**
      * @var string
@@ -73,6 +79,7 @@ class Task
 
     /**
      * @param Variables $variables
+     *
      * @return $this
      */
     public function setVariables(Variables $variables)
@@ -263,7 +270,7 @@ class Task
     }
 
     /**
-     * @param $name
+     * @param string $name
      */
     public function setMd5Name($name)
     {

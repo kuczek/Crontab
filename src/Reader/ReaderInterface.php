@@ -1,14 +1,23 @@
 <?php
+/**
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
+ */
 
 namespace Hexmedia\Crontab\Reader;
 
+use Hexmedia\Crontab\Crontab;
+
 /**
- * Created by PhpStorm.
- * User: kkuczek
- * Date: 2016-01-22
- * Time: 14:21
+ * Interface ReaderInterface
+ *
+ * @package Hexmedia\Crontab\Reader
  */
 interface ReaderInterface
 {
+    /**
+     * @return Crontab
+     */
     public function read();
 }

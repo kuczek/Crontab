@@ -1,9 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: kkuczek
- * Date: 2016-01-26
- * Time: 13:48
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
  */
 
 namespace Hexmedia\Crontab;
@@ -16,10 +15,16 @@ use Hexmedia\Crontab\Reader\XmlReader;
 use Hexmedia\Crontab\Reader\YamlReader;
 use Hexmedia\Crontab\Exception\FactoryException;
 
+/**
+ * Class ReaderFactory
+ *
+ * @package Hexmedia\Crontab
+ */
 class ReaderFactory
 {
     /**
-     * @param $configuration
+     * @param array $configuration
+     *
      * @return ReaderInterface
      * @throws FactoryException
      * @throws \Exception
@@ -28,17 +33,17 @@ class ReaderFactory
     {
         //TODO: HERE WE CAN ADD TYPE DETECTOR ON FILE NAME
         if (!isset($configuration['type'])) {
-            throw new FactoryException("No type defined, cannot use.");
+            throw new FactoryException('No type defined, cannot use.');
         }
 
         switch ($configuration['type']) {
-            case "json":
+            case 'json':
                 return self::createJson($configuration);
-            case "yaml":
+            case 'yaml':
                 return self::createYaml($configuration);
-            case "ini":
+            case 'ini':
                 return self::createIni($configuration);
-            case "xml":
+            case 'xml':
                 return self::createXml($configuration);
             case 'unix':
                 return self::createUnix($configuration);
@@ -49,13 +54,14 @@ class ReaderFactory
 
     /**
      * @param array $configuration
+     *
      * @return JsonReader
      * @throws FactoryException
      */
     private static function createJson(array $configuration)
     {
         if (!isset($configuration['file'])) {
-            throw new FactoryException("File needs to be defined for type json");
+            throw new FactoryException('File needs to be defined for type json');
         }
 
         $file = $configuration['file'];
@@ -69,13 +75,14 @@ class ReaderFactory
 
     /**
      * @param array $configuration
+     *
      * @return YamlReader
      * @throws FactoryException
      */
     private static function createYaml(array $configuration)
     {
         if (!isset($configuration['file'])) {
-            throw new FactoryException("File needs to be defined for type yaml");
+            throw new FactoryException('File needs to be defined for type yaml');
         }
 
         $file = $configuration['file'];
@@ -87,10 +94,16 @@ class ReaderFactory
         return $reader;
     }
 
+    /**
+     * @param array $configuration
+     *
+     * @return IniReader
+     * @throws FactoryException
+     */
     private static function createIni($configuration)
     {
         if (!isset($configuration['file'])) {
-            throw new FactoryException("File needs to be defined for type yaml");
+            throw new FactoryException('File needs to be defined for type yaml');
         }
 
         $file = $configuration['file'];
@@ -102,10 +115,16 @@ class ReaderFactory
         return $reader;
     }
 
+    /**
+     * @param array $configuration
+     *
+     * @return XmlReader
+     * @throws FactoryException
+     */
     private static function createXml($configuration)
     {
         if (!isset($configuration['file'])) {
-            throw new FactoryException("File needs to be defined for type yaml");
+            throw new FactoryException('File needs to be defined for type yaml');
         }
 
         $file = $configuration['file'];
@@ -117,7 +136,11 @@ class ReaderFactory
         return $reader;
     }
 
-    //TODO: FIXME
+    /**
+     * @param array $configuration
+     *
+     * @return UnixReader
+     */
     private static function createUnix($configuration)
     {
         $user = self::configurationGetOrDefault($configuration, 'user', null);
@@ -128,6 +151,13 @@ class ReaderFactory
         return $reader;
     }
 
+    /**
+     * @param array $configuration
+     * @param mixed $index
+     * @param mixed $default
+     *
+     * @return mixed
+     */
     private static function configurationGetOrDefault($configuration, $index, $default)
     {
         return isset($configuration[$index]) ? $configuration[$index] : $default;

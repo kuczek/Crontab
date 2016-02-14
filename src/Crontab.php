@@ -1,13 +1,19 @@
 <?php
 /**
- * @copyright 2015 hexmedia.pl
  * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
  */
 
 namespace Hexmedia\Crontab;
 
 use Hexmedia\Crontab\Exception\NotManagedException;
 
+/**
+ * Class Crontab
+ *
+ * @package Hexmedia\Crontab
+ */
 class Crontab
 {
     /**
@@ -67,13 +73,14 @@ class Crontab
 
     /**
      * @param Task $task
+     *
      * @return $this
      * @throws NotManagedException
      */
     public function removeTask(Task $task)
     {
         if ($task->isNotManaged()) {
-            throw new NotManagedException("This task is not managed by this application so you cannot remove it!");
+            throw new NotManagedException('This task is not managed by this application so you cannot remove it!');
         }
 
         foreach ($this->managedTasks as $key => $taskIteration) {
@@ -111,6 +118,9 @@ class Crontab
         return $this;
     }
 
+    /**
+     * @return null|string
+     */
     public function getUser()
     {
         return $this->user;

@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
+ */
 
 namespace Hexmedia\Crontab\System;
 
@@ -6,12 +11,18 @@ use Hexmedia\Crontab\Exception\SystemOperationException;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
 
+/**
+ * Class Unix
+ *
+ * @package Hexmedia\Crontab\System
+ */
 class Unix
 {
     /**
      * @var string|null
      */
     private static $temporaryDir = null;
+
     /**
      * @var ProcessBuilder
      */
@@ -20,7 +31,7 @@ class Unix
     /**
      * @var array
      */
-    private static $unixes = array("Linux", "FreeBSD");
+    private static $unixes = array('Linux', 'FreeBSD');
 
     /**
      * @param ProcessBuilder $processBuilder
@@ -32,6 +43,7 @@ class Unix
 
     /**
      * @param null|string $user
+     *
      * @return string
      * @throws SystemOperationException
      */
@@ -40,7 +52,7 @@ class Unix
         $processArgs = array('-l');
 
         if (null !== $user) {
-            $processArgs[] = "-u";
+            $processArgs[] = '-u';
             $processArgs[] = $user;
         }
 
@@ -52,8 +64,8 @@ class Unix
         $process->run();
 
         if ($process->getErrorOutput()) {
-            if (false === strpos($process->getErrorOutput(), "no crontab for")) {
-                throw new SystemOperationException(sprintf("Executing error: %s", trim($process->getErrorOutput())));
+            if (false === strpos($process->getErrorOutput(), 'no crontab for')) {
+                throw new SystemOperationException(sprintf('Executing error: %s', trim($process->getErrorOutput())));
             }
 
             return false;
@@ -63,16 +75,17 @@ class Unix
     }
 
     /**
-     * @param string $content
+     * @param string      $content
      * @param string|null $user
+     *
      * @return bool
      * @throws SystemOperationException
      */
     public static function save($content, $user = null)
     {
-        $temporaryFile = self::getTemporaryDir() . "/" . md5(rand(0, 10000)) . ".cron";
+        $temporaryFile = self::getTemporaryDir() . '/' . md5(rand(0, 10000)) . '.cron';
 
-        $fileHandler = fopen($temporaryFile, "w");
+        $fileHandler = fopen($temporaryFile, 'w');
         flock($fileHandler, LOCK_EX);
         fwrite($fileHandler, $content);
         flock($fileHandler, LOCK_UN);
@@ -81,25 +94,25 @@ class Unix
         $processArgs = array();
 
         if (null !== $user) {
-            $processArgs[] = "-u";
+            $processArgs[] = '-u';
             $processArgs[] = $user;
         }
 
         $processArgs[] = $temporaryFile;
 
         $process = self::$processBuilder
-            ->setPrefix("crontab")
+            ->setPrefix('crontab')
             ->setArguments($processArgs)
             ->getProcess();
 
         $process->run();
 
         if ($process->getErrorOutput()) {
-            throw new SystemOperationException(sprintf("Executing error: %s", trim($process->getErrorOutput())));
+            throw new SystemOperationException(sprintf('Executing error: %s', trim($process->getErrorOutput())));
         }
 
         if ($process->getOutput()) {
-            throw new SystemOperationException(sprintf("Unexpected output: %s", trim($process->getOutput())));
+            throw new SystemOperationException(sprintf('Unexpected output: %s', trim($process->getOutput())));
         }
 
         return true;
@@ -107,6 +120,7 @@ class Unix
 
     /**
      * @param string|null $user
+     *
      * @return bool
      * @throws SystemOperationException
      */
@@ -115,34 +129,40 @@ class Unix
         $processArgs = array();
 
         if (null !== $user) {
-            $processArgs[] = "-u";
+            $processArgs[] = '-u';
             $processArgs[] = $user;
         }
 
-        $processArgs[] = "-r";
+        $processArgs[] = '-r';
 
         $process = self::$processBuilder
-            ->setPrefix("crontab")
+            ->setPrefix('crontab')
             ->setArguments($processArgs)
             ->getProcess();
 
         $process->run();
 
         if ($process->getErrorOutput()) {
-            if (false === strpos($process->getErrorOutput(), "no crontab for")) {
-                throw new SystemOperationException(sprintf("Executing error: %s", trim($process->getErrorOutput())));
+            if (false === strpos($process->getErrorOutput(), 'no crontab for')) {
+                throw new SystemOperationException(sprintf('Executing error: %s', trim($process->getErrorOutput())));
             }
 
             return true; //It means that it's clear so true should be returned.
         }
 
         if ($process->getOutput()) {
-            throw new SystemOperationException(sprintf("Unexpected output: %s", trim($process->getOutput())));
+            throw new SystemOperationException(sprintf('Unexpected output: %s', trim($process->getOutput())));
         }
 
         return true;
     }
 
+    /**
+     * @param null $user
+     *
+     * @return bool
+     * @throws SystemOperationException
+     */
     public static function isSetUp($user = null)
     {
         return false !== self::get($user);
@@ -172,6 +192,9 @@ class Unix
         return in_array(PHP_OS, self::$unixes);
     }
 
+    /**
+     * @return array
+     */
     public static function getUnixList()
     {
         return self::$unixes;
@@ -179,6 +202,7 @@ class Unix
 
     /**
      * @param string $name
+     *
      * @return bool
      */
     public static function addUnix($name)
@@ -190,6 +214,7 @@ class Unix
 
     /**
      * @param string $name
+     *
      * @return bool
      */
     public static function removeUnix($name)
@@ -198,6 +223,7 @@ class Unix
 
         if (false !== $key) {
             unset(self::$unixes[$key]);
+
             return true;
         }
 

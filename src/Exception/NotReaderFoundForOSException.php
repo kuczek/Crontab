@@ -1,13 +1,17 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: krun
- * Date: 31.01.16
- * Time: 13:17
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
  */
 
 namespace Hexmedia\Crontab\Exception;
 
+/**
+ * Class NotReaderFoundForOSException
+ *
+ * @package Hexmedia\Crontab\Exception
+ */
 class NotReaderFoundForOSException extends \Exception
 {
 

@@ -1,16 +1,20 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: kkuczek
- * Date: 2016-01-26
- * Time: 12:35
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
  */
 
 namespace Hexmedia\Crontab\Reader;
 
 use Hexmedia\Crontab\Crontab;
 
-abstract class FileReader extends ArrayReader
+/**
+ * Class FileReaderAbstract
+ *
+ * @package Hexmedia\Crontab\Reader
+ */
+abstract class AbstractFileReader extends AbstractArrayReader
 {
     /**
      * @var string
@@ -19,9 +23,10 @@ abstract class FileReader extends ArrayReader
 
     /**
      * FileReader constructor.
-     * @param null $file
+     *
+     * @param null         $file
      * @param Crontab|null $crontab
-     * @param null $machine
+     * @param null         $machine
      */
     public function __construct($file = null, Crontab $crontab = null, $machine = null)
     {
@@ -52,11 +57,17 @@ abstract class FileReader extends ArrayReader
         return $this->readArray($parsed);
     }
 
+    /**
+     * @return string
+     */
     protected function getFile()
     {
         return $this->file;
     }
 
+    /**
+     * @return string
+     */
     protected function getContent()
     {
         return file_get_contents($this->getFile());

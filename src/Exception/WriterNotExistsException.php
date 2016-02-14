@@ -1,13 +1,18 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: krun
- * Date: 02.02.16
- * Time: 23:29
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
  */
+
 
 namespace Hexmedia\Crontab\Exception;
 
+/**
+ * Class WriterNotExistsException
+ *
+ * @package Hexmedia\Crontab\Exception
+ */
 class WriterNotExistsException extends \Exception
 {
 

@@ -1,18 +1,37 @@
 <?php
+/**
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
+ */
 
 namespace Hexmedia\Crontab\Reader;
 
 use Hexmedia\Crontab\Crontab;
 
-class UnixSystemReader extends UnixReader
+/**
+ * Class UnixSystemReader
+ *
+ * @package Hexmedia\Crontab\Reader
+ */
+class UnixSystemReader extends AbstractUnixReader
 {
-    private static $supportedOses = array("Linux", "FreeBSD");
+    /**
+     * @var array
+     */
+    private static $supportedOses = array('Linux', 'FreeBSD');
 
     /**
      * @var string
      */
     private $user;
 
+    /**
+     * UnixSystemReader constructor.
+     *
+     * @param string       $user
+     * @param Crontab|null $crontab
+     */
     public function __construct($user, Crontab $crontab = null)
     {
         $this->user = $user;
@@ -20,23 +39,12 @@ class UnixSystemReader extends UnixReader
         parent::__construct($crontab);
     }
 
+    /**
+     * @return bool
+     */
     public static function isSupported()
     {
         return in_array(PHP_OS, self::$supportedOses);
-    }
-
-    /**
-     * @return string
-     */
-    protected function getContent()
-    {
-        $output = array();
-
-        $result = exec(sprintf("crontab -l %s", ($this->user ? "-u $this->user" : "")), $output);
-
-        if ($result) {
-            return implode("\n", $output);
-        }
     }
 
     /**
@@ -61,6 +69,7 @@ class UnixSystemReader extends UnixReader
 
     /**
      * @param string $name
+     *
      * @return bool
      */
     public function removeSupportedOs($name)
@@ -74,5 +83,19 @@ class UnixSystemReader extends UnixReader
         }
 
         return false;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getContent()
+    {
+        $output = array();
+
+        $result = exec(sprintf('crontab -l %s', ($this->user ? '-u ' . $this->user : '')), $output);
+
+        if ($result) {
+            return implode("\n", $output);
+        }
     }
 }

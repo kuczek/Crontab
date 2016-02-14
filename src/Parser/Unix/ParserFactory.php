@@ -1,21 +1,28 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: krun
- * Date: 31.01.16
- * Time: 00:34
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
  */
 
 namespace Hexmedia\Crontab\Parser\Unix;
 
-use Hexmedia\Crontab\Parser\ParserFactoryAbstract;
+use Hexmedia\Crontab\Parser\AbstractParserFactory;
 
-class ParserFactory extends ParserFactoryAbstract
+/**
+ * Class ParserFactory
+ *
+ * @package Hexmedia\Crontab\Parser\Unix
+ */
+class ParserFactory extends AbstractParserFactory
 {
+    /**
+     * @return array
+     */
     public function getDefaultParsers()
     {
         return array(
-            "\\Hexmedia\\Crontab\\Parser\\Unix\\UnixParser",
+            '\\Hexmedia\\Crontab\\Parser\\Unix\\UnixParser',
         );
     }
 }

@@ -1,9 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: kkuczek
- * Date: 2016-01-26
- * Time: 12:31
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
  */
 
 namespace Hexmedia\Crontab\Reader;
@@ -12,7 +11,12 @@ use Hexmedia\Crontab\Crontab;
 use Hexmedia\Crontab\Task;
 use Hexmedia\Crontab\Variables;
 
-abstract class ArrayReader implements ReaderInterface
+/**
+ * Class ArrayReaderAbstract
+ *
+ * @package Hexmedia\Crontab\Reader
+ */
+abstract class AbstractArrayReader implements ReaderInterface
 {
     /**
      * @var Crontab
@@ -20,14 +24,15 @@ abstract class ArrayReader implements ReaderInterface
     private $crontab;
 
     /**
-     * @var null
+     * @var string|null
      */
     private $machine = null;
 
     /**
      * ArrayReader constructor.
+     *
      * @param Crontab|null $crontab
-     * @param null $machine;
+     * @param string|null  $machine
      */
     public function __construct(Crontab $crontab = null, $machine = null)
     {
@@ -35,6 +40,21 @@ abstract class ArrayReader implements ReaderInterface
         $this->machine = $machine;
     }
 
+    /**
+     * @return Crontab
+     */
+    public function read()
+    {
+        $array = $this->prepareArray();
+
+        return $this->readArray($array);
+    }
+
+    /**
+     * @param array $array
+     *
+     * @return Crontab
+     */
     protected function readArray(array $array)
     {
         foreach ($array as $name => $task) {
@@ -48,17 +68,15 @@ abstract class ArrayReader implements ReaderInterface
         return $this->crontab;
     }
 
-    public function read()
-    {
-        $array = $this->prepareArray();
-        return $this->readArray($array);
-    }
-
+    /**
+     * @return array
+     */
     abstract protected function prepareArray();
 
     /**
      * @param string $name
-     * @param array $taskArray
+     * @param array  $taskArray
+     *
      * @return Task
      */
     private function createTaskFromConfig($name, array $taskArray)
@@ -78,6 +96,11 @@ abstract class ArrayReader implements ReaderInterface
         return $task;
     }
 
+    /**
+     * @param string $machine
+     *
+     * @return bool
+     */
     private function checkIfForThisMachine($machine)
     {
         if (null === $this->machine) {
@@ -89,9 +112,9 @@ abstract class ArrayReader implements ReaderInterface
             return true;
         }
 
-        $pattern = str_replace(array("*", "?"), array(".*", "."), $machine);
+        $pattern = str_replace(array('*', '?'), array('.*', '.'), $machine);
 
-        if (preg_match(sprintf("/%s/", $pattern), $this->machine)) {
+        if (preg_match(sprintf('/%s/', $pattern), $this->machine)) {
             return true;
         }
 

@@ -1,13 +1,17 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: kkuczek
- * Date: 2016-01-26
- * Time: 16:50
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
  */
 
 namespace Hexmedia\Crontab\Parser;
 
+/**
+ * Class ParserAbstract
+ *
+ * @package Hexmedia\Crontab\Parser
+ */
 abstract class AbstractParser implements ParserInterface
 {
     /**
@@ -17,6 +21,7 @@ abstract class AbstractParser implements ParserInterface
 
     /**
      * AbstractParser constructor.
+     *
      * @param string $content
      */
     public function __construct($content)

@@ -1,13 +1,17 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: kkuczek
- * Date: 2016-01-26
- * Time: 15:45
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
  */
 
 namespace Hexmedia\Crontab\Parser;
 
+/**
+ * Interface ParserInterface
+ *
+ * @package Hexmedia\Crontab\Parser
+ */
 interface ParserInterface
 {
     /**
@@ -15,5 +19,8 @@ interface ParserInterface
      */
     public function parse();
 
+    /**
+     * @return bool
+     */
     public static function isSupported();
 }

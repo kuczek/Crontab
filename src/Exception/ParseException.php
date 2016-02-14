@@ -1,8 +1,9 @@
 <?php
 
 /**
- * @copyright 2015-2016 hexmedia.pl
  * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
  */
 
 namespace Hexmedia\Crontab\Exception;

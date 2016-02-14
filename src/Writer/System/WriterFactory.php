@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author    Krystian Kuczek <krystian@hexmedia.pl>
+ * @copyright 2013-2016 Hexmedia.pl
+ * @license   @see LICENSE
+ */
 
 /**
  * @(c) 2013-2015 Hexmedia.pl <krystian@hexmedia.pl>
@@ -11,6 +16,7 @@ use Hexmedia\Crontab\Exception\WriterNotExistsException;
 
 /**
  * Class WriterFactory
+ *
  * @package Hexmedia\Crontab\Writer\System
  */
 class WriterFactory
@@ -27,7 +33,7 @@ class WriterFactory
     public static function create()
     {
         foreach (self::getWriters() as $writer) {
-            if (true === call_user_func("$writer::isSupported")) {
+            if (true === call_user_func($writer . '::isSupported')) {
                 return new $writer();
             }
         }
@@ -57,12 +63,13 @@ class WriterFactory
 
     /**
      * @param string $writer
+     *
      * @throws WriterNotExistsException
      */
     public static function addWriter($writer)
     {
         if (false === class_exists($writer)) {
-            throw new WriterNotExistsException(sprintf("Writer with given name %s does not exists.", $writer));
+            throw new WriterNotExistsException(sprintf('Writer with given name %s does not exists.', $writer));
         }
 
         self::$writers[] = $writer;
