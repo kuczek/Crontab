@@ -116,15 +116,15 @@ abstract class AbstractParserFactory
      */
     protected function searchForKey($searched)
     {
-        $key = array_search(
-            $this->unify($searched),
-            array_map(
-                function ($parser) {
-                    return $this->unify($parser);
-                },
-                $this->parsers
-            )
-        );
+        $key = false;
+        $searchedUnified = $this->unify($searched);
+
+        foreach ($this->parsers as $key2 => $parser) {
+            if ($searchedUnified == $this->unify($parser)) {
+                $key = $key2;
+                break;
+            }
+        }
 
         if (false === $key) {
             foreach ($this->parsers as $key2 => $parser) {
@@ -165,6 +165,8 @@ abstract class AbstractParserFactory
      */
     private function unify($className)
     {
-        return preg_replace("/[^a-zA-Z0-9]*/", "", $className);
+        $className = trim($className, "\\/ \n");
+
+        return preg_replace("/[^a-zA-Z0-9]*/", "/", $className);
     }
 }
