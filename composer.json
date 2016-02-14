@@ -20,6 +20,9 @@
   "autoload": {
     "psr-4": {"Hexmedia\\Crontab\\": "./src"}
   },
+  "autoload-dev": {
+    "psr-4": {"Hexmedia\\CrontabDev\\": "./src-dev" }
+  },
   "require": {
     "php": ">=5.3.3",
     "symfony/console": ">=2.3,<4.0"
@@ -32,7 +35,6 @@
     "henrikbjorn/phpspec-code-coverage": ">1.0,<3.0",
     "symfony/yaml": ">=2.3,<4",
     "symfony/config": ">=2.3,<4",
-    "austinhyde/iniparser": "~1.0@dev",
     "zf1/zend-config" : "1.12.11",
     "zendframework/zend-config": "~2.5",
     "phpmd/phpmd": "~2.3,>=2.3.1",
@@ -42,12 +44,12 @@
     "symfony/process": ">=2.3,<4",
     "seld/jsonlint": "^1.4",
     "hexmedia/yaml-linter": ">0.1,<2",
-    "hexmedia/code-style": "dev-crontab"
+    "austinhyde/iniparser": "~1.0@dev",
+    "hexmedia/code-style": "~1.0@dev"
   },
   "suggest": {
     "symfony/yaml": "Enables support for yaml configuration files.",
     "symfony/config": "Enables support for ini configuration files.",
-    "austinhyde/iniparser": "Enables support for ini configuration files.",
     "zf1/zend-config": "Enables support for ini configuration files.",
     "zendframework/zend-config": "Enables support for ini and yaml configuration files."
   },

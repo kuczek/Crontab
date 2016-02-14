@@ -42,6 +42,7 @@ abstract class AbstractParserFactory
     /**
      * @param string $className
      *
+     * @return $this
      * @throws UnexistingParserException
      */
     public function addParser($className)
@@ -51,6 +52,8 @@ abstract class AbstractParserFactory
         }
 
         $this->parsers[] = $className;
+
+        return $this;
     }
 
     /**
@@ -89,18 +92,44 @@ abstract class AbstractParserFactory
     }
 
     /**
-     * @param string $preferred
+     * @return array
+     */
+    public function getParsers()
+    {
+        return $this->parsers;
+    }
+
+    /**
+     * @return $this;
+     */
+    public function clearParser()
+    {
+        $this->parsers = array();
+
+        return $this;
+    }
+
+    /**
+     * @param string $searched
      *
      * @return string
      */
-    protected function searchForKey($preferred)
+    protected function searchForKey($searched)
     {
-        $key = array_search($preferred, $this->parsers);
+        $key = array_search(
+            $this->unify($searched),
+            array_map(
+                function ($parser) {
+                    return $this->unify($parser);
+                },
+                $this->parsers
+            )
+        );
 
         if (false === $key) {
             foreach ($this->parsers as $key2 => $parser) {
                 if (preg_match('/\\\\([A-Za-z0-9]*)$/', $parser, $matches)) {
-                    if ($matches[1] == $preferred) {
+                    if ($matches[1] == $searched) {
                         return $key2;
                     }
                 }
@@ -125,5 +154,17 @@ abstract class AbstractParserFactory
                 array_unshift($this->parsers, $preferred);
             }
         }
+    }
+
+    /**
+     * Unifying class name for search
+     *
+     * @param string $className
+     *
+     * @return string
+     */
+    private function unify($className)
+    {
+        return preg_replace("/[^a-zA-Z0-9]*/", "", $className);
     }
 }

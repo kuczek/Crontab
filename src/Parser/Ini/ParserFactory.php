@@ -22,9 +22,9 @@ class ParserFactory extends AbstractParserFactory
     public function getDefaultParsers()
     {
         return array(
-            '\\Hexmedia\\Crontab\\Crontab\\Parser\\Ini\\Zend2Parser',
-            '\\Hexmedia\\Crontab\\Crontab\\Parser\\Ini\\ZendParser',
-            '\\Hexmedia\\Crontab\\Crontab\\Parser\\Ini\\AustinHydeParser',
+            '\Hexmedia\Crontab\Parser\Ini\Zend2Parser',
+            '\Hexmedia\Crontab\Parser\Ini\ZendParser',
+            '\Hexmedia\Crontab\Parser\Ini\AustinHydeParser',
         );
     }
 }
