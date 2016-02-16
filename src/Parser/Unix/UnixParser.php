@@ -35,8 +35,8 @@ class UnixParser extends AbstractParser implements ParserInterface
         $content = "\n" . $this->getContent(); //a little trick
         //                                       to allow allow only rules that begins at the begining of line
 
-        if (false === preg_match_all('/' . $this->getCrontabRegexRule() . '/', $content, $matches, PREG_SET_ORDER)) {
-            throw new ParseException(sprintf("Cannot match this file error: '%s'", preg_last_error()));
+        if (false == preg_match_all('/' . $this->getCrontabRegexRule() . '/', $content, $matches, PREG_SET_ORDER)) {
+            throw new ParseException(sprintf("Cannot match this file error: '%s'", (preg_last_error() ?: "wrong file format")));
         }
 
         $return = array();

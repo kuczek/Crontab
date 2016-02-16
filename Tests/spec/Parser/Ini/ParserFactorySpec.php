@@ -1,30 +1,24 @@
 <?php
-/**
- * @author    Krystian Kuczek <krystian@hexmedia.pl>
- * @copyright 2013-2016 Hexmedia.pl
- * @license   @see LICENSE
- */
 
-namespace spec\Hexmedia\Crontab\Parser\Unix;
+namespace spec\Hexmedia\Crontab\Parser\Ini;
 
 use Hexmedia\CrontabDev\PhpSpec\Parser\FactoryObjectBehavior;
-use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 class ParserFactorySpec extends FactoryObjectBehavior
 {
     protected function getType()
     {
-        return "Unix";
+        return "Ini";
     }
 
     protected function getWorkingParser()
     {
-        return "UnixParser";
+        return 'AustinHydeParser';
     }
 
     protected function getParsersCount()
     {
-        return 1;
+        return 3;
     }
 }

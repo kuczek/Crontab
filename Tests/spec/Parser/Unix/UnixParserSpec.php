@@ -7,6 +7,7 @@
 
 namespace spec\Hexmedia\Crontab\Parser\Unix;
 
+use Hexmedia\Crontab\Exception\ParseException;
 use Hexmedia\Crontab\Parser\Unix\UnixParser;
 use Hexmedia\Crontab\Parser\Unix\UnixParserAbstract;
 use PhpSpec\ObjectBehavior;
@@ -21,6 +22,17 @@ class UnixParserSpec extends ObjectBehavior
         $content = file_get_contents($file);
 
         $this->beConstructedWith($content);
+    }
+
+    function it_is_not_working_with_wrong_file()
+    {
+        $file = __DIR__ . '/../../../example_configurations/test.ini';
+
+        $content = file_get_contents($file);
+
+        $this->beConstructedWith($content);
+
+        $this->shouldThrow(new ParseException('Cannot match this file error: \'wrong file format\''))->duringParse();
     }
 
     function it_is_initializable()
@@ -67,7 +79,7 @@ class UnixParserSpec extends ObjectBehavior
             './mwe:photo:s3 asgasg afasf',
             './crobtabaction.php -- -pht',
             'ant build',
-            '. ./do some thing98'
+            '. ./do some thing98',
         );
 
         $minutes = array('*/26', "13", '50', "*");
@@ -78,15 +90,15 @@ class UnixParserSpec extends ObjectBehavior
         $variables = array(
             array(
                 'AND_SOME_VAR_FOR_NOT_MANAGED' => '1',
-                'AND_ANOTHER_VAR' => '2'
+                'AND_ANOTHER_VAR' => '2',
             ),
             array(),
             array(
-                'MAILTO' => 'test@test.com'
+                'MAILTO' => 'test@test.com',
             ),
             array(
-                'MAILTO' => 'test2@test.com'
-            )
+                'MAILTO' => 'test2@test.com',
+            ),
         );
 
         $comments = array(
@@ -96,7 +108,7 @@ class UnixParserSpec extends ObjectBehavior
             "Rule below is managed by CrontabLibrary by Hexmedia - Do not modify it!  0cbc6611f502690a30dc24bcc1148cfa",
             "Rule below is managed by CrontabLibrary by Hexmedia - Do not modify it!  0cbc6611f5f04eb5607f81bdf9c11ffe\n" .
             "Send to test1\n" .
-            "Or not...   //only the second one will be saved :)"
+            "Or not...   //only the second one will be saved :)",
         );
 
         for ($i = 0; $i < 4; $i++) {

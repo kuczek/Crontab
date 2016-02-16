@@ -7,13 +7,23 @@
 
 namespace spec\Hexmedia\Crontab\Parser\Yaml;
 
-use PhpSpec\ObjectBehavior;
+use Hexmedia\CrontabDev\PhpSpec\Parser\FactoryObjectBehavior;
 use Prophecy\Argument;
 
-class ParserFactorySpec extends ObjectBehavior
+class ParserFactorySpec extends FactoryObjectBehavior
 {
-    function it_is_initializable()
+    protected function getType()
     {
-        $this->shouldHaveType('Hexmedia\Crontab\Parser\Yaml\ParserFactory');
+        return "Yaml";
+    }
+
+    protected function getWorkingParser()
+    {
+        return "SymfonyParser";
+    }
+
+    protected function getParsersCount()
+    {
+        return 2;
     }
 }

@@ -1,23 +1,25 @@
-s3_synchronize:
-    command: "mwe:photo:s3 asgasg afasf"
+command1:
+    command: "./some/command1"
     minute: '*/13'
     hour: '*'
     day_of_month: '*'
     day_of_week: '*'
     month: '*'
-    log_file: './logs/schema_validate.log'
+    log_file: './logs/some_log1.log'
     machine: www*
+    comment: "this is some comment for this crontab"
     variables:
-        MAILTO: k.kuczek@tvn.pl
-s3_synchronize2:
-    command: "mwe:photo:s3 asgasg afasf"
+        MAILTO: test@test.pl
+command2:
+    command: "./some/command2"
     minute: '*'
     hour: '*'
     day_of_month: '*'
     day_of_week: '*'
     month: '*'
-    log_file: './logs/schema_validate.log'
+    log_file: './logs/some_log2.log'
     machine: www103
     variables:
-        MAILTO: j.zieba@tvn.pl
+        MAILTO: test@test.com
+        NO_VALIDATE: true
 
