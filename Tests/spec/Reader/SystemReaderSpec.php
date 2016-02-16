@@ -7,6 +7,7 @@
 
 namespace spec\Hexmedia\Crontab\Reader;
 
+use Hexmedia\Crontab\Exception\ClassNotExistsException;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -35,16 +36,30 @@ class SystemReaderSpec extends ObjectBehavior
         $this->getReaders()->shouldHaveCount(1);
     }
 
-    function it_is_able_to_add_reader()
+    function it_is_able_to_remove_and_add_reader()
     {
-        $reader = "Hexmedia\\Crontab\\Reader\\WindowsSystemReader";
+        $reader = "Hexmedia\\Crontab\\Reader\\UnixSystemReader";
 
+        $this->getReaders()->shouldHaveCount(1);
+        $this->removeReader($reader)->shouldReturn($this);
+        $this->getReaders()->shouldHaveCount(0);
         $this->addReader($reader)->shouldReturn($this);
 
         $readers = $this->getReaders();
+        $readers->shouldHaveCount(1);
+        $readers[0]->shouldReturn('\\' . $reader);
+    }
 
-        $readers->shouldHaveCount(2);
-        $readers[1]->shouldReturn($reader);
+    function it_is_not_able_to_add_non_existing_class()
+    {
+        $reader = "\\Hexmedia\\Crontab\\Reader\\WindowsSystemReader";
+
+        $this
+            ->shouldThrow(
+                new ClassNotExistsException(
+                    sprintf("Class %s does not exists. Cannot be added as Reader.", $reader)
+                )
+            )->duringAddReader($reader);
     }
 
     function it_is_not_able_to_remove_unexisting_reader()

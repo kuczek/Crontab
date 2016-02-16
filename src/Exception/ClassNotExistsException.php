@@ -7,8 +7,12 @@
 
 namespace Hexmedia\Crontab\Exception;
 
-
-class ClassNotExistsException
+/**
+ * Class ClassNotExistsException
+ *
+ * @package Hexmedia\Crontab\Exception
+ */
+class ClassNotExistsException extends \Exception
 {
 
 }

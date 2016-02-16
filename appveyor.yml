@@ -60,8 +60,8 @@ test_script:
     - Setlocal EnableDelayedExpansion
     - SET X=0
     - copy /Y c:\php\php.ini-min c:\php\php.ini
-    - '%APPDATA%\Composer\vendor\bin\phing continous -Dcitool=appveyor -Dphpversion=5.5.9 || SET X=!errorlevel!'
+    - php %APPDATA%\Composer\vendor\bin\phing continous -Dcitool=appveyor -Dphpversion=5.5.9 -logger phing.listener.DefaultLogger || SET X=!errorlevel!
     - copy /Y c:\php\php.ini-max c:\php\php.ini
-    - '%APPDATA%\Composer\vendor\bin\phing continous -Dcitool=appveyor -Dphpversion=5.5.9 || SET X=!errorlevel!'
+    - php %APPDATA%\Composer\vendor\bin\phing continous -Dcitool=appveyor -Dphpversion=5.5.9 -logger phing.listener.DefaultLogger || SET X=!errorlevel!
     - echo %X%
     - exit %X%
