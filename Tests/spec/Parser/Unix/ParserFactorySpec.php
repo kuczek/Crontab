@@ -7,7 +7,7 @@
 
 namespace spec\Hexmedia\Crontab\Parser\Unix;
 
-use Hexmedia\CrontabDev\PhpSpec\Parser\FactoryObjectBehavior;
+use dev\Hexmedia\Crontab\PhpSpec\Parser\FactoryObjectBehavior;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 

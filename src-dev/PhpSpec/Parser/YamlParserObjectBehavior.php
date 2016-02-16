@@ -5,8 +5,7 @@
  * @license   @see LICENSE
  */
 
-namespace Hexmedia\CrontabDev\PhpSpec\Parser;
-
+namespace dev\Hexmedia\Crontab\PhpSpec\Parser;
 
 class YamlParserObjectBehavior extends ParserObjectBehavior
 {
