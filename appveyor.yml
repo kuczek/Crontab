@@ -52,9 +52,8 @@ install:
     - echo %APPVEYOR_REPO_NAME%
     - IF %APPVEYOR_REPO_NAME%==Hexmedia/Crontab copy /Y .composer-auth.json %APPDATA%\Composer\auth.json
     - IF %APPVEYOR_REPO_BRANCH%==master (SET COMPOSER_ROOT_VERSION=dev-master) ELSE (SET COMPOSER_ROOT_VERSION=%APPVEYOR_REPO_BRANCH%.x-dev)
-    - composer update --prefer-dist --no-progress --ansi
-    - composer global require kherge/box --prefer-dist --no-progress --ansi
-    - composer global require phing/phing --prefer-dist --no-progress --ansi
+    - composer update --prefer-dist --no-progress --ansi --no-interaction
+    - if not exist %APPDATA%\Composer\vendor\bin\phing composer global require phing/phing --prefer-dist --no-progress --ansi --no-interaction
 
 test_script:
     - cd c:\projects\crontab
@@ -64,4 +63,5 @@ test_script:
     - '%APPDATA%\Composer\vendor\bin\phing continous -Dcitool=appveyor -Dphpversion=5.5.9 || SET X=!errorlevel!'
     - copy /Y c:\php\php.ini-max c:\php\php.ini
     - '%APPDATA%\Composer\vendor\bin\phing continous -Dcitool=appveyor -Dphpversion=5.5.9 || SET X=!errorlevel!'
+    - echo %X%
     - exit %X%

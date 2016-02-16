@@ -27,6 +27,8 @@
 
     <property name="build.dir" value="${project.basedir}/build"/>
 
+    <property name="composer.file" value="composer.phar"/><!-- For windows -->
+
     <property environment="env"/>
 
     <php expression="include('vendor/autoload.php');" level="debug"/>
@@ -36,22 +38,49 @@
     </fileset>
 
     <target name="composer-check">
-        <exec executable="which" outputProperty="composer.file">
-            <arg line="composer"/>
-        </exec>
-
         <if>
-            <available file="${composer.file}" property="composer.exists"/>
+            <not>
+                <os family="windows"></os>
+            </not>
             <then>
+                <exec executable="which" outputProperty="composer.file">
+                    <arg line="composer"/>
+                </exec>
 
+                <if>
+                    <available file="${composer.file}" property="composer.exists"/>
+                    <then>
+
+                    </then>
+                    <else>
+                        <if>
+                            <equals arg1="${citool}" arg2="local"/>
+                            <then>
+                                <input message="Enter path to your composer file: " propertyName="composer.file"/>
+                            </then>
+                        </if>
+                    </else>
+                </if>
+            </then>
+        </if>
+    </target>
+
+    <target name="do-composer">
+        <if>
+            <equals arg1="${citool}" arg2="appveyor"/>
+            <then>
+                <echo message="Cannot call composer on AppVeyor" />
             </then>
             <else>
-                <input message="Enter path to your composer file: " propertyName="composer.file"/>
+                <composer command="${composer.temporary.command}" composer="${composer.file}" />
             </else>
         </if>
     </target>
 
     <target name="composer" depends="composer-check">
+        <phingcall target="do-composer">
+            <param name="composer.temporary.command" value="update" />
+        </phingcall>
         <composer command="install" composer="${composer.file}"/>
     </target>
 
@@ -285,7 +314,7 @@
                 <if>
                     <and>
                         <not>
-                            <equals arg1="${travis.command}" arg2="" />
+                            <equals arg1="${travis.command}" arg2=""/>
                         </not>
                         <available property="travis.exists" file="${travis.command}"/>
                     </and>
@@ -315,7 +344,9 @@
     </target>
 
     <target name="composerlint" depends="composer-check">
-        <composer composer="${composer.file}" command="validate"/>
+        <phingcall target="do-composer">
+            <param name="composer.temporary.command" value="validate" />
+        </phingcall>
     </target>
 
     <!-- Full tasks -->
