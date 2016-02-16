@@ -185,11 +185,17 @@ class Unix
     }
 
     /**
+     * @param string|null $osName Default: PHP_OS
+     *
      * @return bool
      */
-    public static function isUnix()
+    public static function isUnix($osName = null)
     {
-        return in_array(PHP_OS, self::$unixes);
+        if (null == $osName) {
+            $osName = PHP_OS;
+        }
+
+        return in_array($osName, self::$unixes);
     }
 
     /**
@@ -207,9 +213,13 @@ class Unix
      */
     public static function addUnix($name)
     {
-        self::$unixes[] = $name;
+        if (false === in_array($name, self::$unixes)) {
+            self::$unixes[] = $name;
 
-        return true;
+            return true;
+        }
+
+        return false;
     }
 
     /**

@@ -11,6 +11,11 @@ use dev\Hexmedia\Crontab\PhpSpec\Parser\FactoryObjectBehavior;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
+/**
+ * Class ParserFactorySpec
+ *
+ * @package spec\Hexmedia\Crontab\Parser\Unix
+ */
 class ParserFactorySpec extends FactoryObjectBehavior
 {
     protected function getType()

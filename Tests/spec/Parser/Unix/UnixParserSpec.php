@@ -41,34 +41,6 @@ class UnixParserSpec extends ObjectBehavior
 //        $this->shouldImplement('Hexmedia\Crontab\Parser\Unix\AbstractParser');
     }
 
-    function it_should_be_supported_on_specified_devices()
-    {
-        $supportedOS = UnixParser::getSupportedOs();
-
-        $this::isSupported()->shouldReturn(in_array(PHP_OS, $supportedOS));
-    }
-
-    function it_is_returning_supported_operating_systems()
-    {
-        $this::getSupportedOs()->shouldHaveCount(2);
-    }
-
-    function it_is_possible_to_add_supported_os()
-    {
-        $name = "WINNT";
-
-        $this::addSupportedOs($name)->shouldReturn(null);
-        $this::getSupportedOs()->shouldHaveCount(3);
-    }
-
-    function it_is_possible_to_remove_supported_os()
-    {
-        $name = "Linux";
-
-        $this::removeSupportedOs($name)->shouldReturn(null);
-        $this::getSupportedOs()->shouldHaveCount(2);
-    }
-
     function it_is_loading_file_correctly()
     {
         $parsed = $this->parse();

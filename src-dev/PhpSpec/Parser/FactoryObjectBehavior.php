@@ -10,6 +10,7 @@ namespace dev\Hexmedia\Crontab\PhpSpec\Parser;
 
 use Hexmedia\Crontab\Exception\NoSupportedParserException;
 use Hexmedia\Crontab\Exception\UnexistingParserException;
+use Hexmedia\Crontab\System\Unix;
 use PhpSpec\Exception\Example\FailureException;
 use PhpSpec\ObjectBehavior;
 
@@ -29,6 +30,14 @@ abstract class FactoryObjectBehavior extends ObjectBehavior
     private function getFullWorkingParserName()
     {
         return 'Hexmedia\Crontab\Parser\\' . $this->getType() . '\\' . $this->getWorkingParser();
+    }
+
+    private $isUnix;
+
+    function let()
+    {
+        $this->isUnix = Unix::isUnix();
+        Unix::addUnix(PHP_OS); //Temporary setting as unix.
     }
 
     function it_is_correctly_defined_working_parser()
@@ -104,13 +113,27 @@ abstract class FactoryObjectBehavior extends ObjectBehavior
 
     function it_is_throwing_when_there_is_no_parser()
     {
+        Unix::removeUnix(PHP_OS);
         $this->clearParser()->shouldReturn($this);
         $this->getParsers()->shouldHaveCount(0);
 
         $this
             ->shouldThrow(
-                new  NoSupportedParserException('There is no supported parser for this type.')
+                new NoSupportedParserException(
+                    sprintf('There is no supported parser for this type or operating system (your is "%s").', PHP_OS)
+                )
             )
             ->duringCreate('some text');
+
+        Unix::addUnix(PHP_OS);
+    }
+
+    function letGo()
+    {
+        if (false === $this->isUnix) {
+            Unix::removeUnix(PHP_OS);
+        } else {
+            Unix::addUnix(PHP_OS);
+        }
     }
 }
