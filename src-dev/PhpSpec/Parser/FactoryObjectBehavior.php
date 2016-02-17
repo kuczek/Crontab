@@ -8,6 +8,7 @@
 
 namespace dev\Hexmedia\Crontab\PhpSpec\Parser;
 
+use dev\Hexmedia\Crontab\PhpSpec\SystemAwareObjectBehavior;
 use Hexmedia\Crontab\Exception\NoSupportedParserException;
 use Hexmedia\Crontab\Exception\UnexistingParserException;
 use Hexmedia\Crontab\System\Unix;
@@ -17,7 +18,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * Class FactoryObjectBehavior
  */
-abstract class FactoryObjectBehavior extends ObjectBehavior
+abstract class FactoryObjectBehavior extends SystemAwareObjectBehavior
 {
     private $notWorkingParser = 'Hexmedia\Crontab\Parser\Ini\SomeParser';
 
@@ -27,17 +28,9 @@ abstract class FactoryObjectBehavior extends ObjectBehavior
 
     abstract protected function getParsersCount();
 
-    private function getFullWorkingParserName()
+    protected function getFullWorkingParserName()
     {
         return 'Hexmedia\Crontab\Parser\\' . $this->getType() . '\\' . $this->getWorkingParser();
-    }
-
-    private $isUnix;
-
-    function let()
-    {
-        $this->isUnix = Unix::isUnix();
-        Unix::addUnix(PHP_OS); //Temporary setting as unix.
     }
 
     function it_is_correctly_defined_working_parser()
@@ -113,7 +106,14 @@ abstract class FactoryObjectBehavior extends ObjectBehavior
 
     function it_is_throwing_when_there_is_no_parser()
     {
-        Unix::removeUnix(PHP_OS);
+        $wasUnix = false;
+
+        if (true === Unix::isUnix()) {
+            $wasUnix = true;
+
+            Unix::removeUnix(PHP_OS);
+        }
+
         $this->clearParser()->shouldReturn($this);
         $this->getParsers()->shouldHaveCount(0);
 
@@ -125,14 +125,7 @@ abstract class FactoryObjectBehavior extends ObjectBehavior
             )
             ->duringCreate('some text');
 
-        Unix::addUnix(PHP_OS);
-    }
-
-    function letGo()
-    {
-        if (false === $this->isUnix) {
-            Unix::removeUnix(PHP_OS);
-        } else {
+        if ($wasUnix) {
             Unix::addUnix(PHP_OS);
         }
     }

@@ -50,6 +50,7 @@ class UnixSpec extends ObjectBehavior
     {
         $this::isUnix("WINNT")->shouldReturn(false);
         $this::isUnix("FreeBSD")->shouldReturn(true);
+        $this::isUnix("Linux")->shouldReturn(true);
     }
 
     function it_can_check_if_it_is_unix()
@@ -224,28 +225,28 @@ class UnixSpec extends ObjectBehavior
 
     function it_allows_to_get_all_supported_os()
     {
-        $this::getUnixList()->shouldHaveCount(2);
+        $this::getUnixList()->shouldHaveCount(3);
     }
 
     function it_allows_to_add_supported_os()
     {
-        $this::addUnix("OsX")->shouldReturn(true);
+        $this::addUnix("Foo")->shouldReturn(true);
 
-        $this::getUnixList()->shouldHaveCount(3);
+        $this::getUnixList()->shouldHaveCount(4);
     }
 
     function it_allows_to_remove_supported_os()
     {
-        $this::removeUnix("OsX")->shouldReturn(true);
+        $this::removeUnix("Foo")->shouldReturn(true);
 
-        $this::getUnixList()->shouldHaveCount(2);
+        $this::getUnixList()->shouldHaveCount(3);
     }
 
     function it_do_not_allows_to_remove_unexisting_supported_os()
     {
         $this::removeUnix("WinNT")->shouldReturn(false);
 
-        $this::getUnixList()->shouldHaveCount(2);
+        $this::getUnixList()->shouldHaveCount(3);
     }
 
     function it_allows_to_set_temporary_dir()

@@ -7,14 +7,16 @@
 
 namespace spec\Hexmedia\Crontab\Writer\System;
 
+use dev\Hexmedia\Crontab\PhpSpec\SystemAwareObjectBehavior;
 use Hexmedia\Crontab\Crontab;
 use Hexmedia\Crontab\Exception\NoWriterForSystemException;
 use Hexmedia\Crontab\Exception\WriterNotExistsException;
 use Hexmedia\Crontab\System\Unix;
+use PhpSpec\Exception\Example\SkippingException;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class WriterFactorySpec extends ObjectBehavior
+class WriterFactorySpec extends SystemAwareObjectBehavior
 {
     /**
      * @var string
@@ -43,11 +45,13 @@ class WriterFactorySpec extends ObjectBehavior
 
     function it_is_able_to_create_writer(Crontab $crontab)
     {
+        $this->systemIsSupported();
+
         $created = $this::create($crontab);
 
         $created->shouldImplement('Hexmedia\Crontab\Writer\System\WriterInterface');
 
-        if (Unix::isUnix()) {
+        if (true === Unix::isUnix()) {
             $created->shouldImplement('Hexmedia\Crontab\Writer\System\UnixWriter');
         }
     }
@@ -79,9 +83,11 @@ class WriterFactorySpec extends ObjectBehavior
 
     function it_is_throwing_error_when_trying_to_add_unexisting_writter()
     {
-        $this->shouldThrow(new WriterNotExistsException(
-            sprintf("Writer with given name %s does not exists.", 'test')
-        ))->during('addWriter', array('test'));
+        $this->shouldThrow(
+            new WriterNotExistsException(
+                sprintf("Writer with given name %s does not exists.", 'test')
+            )
+        )->during('addWriter', array('test'));
     }
 
     function it_is_throwin_exception_when_there_is_no_supporting_system(Crontab $crontab)
@@ -90,15 +96,17 @@ class WriterFactorySpec extends ObjectBehavior
         $this::getWriters()->shouldHaveCount(0);
 
 
-        $this->shouldThrow(new NoWriterForSystemException(
-            sprintf("Writer for your operating system '%s' was not found!", PHP_OS)
-        ))->duringCreate("test", array($crontab));
+        $this->shouldThrow(
+            new NoWriterForSystemException(
+                sprintf("Writer for your operating system '%s' was not found!", PHP_OS)
+            )
+        )->duringCreate("test", array($crontab));
     }
 
     function it_allows_to_set_writers()
     {
         $this::setWriters(array());
         $this::getWriters()->shouldReturn(array());
-
     }
+
 }

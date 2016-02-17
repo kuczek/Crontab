@@ -31,7 +31,7 @@ class Unix
     /**
      * @var array
      */
-    private static $unixes = array('Linux', 'FreeBSD');
+    private static $unixes = array('Linux', 'FreeBSD', 'OsX');
 
     /**
      * @param ProcessBuilder $processBuilder
