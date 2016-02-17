@@ -36,7 +36,7 @@ install:
     - echo extension=php_curl.dll >> php.ini
     - echo extension=php_mbstring.dll >> php.ini
     - echo extension=php_fileinfo.dll >> php.ini
-    - cd c:\projects\phpspec
+    - cd c:\projects\crontab
     - SET COMPOSER_ROOT_VERSION=dev-master
     - composer update --no-progress --ansi
     - appveyor DownloadFile http://www.phing.info/get/phing-latest.phar
@@ -44,3 +44,4 @@ install:
 test_script:
     - cd c:\projects\crontab
     - php phing-latest.phar run
+    - echo %errorlevel%
