@@ -48,20 +48,20 @@ install:
     - appveyor DownloadFile https://getcomposer.org/composer.phar
     - copy /Y php.ini-max php.ini
     - cd c:\projects\crontab
+    - appveyor DownloadFile http://www.phing.info/get/phing-latest.phar
     - if not exist %APPDATA%\Composer mkdir %APPDATA%\Composer
     - echo %APPVEYOR_REPO_NAME%
     - IF %APPVEYOR_REPO_NAME%==Hexmedia/Crontab copy /Y .composer-auth.json %APPDATA%\Composer\auth.json
     - IF %APPVEYOR_REPO_BRANCH%==master (SET COMPOSER_ROOT_VERSION=dev-master) ELSE (SET COMPOSER_ROOT_VERSION=%APPVEYOR_REPO_BRANCH%.x-dev)
     - composer update --prefer-dist --no-progress --ansi --no-interaction
-    - if not exist %APPDATA%\Composer\vendor\bin\phing composer global require phing/phing --prefer-dist --no-progress --ansi --no-interaction
 
 test_script:
     - cd c:\projects\crontab
     - Setlocal EnableDelayedExpansion
     - SET X=0
     - copy /Y c:\php\php.ini-min c:\php\php.ini
-    - if exists %APPDATA%\Composer\vendor\bin\phing %APPDATA%\Composer\vendor\bin\phing continous -Dcitool=appveyor -Dphpversion=5.5.9 -logger phing.listener.DefaultLogger || SET X=!errorlevel!
+    - php .\phing-latest.phar continous -Dcitool=appveyor -Dphpversion=5.5.9 -logger phing.listener.DefaultLogger || SET X=!errorlevel!
     - copy /Y c:\php\php.ini-max c:\php\php.ini
-    - if exists %APPDATA%\Composer\vendor\bin\phing %APPDATA%\Composer\vendor\bin\phing continous -Dcitool=appveyor -Dphpversion=5.5.9 -logger phing.listener.DefaultLogger || SET X=!errorlevel!
+    - php .\phing-latest.phar continous -Dcitool=appveyor -Dphpversion=5.5.9 -logger phing.listener.DefaultLogger || SET X=!errorlevel!
     - echo %X%
     - exit %X%
