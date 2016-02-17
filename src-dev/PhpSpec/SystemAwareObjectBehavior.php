@@ -19,7 +19,7 @@ use PhpSpec\ObjectBehavior;
  */
 class SystemAwareObjectBehavior extends ObjectBehavior
 {
-    protected function systemIsSupported()
+    protected function isSystemSupported()
     {
         if (false === Unix::isUnix()) {
             throw new SkippingException(

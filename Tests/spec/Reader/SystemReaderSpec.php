@@ -7,11 +7,11 @@
 
 namespace spec\Hexmedia\Crontab\Reader;
 
+use dev\Hexmedia\Crontab\PhpSpec\SystemAwareObjectBehavior;
 use Hexmedia\Crontab\Exception\ClassNotExistsException;
-use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class SystemReaderSpec extends ObjectBehavior
+class SystemReaderSpec extends SystemAwareObjectBehavior
 {
     function let()
     {
@@ -33,11 +33,15 @@ class SystemReaderSpec extends ObjectBehavior
 
     function it_has_readers()
     {
+        $this->isSystemSupported();
+
         $this->getReaders()->shouldHaveCount(1);
     }
 
     function it_is_able_to_remove_and_add_reader()
     {
+        $this->isSystemSupported();
+
         $reader = "Hexmedia\\Crontab\\Reader\\UnixSystemReader";
 
         $this->getReaders()->shouldHaveCount(1);
@@ -52,6 +56,8 @@ class SystemReaderSpec extends ObjectBehavior
 
     function it_is_not_able_to_add_non_existing_class()
     {
+        $this->isSystemSupported();
+
         $reader = "\\Hexmedia\\Crontab\\Reader\\WindowsSystemReader";
 
         $this
@@ -64,6 +70,8 @@ class SystemReaderSpec extends ObjectBehavior
 
     function it_is_not_able_to_remove_unexisting_reader()
     {
+        $this->isSystemSupported();
+
         $reader = "Hexmedia\\Crontab\\Reader\\AndroidReader";
 
         $this->removeReader($reader)->shouldReturn($this);
@@ -73,6 +81,8 @@ class SystemReaderSpec extends ObjectBehavior
 
     function it_is_able_to_remove_reader()
     {
+        $this->isSystemSupported();
+
         $reader = "Hexmedia\\Crontab\\Reader\\WindowsSystemReader";
 
         $this->removeReader($reader)->shouldReturn($this);
@@ -84,6 +94,8 @@ class SystemReaderSpec extends ObjectBehavior
 
     function it_is_able_to_read()
     {
+        $this->isSystemSupported();
+
         $readed = $this->read();
 
         $readed->shouldHaveType('Hexmedia\Crontab\Crontab');

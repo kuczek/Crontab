@@ -54,14 +54,14 @@ class SystemWriterSpec extends SystemAwareObjectBehavior
 
     function it_is_properly_writing($crontab)
     {
-        $this->systemIsSupported();
+        $this->isSystemSupported();
 
         $this->write($crontab)->shouldReturn(true);
     }
 
     function it_is_properly_preparing_content($crontab)
     {
-        $this->systemIsSupported();
+        $this->isSystemSupported();
 
         $this->getContent($crontab)->shouldContain("test");//shouldReturn($shouldBe);
     }

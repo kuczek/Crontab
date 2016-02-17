@@ -45,7 +45,7 @@ class WriterFactorySpec extends SystemAwareObjectBehavior
 
     function it_is_able_to_create_writer(Crontab $crontab)
     {
-        $this->systemIsSupported();
+        $this->isSystemSupported();
 
         $created = $this::create($crontab);
 
@@ -66,8 +66,8 @@ class WriterFactorySpec extends SystemAwareObjectBehavior
         $this::removeWriter($this->linuxWriterClass);
         $this::getWriters()->shouldHaveCount(sizeof($this->orginalWriters) - 1);
     }
-
     function it_is_returning_false_when_trying_to_remove_unexisting_writer()
+
     {
         $this::removeWriter("test")->shouldReturn(false);
     }
@@ -105,6 +105,8 @@ class WriterFactorySpec extends SystemAwareObjectBehavior
 
     function it_allows_to_set_writers()
     {
+        $this->isSystemSupported();
+
         $this::setWriters(array());
         $this::getWriters()->shouldReturn(array());
     }
