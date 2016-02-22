@@ -5,7 +5,7 @@
  * @license   @see LICENSE
  */
 
-namespace Hexmedia\CrontabDev\PhpSpec\Parser;
+namespace dev\Hexmedia\Crontab\PhpSpec\Parser;
 
 use PhpSpec\Exception\Example\FailureException;
 use PhpSpec\ObjectBehavior;

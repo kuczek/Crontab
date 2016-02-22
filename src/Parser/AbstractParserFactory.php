@@ -88,7 +88,9 @@ abstract class AbstractParserFactory
             }
         }
 
-        throw new NoSupportedParserException('There is no supported parser for this type.');
+        throw new NoSupportedParserException(
+            sprintf('There is no supported parser for this type or operating system (your is "%s").', PHP_OS)
+        );
     }
 
     /**

@@ -2,7 +2,7 @@
 
 namespace spec\Hexmedia\Crontab\Parser\Ini;
 
-use Hexmedia\CrontabDev\PhpSpec\Parser\IniParserObjectBehavior;
+use dev\Hexmedia\Crontab\PhpSpec\Parser\IniParserObjectBehavior;
 use Prophecy\Argument;
 
 class AustinHydeParserSpec extends IniParserObjectBehavior

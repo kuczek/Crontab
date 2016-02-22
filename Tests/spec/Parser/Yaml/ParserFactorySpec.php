@@ -7,7 +7,7 @@
 
 namespace spec\Hexmedia\Crontab\Parser\Yaml;
 
-use Hexmedia\CrontabDev\PhpSpec\Parser\FactoryObjectBehavior;
+use dev\Hexmedia\Crontab\PhpSpec\Parser\FactoryObjectBehavior;
 use Prophecy\Argument;
 
 class ParserFactorySpec extends FactoryObjectBehavior

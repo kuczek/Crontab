@@ -7,14 +7,14 @@
 
 namespace spec\Hexmedia\Crontab\Writer;
 
+use dev\Hexmedia\Crontab\PhpSpec\SystemAwareObjectBehavior;
 use Hexmedia\Crontab\Crontab;
 use Hexmedia\Crontab\System\Unix;
 use Hexmedia\Crontab\Task;
 use Hexmedia\Crontab\Variables;
-use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class SystemWriterSpec extends ObjectBehavior
+class SystemWriterSpec extends SystemAwareObjectBehavior
 {
     private function prepareTask(&$task, $variables, $notManaged = false)
     {
@@ -54,11 +54,15 @@ class SystemWriterSpec extends ObjectBehavior
 
     function it_is_properly_writing($crontab)
     {
+        $this->isSystemSupported();
+
         $this->write($crontab)->shouldReturn(true);
     }
 
     function it_is_properly_preparing_content($crontab)
     {
+        $this->isSystemSupported();
+
         $this->getContent($crontab)->shouldContain("test");//shouldReturn($shouldBe);
     }
 }

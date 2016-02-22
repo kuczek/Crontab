@@ -17,6 +17,7 @@ use Symfony\Component\Process\ProcessBuilder;
 
 /**
  * Class SaverToolSpec
+ *
  * @package spec\Hexmedia\Crontab\Writer\System\Unix
  *
  * This class cannot be tested without calling real save.
@@ -35,6 +36,21 @@ class UnixSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('Hexmedia\Crontab\System\Unix');
+    }
+
+    function it_does_not_allow_to_add_second_time()
+    {
+        $this::addUnix("Foo")->shouldReturn(true);
+        $this::addUnix("Foo")->shouldReturn(false);
+
+        $this::removeUnix("Foo");
+    }
+
+    function it_allows_to_check_if_custom_name_is_unix()
+    {
+        $this::isUnix("WINNT")->shouldReturn(false);
+        $this::isUnix("FreeBSD")->shouldReturn(true);
+        $this::isUnix("Linux")->shouldReturn(true);
     }
 
     function it_can_check_if_it_is_unix()
@@ -79,14 +95,18 @@ class UnixSpec extends ObjectBehavior
     function it_is_allowing_to_save($processBuilder, $process)
     {
         $content = "#TEST";
-        $processBuilder->setArguments(Argument::that(function ($argument) use ($content) {
-            return
-                1 === sizeof($argument)
-                && 0 == strpos("/tmp/", $argument[0])
-                //Checking content of temporary file;
-                && file_exists($argument[0])
-                && file_get_contents($argument[0]) === $content;
-        }))->willReturn($processBuilder); //Maybe we should do better test here
+        $processBuilder->setArguments(
+            Argument::that(
+                function ($argument) use ($content) {
+                    return
+                        1 === sizeof($argument)
+                        && 0 == strpos("/tmp/", $argument[0])
+                        //Checking content of temporary file;
+                        && file_exists($argument[0])
+                        && file_get_contents($argument[0]) === $content;
+                }
+            )
+        )->willReturn($processBuilder); //Maybe we should do better test here
 
         $process->run()->willReturn(true);
 
@@ -99,14 +119,18 @@ class UnixSpec extends ObjectBehavior
     function it_throws_exception_when_unknown_output($processBuilder, $process)
     {
         $content = "#TEST";
-        $processBuilder->setArguments(Argument::that(function ($argument) use ($content) {
-            return
-                1 === sizeof($argument)
-                && 0 == strpos("/tmp/", $argument[0])
-                //Checking content of temporary file;
-                && file_exists($argument[0])
-                && file_get_contents($argument[0]) === $content;
-        }))->willReturn($processBuilder); //Maybe we should do better test here
+        $processBuilder->setArguments(
+            Argument::that(
+                function ($argument) use ($content) {
+                    return
+                        1 === sizeof($argument)
+                        && 0 == strpos("/tmp/", $argument[0])
+                        //Checking content of temporary file;
+                        && file_exists($argument[0])
+                        && file_get_contents($argument[0]) === $content;
+                }
+            )
+        )->willReturn($processBuilder); //Maybe we should do better test here
 
         $process->run()->willReturn(true);
 
@@ -121,16 +145,20 @@ class UnixSpec extends ObjectBehavior
     {
         $content = "# some content";
 
-        $processBuilder->setArguments(Argument::that(function ($argument) use ($content) {
-            return
-                3 === sizeof($argument)
-                && "-u" === $argument[0]
-                && "sdg4o" === $argument[1]
-                && 0 == strpos("/tmp/", $argument[2])
-                //Checking content of temporary file;
-                && file_exists($argument[2])
-                && file_get_contents($argument[2]) === $content;
-        }))->willReturn($processBuilder);
+        $processBuilder->setArguments(
+            Argument::that(
+                function ($argument) use ($content) {
+                    return
+                        3 === sizeof($argument)
+                        && "-u" === $argument[0]
+                        && "sdg4o" === $argument[1]
+                        && 0 == strpos("/tmp/", $argument[2])
+                        //Checking content of temporary file;
+                        && file_exists($argument[2])
+                        && file_get_contents($argument[2]) === $content;
+                }
+            )
+        )->willReturn($processBuilder);
 
         $process->getErrorOutput()->willReturn("crontab:  user `sdg4o' unknown");
 
@@ -195,41 +223,30 @@ class UnixSpec extends ObjectBehavior
         $this::getTemporaryDir()->shouldReturn(sys_get_temp_dir());
     }
 
-    function it_allows_to_check_if_its_unix()
-    {
-        $isUnix = $this::isUnix();
-
-        if ("Linux" === PHP_OS || "FreeBSD" === PHP_OS) {
-            $isUnix->shouldReturn(true);
-        } else {
-            $isUnix->shouldReturn(false);
-        }
-    }
-
     function it_allows_to_get_all_supported_os()
     {
-        $this::getUnixList()->shouldHaveCount(2);
+        $this::getUnixList()->shouldHaveCount(3);
     }
 
     function it_allows_to_add_supported_os()
     {
-        $this::addUnix("OsX")->shouldReturn(true);
+        $this::addUnix("Foo")->shouldReturn(true);
 
-        $this::getUnixList()->shouldHaveCount(3);
+        $this::getUnixList()->shouldHaveCount(4);
     }
 
     function it_allows_to_remove_supported_os()
     {
-        $this::removeUnix("OsX")->shouldReturn(true);
+        $this::removeUnix("Foo")->shouldReturn(true);
 
-        $this::getUnixList()->shouldHaveCount(2);
+        $this::getUnixList()->shouldHaveCount(3);
     }
 
     function it_do_not_allows_to_remove_unexisting_supported_os()
     {
         $this::removeUnix("WinNT")->shouldReturn(false);
 
-        $this::getUnixList()->shouldHaveCount(2);
+        $this::getUnixList()->shouldHaveCount(3);
     }
 
     function it_allows_to_set_temporary_dir()

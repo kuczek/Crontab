@@ -7,6 +7,7 @@ This version
 * Add phpspec to existing commands
 * Try integration with Symfony CrontabBundle. This will need some commands to be rewritten
 * Write behat tests
+* Unify exception names.
 
 Next Versions
 ------------

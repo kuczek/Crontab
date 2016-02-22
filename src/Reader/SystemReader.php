@@ -8,6 +8,7 @@
 namespace Hexmedia\Crontab\Reader;
 
 use Hexmedia\Crontab\Crontab;
+use Hexmedia\Crontab\Exception\ClassNotExistsException;
 use Hexmedia\Crontab\Exception\NotReaderFoundForOSException;
 
 /**
@@ -69,11 +70,24 @@ class SystemReader implements ReaderInterface
     /**
      * @param string $reader
      *
-     * @return $this;
+     * @return $this ;
+     * @throws ClassNotExistsException
      */
     public function addReader($reader)
     {
-        $this->readers[] = $reader;
+        $reader = $this->fixReaderName($reader);
+
+        if (false === class_exists($reader)) {
+            throw new ClassNotExistsException(
+                sprintf("Class %s does not exists. Cannot be added as Reader.", $reader)
+            );
+        }
+
+        if (false === in_array($reader, $this->readers)) {
+            $this->readers[] = $reader;
+
+            $this->readers = array_values($this->readers); //FIXME: Why this is needed?
+        }
 
         return $this;
     }
@@ -85,7 +99,7 @@ class SystemReader implements ReaderInterface
      */
     public function removeReader($reader)
     {
-        $key = array_search($reader, $this->readers);
+        $key = array_search($this->fixReaderName($reader), $this->readers);
 
         if (false !== $key) {
             unset($this->readers[$key]);
@@ -107,5 +121,15 @@ class SystemReader implements ReaderInterface
         }
 
         throw new NotReaderFoundForOSException(sprintf("There is no reader for your operating system '%s'", PHP_OS));
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return string
+     */
+    private function fixReaderName($name)
+    {
+        return '\\' . trim($name, '\\');
     }
 }

@@ -10,6 +10,7 @@ namespace Hexmedia\Crontab\Parser\Unix;
 use Hexmedia\Crontab\Exception\ParseException;
 use Hexmedia\Crontab\Parser\AbstractParser;
 use Hexmedia\Crontab\Parser\ParserInterface;
+use Hexmedia\Crontab\System\Unix;
 
 /**
  * Class UnixParser
@@ -18,14 +19,6 @@ use Hexmedia\Crontab\Parser\ParserInterface;
  */
 class UnixParser extends AbstractParser implements ParserInterface
 {
-    /**
-     * @var array
-     */
-    private static $supportedOs = array(
-        'Linux',
-        'FreeBSD',
-    );
-
     /**
      * @return array
      * @throws ParseException
@@ -50,38 +43,12 @@ class UnixParser extends AbstractParser implements ParserInterface
 
     /**
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public static function isSupported()
     {
-        return in_array(PHP_OS, self::getSupportedOs());
-    }
-
-    /**
-     * @param string $osName
-     */
-    public function addSupportedOs($osName)
-    {
-        self::$supportedOs[] = $osName;
-    }
-
-    /**
-     * @param string $osName
-     */
-    public function removeSupportedOs($osName)
-    {
-        $key = array_search($osName, self::$supportedOs);
-
-        unset(self::$supportedOs[$key]);
-    }
-
-    /**
-     * Returns all operating systems supported by this *nix like library
-     *
-     * @return string[]
-     */
-    public static function getSupportedOs()
-    {
-        return self::$supportedOs;
+        return Unix::isUnix();
     }
 
     /**
