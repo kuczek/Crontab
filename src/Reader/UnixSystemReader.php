@@ -8,6 +8,7 @@
 namespace Hexmedia\Crontab\Reader;
 
 use Hexmedia\Crontab\Crontab;
+use Hexmedia\Crontab\System\Unix;
 
 /**
  * Class UnixSystemReader
@@ -87,15 +88,13 @@ class UnixSystemReader extends AbstractUnixReader
 
     /**
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     protected function getContent()
     {
-        $output = array();
+        $result = Unix::get($this->user);
 
-        $result = exec(sprintf('crontab -l %s', ($this->user ? '-u ' . $this->user : '')), $output);
-
-        if ($result) {
-            return implode("\n", $output);
-        }
+        return $result;
     }
 }

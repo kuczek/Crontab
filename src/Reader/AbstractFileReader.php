@@ -73,8 +73,23 @@ abstract class AbstractFileReader extends AbstractArrayReader
         return file_get_contents($this->getFile());
     }
 
+
+    /**
+     * @return array
+     * @throws \Hexmedia\Crontab\Exception\NoSupportedParserException
+     */
+    protected function parse()
+    {
+        $parserFactory = $this->getParserFactory();
+
+        $parser = $parserFactory->create($this->getContent(), $this->getFile());
+
+        return $parser->parse();
+    }
+
+
     /**
      * @return array
      */
-    abstract protected function parse();
+    abstract protected function getParserFactory();
 }

@@ -1,0 +1,38 @@
+default:
+    autoload:
+        '': %paths.base%/Tests/features/bootstrap
+    suites:
+        default:
+            contexts: [ 'dev\Hexmedia\Crontab\Behat\ApplicationContext' ]
+            paths:    [ %paths.base%/Tests/features ]
+            formatters:
+                pretty: true
+            filters:
+                tags: ~@not_ready
+        all:
+            contexts: [ 'dev\Hexmedia\Crontab\Behat\ApplicationContext' ]
+            paths:    [ %paths.base%/Tests/features ]
+            formatters:
+                pretty: true
+
+        travis:
+            contexts: [ 'dev\Hexmedia\Crontab\Behat\ApplicationContext' ]
+            paths:    [ %paths.base%/Tests/features_travis ]
+            formatters:
+                pretty: true
+            filters:
+                tags: ~@not_ready
+
+    formatters:
+        html:
+            output_path: %paths.base%/build/report/behat
+        pretty: ~
+
+    extensions:
+        emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:
+            name: html
+            renderer: Twig
+            file_name: index
+            print_args: true
+            print_outp: true
+            loop_break: true

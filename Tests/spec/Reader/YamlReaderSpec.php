@@ -15,7 +15,7 @@ class YamlReaderSpec extends ObjectBehavior
 {
     function let(Crontab $crontab)
     {
-        $file = "./Tests/example_configurations/test.yaml";
+        $file = "./Tests/example_configurations/test.yml";
         $machine = "www101";
         $this->beConstructedWith($file, $crontab, $machine);
     }

@@ -20,9 +20,12 @@ class ParserFactory extends AbstractParserFactory
      */
     public function getDefaultParsers()
     {
-        return array(
-            '\\Hexmedia\\Crontab\\Parser\\Yaml\\SymfonyParser',
-            '\\Hexmedia\\Crontab\\Parser\\Yaml\\ZendParser',
-        );
+        $supported = array('\\Hexmedia\\Crontab\\Parser\\Yaml\\SymfonyParser');
+
+        if (!defined('HHVM_VERSION')) {
+            $supported[] = '\\Hexmedia\\Crontab\\Parser\\Yaml\\ZendParser';
+        }
+
+        return $supported;
     }
 }

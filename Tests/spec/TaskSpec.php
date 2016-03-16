@@ -11,6 +11,13 @@ use Hexmedia\Crontab\Variables;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
+/**
+ * Class TaskSpec
+ *
+ * @package spec\Hexmedia\Crontab
+ *
+ * @covers Hexmedia\Reader\Task
+ */
 class TaskSpec extends ObjectBehavior
 {
     function it_is_initializable()

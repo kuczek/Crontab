@@ -21,7 +21,7 @@ class UnixParserSpec extends ObjectBehavior
 
         $content = file_get_contents($file);
 
-        $this->beConstructedWith($content);
+        $this->beConstructedWith($content, null);
     }
 
     function it_is_not_working_with_wrong_file()
@@ -30,7 +30,7 @@ class UnixParserSpec extends ObjectBehavior
 
         $content = file_get_contents($file);
 
-        $this->beConstructedWith($content);
+        $this->beConstructedWith($content, null);
 
         $this->shouldThrow(new ParseException('Cannot match this file error: \'wrong file format\''))->duringParse();
     }
@@ -96,5 +96,12 @@ class UnixParserSpec extends ObjectBehavior
             $parsed[$i]['variables']->shouldReturn($variables[$i]);
             $parsed[$i]['comment']->shouldReturn($comments[$i]);
         }
+    }
+
+    function it_is_returning_null_when_there_is_no_system_crontab()
+    {
+        $this->beConstructedWith(false, null);
+
+        $this->parse()->shouldReturn(null);
     }
 }

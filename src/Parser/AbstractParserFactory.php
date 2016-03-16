@@ -75,16 +75,17 @@ abstract class AbstractParserFactory
     }
 
     /**
-     * @param string $content
+     * @param string      $content
+     * @param string|null $file
      *
      * @return ParserInterface
      * @throws NoSupportedParserException
      */
-    public function create($content)
+    public function create($content, $file)// = null)
     {
         foreach ($this->parsers as $parserName) {
             if (call_user_func($parserName . '::isSupported')) {
-                return new $parserName($content);
+                return new $parserName($content, $file);
             }
         }
 

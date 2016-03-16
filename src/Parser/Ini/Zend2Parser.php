@@ -7,8 +7,10 @@
 
 namespace Hexmedia\Crontab\Parser\Ini;
 
+use Hexmedia\Crontab\Exception\ParsingException;
 use Hexmedia\Crontab\Parser\AbstractParser;
 use Hexmedia\Crontab\Parser\ParserInterface;
+use Zend\Config\Exception\RuntimeException;
 
 /**
  * Class Zend2Parser
@@ -19,12 +21,18 @@ class Zend2Parser extends AbstractParser implements ParserInterface
 {
     /**
      * @return array
+     *
+     * @throws ParsingException
      */
     public function parse()
     {
-        $parser = new \Zend\Config\Reader\Ini();
+        try {
+            $parser = new \Zend\Config\Reader\Ini();
 
-        $config = $parser->fromFile($this->content);
+            $config = $parser->fromFile($this->getFile());
+        } catch (RuntimeException $e) {
+            throw new ParsingException("Cannot parse this file: " . $e->getMessage(), 0, $e);
+        }
 
         return $config;
     }

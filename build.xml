@@ -13,6 +13,7 @@
     <property name="build.report.dir.phpcs" value="${build.report.dir}/phpcs"/>
     <property name="build.report.dir.phploc" value="${build.report.dir}/phploc"/>
     <property name="build.report.dir.phpdcd" value="${build.report.dir}/phpdcd"/>
+    <property name="build.report.dir.behat" value="${build.report.dir}/behat"/>
 
     <property name="build.phpcs.standard"
               value="${project.basedir}/vendor/hexmedia/code-style/src/Hexmedia/"/>
@@ -69,17 +70,17 @@
         <if>
             <equals arg1="${citool}" arg2="appveyor"/>
             <then>
-                <echo message="Cannot call composer on AppVeyor" />
+                <echo message="Cannot call composer on AppVeyor"/>
             </then>
             <else>
-                <composer command="${composer.temporary.command}" composer="${composer.file}" />
+                <composer command="${composer.temporary.command}" composer="${composer.file}"/>
             </else>
         </if>
     </target>
 
     <target name="composer" depends="composer-check">
         <phingcall target="do-composer">
-            <param name="composer.temporary.command" value="update" />
+            <param name="composer.temporary.command" value="update"/>
         </phingcall>
         <composer command="install" composer="${composer.file}"/>
     </target>
@@ -95,6 +96,7 @@
         <mkdir dir="${build.report.dir.phploc}"/>
         <mkdir dir="${build.report.dir.phpspec}"/>
         <mkdir dir="${build.report.dir.phpdcd}"/>
+        <mkdir dir="${build.report.dir.behat}"/>
     </target>
 
     <target name="rename-configuration-file">
@@ -149,6 +151,30 @@
             <arg line="-c"/>
             <arg path="${build.config.file.phpspec}"/>
         </exec>
+    </target>
+
+    <target name="behat">
+        <if>
+            <not>
+                <equals arg1="${citool}" arg2="appveyor"/>
+            </not>
+
+            <then>
+                <if>
+                    <equals arg1="${citool}" arg2="travis"/>
+                    <then>
+                        <exec dir="${project.basedir}" executable="${bin}/behat" checkreturn="true" passthru="true">
+                            <arg value="-s"/>
+                            <arg value="travis"/>
+                        </exec>
+                    </then>
+                </if>
+                <exec dir="${project.basedir}" executable="${bin}/behat" checkreturn="true" passthru="true">
+                    <arg value="-s"/>
+                    <arg value="default"/>
+                </exec>
+            </then>
+        </if>
     </target>
 
     <target name="phpmd" depends="configuration-files">
@@ -345,7 +371,7 @@
 
     <target name="composerlint" depends="composer-check">
         <phingcall target="do-composer">
-            <param name="composer.temporary.command" value="validate" />
+            <param name="composer.temporary.command" value="validate"/>
         </phingcall>
     </target>
 
@@ -353,9 +379,9 @@
 
     <target name="lint" depends="composerlint,travislint,jsonlint,yamllint,xmllint"/>
 
-    <target name="tests" depends="phpmd, phpcs, phploc, phpcpd, phpspec"/>
-    <target name="tests-local" depends="phpmd-local, phpspec-local, phpcs, phploc-local, phpcpd"/>
+    <target name="tests" depends="phpmd, phpcs, phploc, phpcpd, phpspec, behat"/>
+    <target name="tests-local" depends="phpmd-local, phpspec-local, behat, phpcs, phploc-local, phpcpd"/>
 
-    <target name="build" depends="composer,prepare,lint,tests-local"/>
+    <target name="build" depends="prepare,lint,tests-local"/>
     <target name="continous" depends="prepare,lint,tests"/>
 </project>
