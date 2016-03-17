@@ -74,7 +74,7 @@ class ClearCommand extends AbstractCommand
     /**
      *
      */
-    protected function configureArguments()
+    protected function configureOptionsAndArguments()
     {
         $this
             ->addArgument('name', InputArgument::REQUIRED, 'Name of project')
