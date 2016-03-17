@@ -41,11 +41,11 @@ abstract class AbstractCommand extends Command
     {
         $this
             ->addOption('machine', 'm', InputOption::VALUE_OPTIONAL, 'Machine name to synchronize')
-            ->addOption('user', 'u', InputOption::VALUE_OPTIONAL, 'Username for synchronization (crontab -u)')
-            ->addOption('type', 't', InputOption::VALUE_REQUIRED, 'Type of parsed file, if not given system will guess')
+//            ->addOption('user', 'u', InputOption::VALUE_OPTIONAL, 'Username for synchronization (crontab -u)')
+//            User is currently not working
             ->addOption('dry-run', null, InputOption::VALUE_OPTIONAL, 'Do not write crontab file');
 
-        $this->configureArguments();
+        $this->configureOptionsAndArguments();
         $this->configureName();
     }
 
@@ -57,9 +57,10 @@ abstract class AbstractCommand extends Command
     /**
      *
      */
-    protected function configureArguments()
+    protected function configureOptionsAndArguments()
     {
         $this
+            ->addOption('type', 't', InputOption::VALUE_REQUIRED, 'Type of parsed file, if not given system will guess')
             ->addArgument('configuration-file', InputArgument::REQUIRED, 'Configuration file')
             ->addArgument('name', InputArgument::REQUIRED, 'Name of project');
     }
@@ -85,6 +86,10 @@ abstract class AbstractCommand extends Command
         $configuration = $this->prepareConfiguration($input);
         $configuration['crontab'] = $crontab;
 
+        
+
+        //Trzeba tutaj jakoś zabstractować czytanie.
+
         /** @var ReaderInterface $reader */
         $reader = ReaderFactory::create($configuration);
 
@@ -109,5 +114,25 @@ abstract class AbstractCommand extends Command
         $configuration['machine'] = $input->getOption('machine');
 
         return $configuration;
+    }
+
+    /**
+     * @param InputInterface $input
+     *
+     * @return mixed
+     */
+    protected function getProjectName(InputInterface $input)
+    {
+        return $input->getArgument('name');
+    }
+
+    /**
+     * @param InputInterface $input
+     *
+     * @return mixed
+     */
+    protected function getConfigurationFile(InputInterface $input)
+    {
+        return $this->getArgument('configuration-file');
     }
 }

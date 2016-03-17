@@ -71,7 +71,7 @@ class ClearCommand extends AbstractCommand
         $this->output($output, $crontab, $user);
     }
 
-    protected function configureArguments()
+    protected function configureOptionsAndArguments()
     {
         $this
             ->addArgument('name', InputArgument::REQUIRED, 'Name of project')
