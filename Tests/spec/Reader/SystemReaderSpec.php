@@ -11,11 +11,18 @@ use dev\Hexmedia\Crontab\PhpSpec\SystemAwareObjectBehavior;
 use Hexmedia\Crontab\Exception\ClassNotExistsException;
 use Prophecy\Argument;
 
+/**
+ * Class SystemReaderSpec
+ *
+ * @package spec\Hexmedia\Crontab\Reader
+ *
+ * @covers Hexmedia\Crontab\Reader\SystemReader
+ */
 class SystemReaderSpec extends SystemAwareObjectBehavior
 {
     function let()
     {
-        $this->beConstructedWith("kuczek", null);
+        $this->beConstructedWith(null, null);
     }
 
     function it_is_initializable()

@@ -34,7 +34,7 @@ class ClearCommand extends AbstractCommand
 
         $writer = new SystemWriter(array('user' => $user));
 
-        $writer->save($crontab);
+        $writer->write($crontab);
 
         $output->writeln('Your crontab was updated!');
     }
@@ -71,6 +71,9 @@ class ClearCommand extends AbstractCommand
         $this->output($output, $crontab, $user);
     }
 
+    /**
+     *
+     */
     protected function configureArguments()
     {
         $this

@@ -8,16 +8,15 @@
 namespace dev\Hexmedia\Crontab\PhpSpec\Parser;
 
 /**
- * Class IniParserObjectBehavior
+ * Class AbstractIniParserObjectBehavior
  *
  * @package Hexmedia\CrontabDev\PhpSpec\Parser
  */
-class IniParserObjectBehavior extends ParserObjectBehavior
+abstract class AbstractIniParserObjectBehavior extends AbstractParserObjectBehavior
 {
-    function let()
+    protected function getFileName()
     {
-        $iniFile = __DIR__ . '/../../../Tests/example_configurations/test.ini';
-
-        $this->beConstructedWith($iniFile);
+        return __DIR__ . '/../../../Tests/example_configurations/test.ini';
     }
+
 }

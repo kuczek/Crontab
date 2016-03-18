@@ -21,10 +21,15 @@ class ParserFactory extends AbstractParserFactory
      */
     public function getDefaultParsers()
     {
-        return array(
-            '\Hexmedia\Crontab\Parser\Ini\Zend2Parser',
-            '\Hexmedia\Crontab\Parser\Ini\ZendParser',
-            '\Hexmedia\Crontab\Parser\Ini\AustinHydeParser',
-        );
+        $supported = array();
+
+        if (!defined("HHVM_VERSION")) {
+            $supported[] = '\Hexmedia\Crontab\Parser\Ini\Zend2Parser';
+            $supported[] = '\Hexmedia\Crontab\Parser\Ini\ZendParser';
+        }
+
+        $supported[] = '\Hexmedia\Crontab\Parser\Ini\AustinHydeParser';
+
+        return $supported;
     }
 }

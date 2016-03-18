@@ -8,6 +8,7 @@
 namespace Hexmedia\Crontab\Reader;
 
 use Hexmedia\Crontab\Crontab;
+use Hexmedia\Crontab\Parser\Json\ParserFactory;
 
 /**
  * Class JsonReader
@@ -17,22 +18,10 @@ use Hexmedia\Crontab\Crontab;
 class JsonReader extends AbstractFileReader implements ReaderInterface
 {
     /**
-     * @param string       $file
-     * @param Crontab|null $crontab
-     * @param string|null  $machine
-     */
-    public function __construct($file, Crontab $crontab = null, $machine = null)
-    {
-        parent::__construct($file, $crontab, $machine);
-    }
-
-    /**
      * @return array
      */
-    protected function parse()
+    protected function getParserFactory()
     {
-        $parsed = json_decode($this->getContent(), true);
-
-        return $parsed;
+        return new ParserFactory();
     }
 }

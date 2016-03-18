@@ -8,6 +8,8 @@
 namespace Hexmedia\Crontab\Reader;
 
 use Hexmedia\Crontab\Crontab;
+use Hexmedia\Crontab\Parser\Unix\ParserFactory;
+use Hexmedia\Crontab\Parser\Unix\UnixParser;
 
 /**
  * Class UnixReaderAbstract
@@ -24,6 +26,7 @@ abstract class AbstractUnixReader extends AbstractArrayReader
     public function __construct(Crontab $crontab = null)
     {
         parent::__construct($crontab, null);
+        $this->setNotManaged(true);
     }
 
     /**
@@ -31,7 +34,12 @@ abstract class AbstractUnixReader extends AbstractArrayReader
      */
     protected function prepareArray()
     {
-        return array();
+        $content = $this->getContent();
+
+        $factory = new ParserFactory();
+        $parser = $factory->create($content, null);
+
+        return $parser->parse();
     }
 
     /**

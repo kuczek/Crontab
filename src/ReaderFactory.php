@@ -40,6 +40,7 @@ class ReaderFactory
             case 'json':
                 return self::createJson($configuration);
             case 'yaml':
+            case 'yml':
                 return self::createYaml($configuration);
             case 'ini':
                 return self::createIni($configuration);

@@ -12,6 +12,13 @@ use Hexmedia\Crontab\Task;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
+/**
+ * Class CrontabSpec
+ *
+ * @package spec\Hexmedia\Crontab
+ *
+ * @covers Hexmedia\Crontab\Crontab
+ */
 class CrontabSpec extends ObjectBehavior
 {
     public $name = "aaa";

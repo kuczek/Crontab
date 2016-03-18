@@ -18,25 +18,10 @@ use Hexmedia\Crontab\Parser\Ini\ParserFactory;
 class IniReader extends AbstractFileReader implements ReaderInterface
 {
     /**
-     * @param null         $file
-     * @param Crontab|null $crontab
-     * @param null         $machine
+     * @return ParserFactory
      */
-    public function __construct($file, Crontab $crontab = null, $machine = null)
+    protected function getParserFactory()
     {
-        parent::__construct($file, $crontab, $machine);
-    }
-
-    /**
-     * @return array
-     * @throws \Hexmedia\Crontab\Exception\NoSupportedParserException
-     */
-    protected function parse()
-    {
-        $parserFactory = new ParserFactory();
-
-        $parser = $parserFactory->create($this->getFile());
-
-        return $parser->parse();
+        return new ParserFactory();
     }
 }

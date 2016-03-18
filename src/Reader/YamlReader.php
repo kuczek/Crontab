@@ -18,25 +18,10 @@ use Hexmedia\Crontab\Parser\Yaml\ParserFactory;
 class YamlReader extends AbstractFileReader implements ReaderInterface
 {
     /**
-     * @param string       $file
-     * @param Crontab|null $crontab
-     * @param string|null  $machine
-     */
-    public function __construct($file, Crontab $crontab = null, $machine = null)
-    {
-        parent::__construct($file, $crontab, $machine);
-    }
-
-    /**
      * @return array
-     * @throws \Hexmedia\Crontab\Exception\NoSupportedParserException
      */
-    protected function parse()
+    protected function getParserFactory()
     {
-        $parserFactory = new ParserFactory();
-
-        $parser = $parserFactory->create($this->getFile());
-
-        return $parser->parse();
+        return new ParserFactory();
     }
 }

@@ -7,7 +7,7 @@
 
 namespace spec\Hexmedia\Crontab\Reader;
 
-use PhpSpec\ObjectBehavior;
+use dev\Hexmedia\Crontab\PhpSpec\SystemAwareObjectBehavior;
 use Prophecy\Argument;
 
 /**
@@ -20,11 +20,12 @@ use Prophecy\Argument;
  * @method static $this removeSupportedOs(string $name)
  * @method static array getSupportedOses()
  */
-class UnixSystemReaderSpec extends ObjectBehavior
+class UnixSystemReaderSpec extends SystemAwareObjectBehavior
 {
     function let()
     {
-        $this->beConstructedWith("kuczek", null);
+        $this->isSystemSupported();
+        $this->beConstructedWith(null, null);
     }
 
     function it_is_initializable()

@@ -1,0 +1,39 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="tasks">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="task" maxOccurs="unbounded" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element type="xs:string" name="name" minOccurs="1" maxOccurs="1"/>
+                            <xs:element type="xs:string" name="command" minOccurs="1" maxOccurs="1"/>
+                            <xs:element type="xs:string" name="minute" minOccurs="1" maxOccurs="1"/>
+                            <xs:element type="xs:string" name="hour" minOccurs="1" maxOccurs="1"/>
+                            <xs:element type="xs:string" name="dayOfWeek" minOccurs="1" maxOccurs="1"/>
+                            <xs:element type="xs:string" name="dayOfMonth" minOccurs="1" maxOccurs="1"/>
+                            <xs:element type="xs:string" name="month" minOccurs="1" maxOccurs="1"/>
+                            <xs:element type="xs:string" name="logFile" minOccurs="0" maxOccurs="1"/>
+                            <xs:element type="xs:string" name="machine" minOccurs="0" maxOccurs="1"/>
+                            <xs:element type="xs:string" name="comment" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="variables" minOccurs="0" maxOccurs="1">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="variable">
+                                            <xs:complexType>
+                                                <xs:simpleContent>
+                                                    <xs:extension base="xs:string">
+                                                        <xs:attribute type="xs:string" name="name" use="optional"/>
+                                                    </xs:extension>
+                                                </xs:simpleContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

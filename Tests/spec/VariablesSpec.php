@@ -11,6 +11,13 @@ use Hexmedia\Crontab\Exception\UnsupportedVariableException;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
+/**
+ * Class VariablesSpec
+ *
+ * @package spec\Hexmedia\Crontab
+ *
+ * @covers Hexmedia\Variables
+ */
 class VariablesSpec extends ObjectBehavior
 {
     function let()

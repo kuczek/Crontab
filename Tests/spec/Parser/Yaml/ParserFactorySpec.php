@@ -24,6 +24,10 @@ class ParserFactorySpec extends FactoryObjectBehavior
 
     protected function getParsersCount()
     {
+        if (defined("HHVM_VERSION")) {
+            return 1;
+        }
+
         return 2;
     }
 }

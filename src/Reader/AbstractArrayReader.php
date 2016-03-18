@@ -29,6 +29,11 @@ abstract class AbstractArrayReader implements ReaderInterface
     private $machine = null;
 
     /**
+     * @var bool
+     */
+    private $notManaged = false;
+
+    /**
      * ArrayReader constructor.
      *
      * @param Crontab|null $crontab
@@ -41,13 +46,33 @@ abstract class AbstractArrayReader implements ReaderInterface
     }
 
     /**
+     * @return boolean
+     */
+    public function isNotManaged()
+    {
+        return $this->notManaged;
+    }
+
+    /**
+     * @param boolean $notManaged
+     */
+    public function setNotManaged($notManaged)
+    {
+        $this->notManaged = $notManaged;
+    }
+
+    /**
      * @return Crontab
      */
     public function read()
     {
         $array = $this->prepareArray();
 
-        return $this->readArray($array);
+        if (is_array($array)) {
+            return $this->readArray($array);
+        }
+
+        return $this->crontab;
     }
 
     /**
@@ -84,14 +109,20 @@ abstract class AbstractArrayReader implements ReaderInterface
         $task = new Task();
 
         $task->setMd5Name($name);
-        $task->setNotManaged(false);
+        $task->setNotManaged($this->notManaged);
         $task->setCommand($taskArray['command']);
         $task->setMinute($taskArray['minute']);
         $task->setDayOfMonth($taskArray['day_of_month']);
         $task->setDayOfWeek($taskArray['day_of_week']);
         $task->setMonth($taskArray['month']);
-        $task->setLogFile($taskArray['log_file']);
-        $task->setVariables(new Variables($taskArray['variables']));
+
+        if (isset($taskArray['variables'])) {
+            $task->setVariables(new Variables($taskArray['variables']));
+        }
+
+        if (isset($taskArray['log_file'])) {
+            $task->setLogFile($taskArray['log_file']);
+        }
 
         return $task;
     }

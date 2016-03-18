@@ -53,7 +53,10 @@
     "seld/jsonlint": "^1.4",
     "hexmedia/yaml-linter": ">0.1,<2",
     "austinhyde/iniparser": "~1.0@dev",
-    "hexmedia/code-style": "~1.0@dev"
+    "hexmedia/code-style": "~1.0@dev",
+    "behat/behat": "~3.0",
+    "kuczek/behat-html-formatter": ">=0.1.2,<0.2",
+    "hexmedia/symfony-fake-process": ">2.0@dev,<4.0@dev"
   },
   "suggest": {
     "symfony/yaml": "Enables support for yaml configuration files.",

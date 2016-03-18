@@ -7,6 +7,7 @@
 
 namespace Hexmedia\Crontab\Parser\Ini;
 
+use Hexmedia\Crontab\Exception\ParsingException;
 use Hexmedia\Crontab\Parser\AbstractParser;
 use Hexmedia\Crontab\Parser\ParserInterface;
 
@@ -19,13 +20,21 @@ class AustinHydeParser extends AbstractParser implements ParserInterface
 {
     /**
      * @return \ArrayObject
+     *
+     * @throws ParsingException
      */
     public function parse()
     {
-        $parser = new \IniParser($this->content);
+        {
+            $this->setTemporaryErrorHandler();
 
-        /** @var \ArrayObject $parsed */
-        $parsed = $parser->parse();
+            $parser = new \IniParser($this->getFile());
+
+            /** @var \ArrayObject $parsed */
+            $parsed = $parser->parse();
+
+            $this->restoreErrorHandler();
+        }
 
         $parsed = $this->transformToArray($parsed);
 

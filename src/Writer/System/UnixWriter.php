@@ -56,10 +56,12 @@ class UnixWriter implements WriterInterface
      * @param string $content
      *
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     protected function saveCrontab($content)
     {
-        str_replace(2, 1, $content);
+        Unix::save($content);
 
         return true;
     }
@@ -67,7 +69,7 @@ class UnixWriter implements WriterInterface
     private function prepareContent(Crontab $crontab)
     {
         $content = "#WARNING!!!\n";
-        $content .= '#This crontab file it at least partialy managed by Crontab by Hexmedia, please check all ' . "restrictions that comes with that library at: https://github.com/Hexmedia/Crontab/blob/master/README.md\n";
+        $content .= '#This crontab file it at least partially managed by Crontab by Hexmedia, please check all ' . "restrictions that comes with that library at: https://github.com/Hexmedia/Crontab/blob/master/README.md\n";
         $content .= "#EOT\n\n";
 
         foreach ($crontab->getNotManagedTasks() as $task) {
@@ -101,7 +103,13 @@ class UnixWriter implements WriterInterface
             $exp
         );
 
-        return '#' . trim(implode("\n#", $exp)) . "\n";
+        $comment = trim(implode("\n#", $exp));
+
+        if ($comment) {
+            return "#" . $comment . "\n";
+        }
+
+        return null;
     }
 
     /**
@@ -153,17 +161,20 @@ class UnixWriter implements WriterInterface
             }
         }
 
-        return sprintf(
-            '%s%s%s %s %s %s %s       %s %s',
-            $comment,
-            $variables,
-            $task->getMinute(),
-            $task->getHour(),
-            $task->getDayOfMonth(),
-            $task->getMonth(),
-            $task->getDayOfWeek(),
-            $task->getCommand(),
-            $log
+        return trim(
+            sprintf(
+                '%s%s%s %s %s %s %s       %s %s',
+                $comment,
+                $variables,
+                $task->getMinute(),
+                $task->getHour(),
+                $task->getDayOfMonth(),
+                $task->getMonth(),
+                $task->getDayOfWeek(),
+                $task->getCommand(),
+                $log,
+                " "
+            )
         );
     }
 }
