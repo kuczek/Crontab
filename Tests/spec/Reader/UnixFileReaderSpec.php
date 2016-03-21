@@ -7,14 +7,15 @@
 
 namespace spec\Hexmedia\Crontab\Reader;
 
-use PhpSpec\ObjectBehavior;
+use dev\Hexmedia\Crontab\PhpSpec\SystemAwareObjectBehavior;
 use Prophecy\Argument;
 
-class UnixFileReaderSpec extends ObjectBehavior
+class UnixFileReaderSpec extends SystemAwareObjectBehavior
 {
     function let()
     {
-        $this->beConstructedWith("./Test/example_configurations/test.unix");
+        $this->isSystemSupported();
+        $this->beConstructedWith("./Tests/example_configurations/test.unix");
     }
 
     function it_is_initializable()

@@ -37,7 +37,7 @@ class ParserFactorySpec extends FactoryObjectBehavior
     {
         $this->isSystemSupported();
 
-        $this->create('')->shouldImplement('Hexmedia\Crontab\Parser\ParserInterface');
+        $this->create('', '/tmp/file')->shouldImplement('Hexmedia\Crontab\Parser\ParserInterface');
     }
 
     function it_is_constructing_with_prefered_full_name()
@@ -45,7 +45,7 @@ class ParserFactorySpec extends FactoryObjectBehavior
         $this->isSystemSupported();
 
         $this->beConstructedWith($this->getFullWorkingParserName());
-        $this->create("[some]")->shouldHaveType($this->getFullWorkingParserName());
+        $this->create('[some]', '/tmp/file')->shouldHaveType($this->getFullWorkingParserName());
     }
 
     function it_is_constructing_with_prefered_only_class_name()
@@ -53,7 +53,7 @@ class ParserFactorySpec extends FactoryObjectBehavior
         $this->isSystemSupported();
 
         $this->beConstructedWith($this->getWorkingParser());
-        $this->create("[some]")->shouldHaveType($this->getFullWorkingParserName());
+        $this->create('[some]', '/tmp/file')->shouldHaveType($this->getFullWorkingParserName());
     }
 
 }

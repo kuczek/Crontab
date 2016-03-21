@@ -9,14 +9,17 @@ namespace dev\Hexmedia\Crontab\PhpSpec\Parser;
 
 use PhpSpec\Exception\Example\FailureException;
 use PhpSpec\ObjectBehavior;
+use Prophecy\Argument;
 
 /**
- * Class ParserObjectBehavior
+ * Class AbstractParserObjectBehavior
  *
  * @package Hexmedia\CrontabDev\PhpSpec\Parser
  */
-class ParserObjectBehavior extends ObjectBehavior
+abstract class AbstractParserObjectBehavior extends ObjectBehavior
 {
+    abstract protected function getFileName();
+
     /**
      * @return array
      */
@@ -26,12 +29,12 @@ class ParserObjectBehavior extends ObjectBehavior
         $that = $this;
 
         return array(
-            'beProperlyParsed' => function ($subject) use($that) {
+            'beProperlyParsed' => function ($subject) use ($that) {
                 if (!is_array($subject)) {
                     throw new FailureException("Returned value should be an array!");
                 }
 
-                if (sizeof($subject) != 2) {
+                if (sizeof($subject) != 3) {
                     throw new FailureException("Returned array should have 2 elements!");
                 }
 
@@ -73,9 +76,43 @@ class ParserObjectBehavior extends ObjectBehavior
                     array('MAILTO' => 'test@test.com', 'NO_VALIDATE' => '1')
                 );
 
+                $that->checkCommand(
+                    $subject['command_without_log_file'],
+                    7,
+                    './some/command_without_log_file',
+                    '*',
+                    '*',
+                    '*',
+                    '*',
+                    '*',
+                    null,
+                    'www103',
+                    null,
+                    null
+                );
+
                 return true;
             },
         );
+    }
+
+    /**
+     * @return string
+     */
+    public function getWrongFileName()
+    {
+        $extension = pathinfo($this->getFileName(), PATHINFO_EXTENSION);
+
+        $mapping = array(
+            'ini' => 'yml',
+            'yml' => 'json',
+            'yaml' => 'json',
+            'json' => 'xml',
+            'xml' => 'ini',
+        );
+
+
+        return str_replace($extension, $mapping[$extension], $this->getFileName());
     }
 
     /**
@@ -126,7 +163,9 @@ class ParserObjectBehavior extends ObjectBehavior
         $this->compareAndThrow('Day_of_month', $subject['day_of_month'], $dayOfMonth);
         $this->compareAndThrow('Day_of_week', $subject['day_of_week'], $dayOfWeek);
         $this->compareAndThrow('Month', $subject['month'], $month);
-        $this->compareAndThrow('Log_file', $subject['log_file'], $logFile);
+        if (null !== $logFile) {
+            $this->compareAndThrow('Log_file', $subject['log_file'], $logFile);
+        }
         $this->compareAndThrow('Machine', $subject['machine'], $machine);
         if (isset($subject['comment'])) {
             $this->compareAndThrow('Comment', $subject['comment'], $comment);
@@ -134,18 +173,18 @@ class ParserObjectBehavior extends ObjectBehavior
             throw new FailureException(sprintf("Expecting comment to be %s, none given", $comment));
         }
 
+        if ($variables) {
+            if ($subject['variables'] != $variables) {
+                $failure = new FailureException(
+                    sprintf(
+                        "Variables should be:\n %s \n-------\n %s",
+                        var_export($variables, true),
+                        var_export($subject['variables'], true)
+                    )
+                );
 
-
-        if ($subject['variables'] != $variables) {
-            $failure = new FailureException(
-                sprintf(
-                    "Variables should be:\n %s \n-------\n %s",
-                    var_export($variables, true),
-                    var_export($subject['variables'], true)
-                )
-            );
-
-            throw $failure;
+                throw $failure;
+            }
         }
     }
 
@@ -163,6 +202,13 @@ class ParserObjectBehavior extends ObjectBehavior
         }
     }
 
+    function let()
+    {
+        $file = $this->getFileName();
+
+        $this->beConstructedWith(file_get_contents($file), $file);
+    }
+
     function it_should_be_supported()
     {
         $this->isSupported()->shouldReturn(true);
@@ -172,8 +218,18 @@ class ParserObjectBehavior extends ObjectBehavior
     {
         $parsed = $this->parse();
 
-        $parsed->shouldHaveCount(2);
+        $parsed->shouldHaveCount(3);
 
         $parsed->shouldBeProperlyParsed();
     }
+
+    function it_should_throw_ParsingException_when_wrong_file()
+    {
+        $file = $this->getWrongFileName();
+
+        $this->beConstructedWith(file_get_contents($file), $file);
+
+        $this->shouldThrow('Hexmedia\Crontab\Exception\ParsingException')->duringParse();
+    }
+
 }

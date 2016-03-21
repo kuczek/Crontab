@@ -33,9 +33,19 @@ class UnixSpec extends ObjectBehavior
         $this::setProcessBuilder($processBuilder);
     }
 
+    function letGo()
+    {
+        $this::setProcessBuilder(null);
+    }
+
     function it_is_initializable()
     {
         $this->shouldHaveType('Hexmedia\Crontab\System\Unix');
+    }
+
+    function it_has_default_porcess_builder()
+    {
+        $this::getProcessBuilder()->shouldHaveType('Symfony\Component\Process\ProcessBuilder');
     }
 
     function it_does_not_allow_to_add_second_time()

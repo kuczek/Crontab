@@ -30,7 +30,7 @@ class EchoCommand extends AbstractCommand
         $writer = new SystemWriter(array('user' => $user));
 
         $output->writeln('<info>Your crontab will look like:</info>');
-        $output->write('<comment>' . $writer->toCronFile($crontab) . '</comment>');
+        $output->write('<comment>' . $writer->getContent($crontab) . '</comment>');
     }
 
     /**

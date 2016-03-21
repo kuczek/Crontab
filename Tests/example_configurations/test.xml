@@ -1,30 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <tasks>
     <task>
-        <name>s3_synchornize</name>
-        <command>mwe:photo:s3 asgasg afasf</command>
+        <name>command1</name>
+        <command>./some/command1</command>
         <minute>*/13</minute>
         <hour>*</hour>
         <dayOfWeek>*</dayOfWeek>
         <dayOfMonth>*</dayOfMonth>
         <month>*</month>
-        <logFile>./logs/schema_validate.log</logFile>
+        <logFile>./logs/some_log1.log</logFile>
         <machine>www*</machine>
+        <comment>this is some comment for this crontab</comment>
         <variables>
-            <variable name="MAILTO">k.kuczek@tvn.pl</variable>
+            <variable name="MAILTO">test@test.pl</variable>
         </variables>
     </task>
     <task>
-        <name>s3_synchornize2</name>
-        <command>mwe:photo:s3 asgasg afasf</command>
+        <name>command2</name>
+        <command>./some/command2</command>
         <minute>*</minute>
         <hour>*</hour>
         <dayOfWeek>*</dayOfWeek>
         <dayOfMonth>*</dayOfMonth>
         <month>*</month>
-        <logFile>./logs/schema_validate.log</logFile>
+        <logFile>./logs/some_log2.log</logFile>
         <machine>www103</machine>
         <variables>
-            <variable name="MAILTO">j.zieba@tvn.pl</variable>
+            <variable name="MAILTO">test@test.com</variable>
+            <variable name="NO_VALIDATE">1</variable>
         </variables>
+    </task>
+    <task>
+        <name>command_without_log_file</name>
+        <command>./some/command_without_log_file</command>
+        <minute>*</minute>
+        <hour>*</hour>
+        <dayOfWeek>*</dayOfWeek>
+        <dayOfMonth>*</dayOfMonth>
+        <month>*</month>
+        <machine>www103</machine>
     </task>
 </tasks>

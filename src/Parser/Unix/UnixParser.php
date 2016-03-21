@@ -25,11 +25,18 @@ class UnixParser extends AbstractParser implements ParserInterface
      */
     public function parse()
     {
-        $content = "\n" . $this->getContent(); //a little trick
-        //                                       to allow allow only rules that begins at the begining of line
+        $content = $this->getContent();
 
-        if (false == preg_match_all('/' . $this->getCrontabRegexRule() . '/', $content, $matches, PREG_SET_ORDER)) {
-            throw new ParseException(sprintf("Cannot match this file error: '%s'", (preg_last_error() ?: "wrong file format")));
+        if (false === $content || "" === $content) {
+            return null;
+        }
+
+        $content = "\n" . $content; //a little trick to allow allow only rules that begins at the begining of line
+
+        if (!preg_match_all('/' . $this->getCrontabRegexRule() . '/', $content, $matches, PREG_SET_ORDER)) {
+            throw new ParseException(
+                sprintf("Cannot match this file error: '%s'", (preg_last_error() ?: "wrong file format"))
+            );
         }
 
         $return = array();
@@ -60,7 +67,10 @@ class UnixParser extends AbstractParser implements ParserInterface
     {
         $array = array();
 
-        $array['log_file'] = $match['logFile'];
+        if (isset($match['logFile'])) {
+            $array['log_file'] = $match['logFile'];
+        }
+
         $array['command'] = trim($match['command']);
         $array['day_of_week'] = $match['dayOfWeek'];
         $array['day_of_month'] = $match['dayOfMonth'];

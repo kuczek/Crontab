@@ -29,9 +29,13 @@ class SynchronizeCommand extends AbstractCommand
     {
         $writer = new SystemWriter(array('user' => $user));
 
-        $writer->save($crontab);
-
-        $output->writeln('Your crontab was updated!');
+        //Checking if we do want to save something if not it's better to left file as is
+        if ($crontab->getManagedTasks()) {
+            $writer->write($crontab);
+            $output->writeln('Your crontab has been updated!');
+        } else {
+            $output->writeln('Your crontab does not need to be updated!');
+        }
     }
 
     /**

@@ -10,6 +10,13 @@ namespace spec\Hexmedia\Crontab;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
+/**
+ * Class ReaderFactorySpec
+ *
+ * @package spec\Hexmedia\Crontab
+ *
+ * @covers Hexmedia\Crontab\ReaderFactory
+ */
 class ReaderFactorySpec extends ObjectBehavior
 {
     function it_is_initializable()

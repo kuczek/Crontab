@@ -8,6 +8,7 @@
 namespace Hexmedia\Crontab\Console;
 
 use Hexmedia\Crontab\Crontab;
+use Hexmedia\Crontab\Exception\ParsingException;
 use Hexmedia\Crontab\Reader\ReaderInterface;
 use Hexmedia\Crontab\Reader\SystemReader;
 use Hexmedia\Crontab\ReaderFactory;
@@ -93,7 +94,19 @@ abstract class AbstractCommand extends Command
         /** @var ReaderInterface $reader */
         $reader = ReaderFactory::create($configuration);
 
-        $crontab = $reader->read();
+        try {
+            $crontab = $reader->read();
+        } catch (ParsingException $e) {
+            $output->writeln(
+                sprintf(
+                    "<error>File '%s' does not have --type=%s or has error in formatting.</error>",
+                    $configuration['file'],
+                    $configuration['type']
+                )
+            );
+
+            return 1;
+        }
 
         $this->output($output, $crontab, $user);
     }

@@ -22,4 +22,12 @@ command2:
     variables:
         MAILTO: test@test.com
         NO_VALIDATE: true
+command_without_log_file:
+    command: "./some/command_without_log_file"
+    minute: '*'
+    hour: '*'
+    day_of_month: '*'
+    day_of_week: '*'
+    month: '*'
+    machine: www103
 

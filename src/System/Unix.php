@@ -34,11 +34,23 @@ class Unix
     private static $unixes = array('Linux', 'FreeBSD', 'OsX');
 
     /**
-     * @param ProcessBuilder $processBuilder
+     * @param ProcessBuilder|null $processBuilder
      */
-    public static function setProcessBuilder(ProcessBuilder $processBuilder)
+    public static function setProcessBuilder(ProcessBuilder $processBuilder = null)
     {
         self::$processBuilder = $processBuilder;
+    }
+
+    /**
+     * @return ProcessBuilder
+     */
+    public static function getProcessBuilder()
+    {
+        if (null === self::$processBuilder) {
+            self::$processBuilder = new ProcessBuilder();
+        }
+
+        return self::$processBuilder;
     }
 
     /**
@@ -56,7 +68,7 @@ class Unix
             $processArgs[] = $user;
         }
 
-        $process = self::$processBuilder
+        $process = self::getProcessBuilder()
             ->setPrefix('crontab')
             ->setArguments($processArgs)
             ->getProcess();
@@ -100,7 +112,7 @@ class Unix
 
         $processArgs[] = $temporaryFile;
 
-        $process = self::$processBuilder
+        $process = self::getProcessBuilder()
             ->setPrefix('crontab')
             ->setArguments($processArgs)
             ->getProcess();
@@ -135,7 +147,7 @@ class Unix
 
         $processArgs[] = '-r';
 
-        $process = self::$processBuilder
+        $process = self::getProcessBuilder()
             ->setPrefix('crontab')
             ->setArguments($processArgs)
             ->getProcess();
@@ -191,7 +203,7 @@ class Unix
      */
     public static function isUnix($osName = null)
     {
-        if (null == $osName) {
+        if (null === $osName) {
             $osName = PHP_OS;
         }
 
