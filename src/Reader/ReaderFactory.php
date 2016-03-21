@@ -5,10 +5,8 @@
  * @license   @see LICENSE
  */
 
-namespace Hexmedia\Crontab;
+namespace Hexmedia\Crontab\Reader;
 
-use Hexmedia\Crontab\Exception\NotReaderFoundForOSException;
-use Hexmedia\Crontab\Reader\ReaderInterface;
 use Hexmedia\Crontab\Exception\FactoryException;
 
 /**
@@ -77,7 +75,7 @@ class ReaderFactory
     protected static function createStandardReader(array $configuration, $readerClass)
     {
         if (!isset($configuration['file'])) {
-            throw new FactoryException('File needs to be defined for type yaml');
+            throw new FactoryException(sprintf('File needs to be defined for type %s', $configuration['type']));
         }
 
         $file = $configuration['file'];
@@ -124,27 +122,27 @@ class ReaderFactory
         static::addReader(
             'ini',
             '\Hexmedia\Crontab\Reader\IniReader',
-            array(__NAMESPACE__ . "\\" . __CLASS__, 'createStandardReader')
+            array(__CLASS__, 'createStandardReader')
         );
         static::addReader(
             'json',
             '\Hexmedia\Crontab\Reader\JsonReader',
-            array(__NAMESPACE__ . "\\" . __CLASS__, 'createStandardReader')
+            array(__CLASS__, 'createStandardReader')
         );
         static::addReader(
             'unix',
             '\Hexmedia\Crontab\Reader\UnixSystemReader',
-            array(__NAMESPACE__ . "\\" . __CLASS__, 'createSystemReader')
+            array(__CLASS__, 'createSystemReader')
         );
         static::addReader(
             'xml',
             '\Hexmedia\Crontab\Reader\XmlReader',
-            array(__NAMESPACE__ . "\\" . __CLASS__, 'createStandardReader')
+            array(__CLASS__, 'createStandardReader')
         );
         static::addReader(
             array('yaml', 'yml'),
             '\Hexmedia\Crontab\Reader\YamlReader',
-            array(__NAMESPACE__ . "\\" . __CLASS__, 'createStandardReader')
+            array(__CLASS__, 'createStandardReader')
         );
     }
 
@@ -191,7 +189,7 @@ class ReaderFactory
             return $readerCall($configuration, $readerClass);
         }
 
-        return null;
+        throw new FactoryException(sprintf("Cannot initialize reader for type %s", $configuration['type']));
     }
 
 

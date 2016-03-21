@@ -92,9 +92,11 @@ class ApplicationContext implements Context, MatchersProviderInterface, SnippetA
 
         $arguments['configuration-file'] = __DIR__ . "/../../" . $file;
 
-        $options = $this->parseOptions($options);
+        if (null != $options) {
+            $options = $this->parseOptions($options);
 
-        $arguments += $options;
+            $arguments += $options;
+        }
 
         $runOptions = array('interactive' => false, 'decorated' => false);
 

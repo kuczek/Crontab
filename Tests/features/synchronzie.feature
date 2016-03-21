@@ -205,29 +205,5 @@ Feature: Synchronization of crontab
       | json |
       | yml  |
 
-  @not_ready @desc_not_ready
-  Scenario: Dry run
-    Given "'crontab' '-l'" command will have 0 as exit code and will return:
-      """
-      */10 * * * *       test
 
-      """
-    When I run synchronize command with file "./Tests/example_configurations/test.<ext>" and options:
-      """
-      --dry-run
-      """
-    Then The exit code should be 0
-
-  @not_ready @desc_not_ready
-  Scenario: With username
-    Given "'crontab' '-l'" command will have 0 as exit code and will return:
-      """
-      */10 * * * *       test
-
-      """
-    When I run synchronize command with file "./Tests/example_configurations/test.<ext>" and options:
-      """
-      --user=kuczek
-      """
-    Then The exit code should be 0
 

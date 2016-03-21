@@ -11,7 +11,7 @@ use Hexmedia\Crontab\Crontab;
 use Hexmedia\Crontab\Exception\ParsingException;
 use Hexmedia\Crontab\Reader\ReaderInterface;
 use Hexmedia\Crontab\Reader\SystemReader;
-use Hexmedia\Crontab\ReaderFactory;
+use Hexmedia\Crontab\Reader\ReaderFactory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -42,8 +42,6 @@ abstract class AbstractCommand extends Command
     {
         $this
             ->addOption('machine', 'm', InputOption::VALUE_OPTIONAL, 'Machine name to synchronize')
-//            ->addOption('user', 'u', InputOption::VALUE_OPTIONAL, 'Username for synchronization (crontab -u)')
-//            User is currently not working
             ->addOption('dry-run', null, InputOption::VALUE_OPTIONAL, 'Do not write crontab file');
 
         $this->configureOptionsAndArguments();
@@ -76,18 +74,17 @@ abstract class AbstractCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $name = $input->getArgument('name');
-        $user = $input->getOption('user');
 
-        $crontab = new Crontab($user, $name);
+        $crontab = new Crontab(null, $name);
 
-        $systemReader = new SystemReader($user, $crontab);
+        $systemReader = new SystemReader(null, $crontab);
 
         $systemReader->read();
 
         $configuration = $this->prepareConfiguration($input);
         $configuration['crontab'] = $crontab;
 
-        
+//        $this->readConfigurationCrontab($configuration);
 
         //Trzeba tutaj jakoś zabstractować czytanie.
 
@@ -108,7 +105,7 @@ abstract class AbstractCommand extends Command
             return 1;
         }
 
-        $this->output($output, $crontab, $user);
+        $this->output($output, $crontab, null);
     }
 
     /**
@@ -120,7 +117,6 @@ abstract class AbstractCommand extends Command
     {
         $configuration = array();
 
-        $configuration['user'] = $input->getOption('user');
         $configuration['type'] = $input->getOption('type');
         $configuration['file'] = $input->getArgument('configuration-file');
         $configuration['name'] = $input->getArgument('name');
@@ -146,6 +142,6 @@ abstract class AbstractCommand extends Command
      */
     protected function getConfigurationFile(InputInterface $input)
     {
-        return $this->getArgument('configuration-file');
+        return $input->getArgument('configuration-file');
     }
 }
